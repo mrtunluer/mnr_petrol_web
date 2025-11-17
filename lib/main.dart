@@ -467,10 +467,10 @@ class _ProductsDropdownNavItemState extends State<_ProductsDropdownNavItem> with
   final List<Map<String, String>> _products = [
     {'name': 'Motor Yağları', 'icon': 'motor-yaglari.png'},
     {'name': 'Motorsiklet Yağları', 'icon': 'motorsiklet-yaglari.png'},
-    {'name': 'Motor Bakım Ürünleri', 'icon': 'motor-bakim.png'},
-    {'name': 'Antifrizler', 'icon': 'antifiriz.png'},
     {'name': 'Şanzıman ve Dişli Yağları', 'icon': 'sanziman.png'},
+    {'name': 'Hidrolik Sistem Yağları', 'icon': 'motor-bakim.png'},
     {'name': 'Sarf Malzemeler', 'icon': 'sarf-malzemeler.png'},
+    {'name': 'Antifrizler', 'icon': 'antifiriz.png'},
   ];
   
   final Map<String, List<String>> _subMenus = {
@@ -856,11 +856,11 @@ class _BrandsDropdownNavItemState extends State<_BrandsDropdownNavItem> with Sin
   late AnimationController _closeController;
   
   final List<Map<String, String>> _brands = [
-    {'name': 'Japan Oil', 'logo': 'japanoil.png'},
-    {'name': 'Oilport', 'logo': 'oilport.png'},
     {'name': 'Borax', 'logo': 'borax.png'},
-    {'name': 'Brava', 'logo': 'brava.png'},
+    {'name': 'Japan Oil', 'logo': 'japanoil.png'},
     {'name': 'Xenol', 'logo': 'xenol.png'},
+    {'name': 'Oilport', 'logo': 'oilport.png'},
+    {'name': 'Brava', 'logo': 'brava.png'},
   ];
 
   @override
@@ -1393,28 +1393,28 @@ extension _HomePageWidgets on _HomePageState {
                     'assets/images/motorsiklet-yaglari.png',
                   ),
                   _buildProductCardWithImage(
-                    Icons.build_circle_outlined,
-                    'Motor Bakım Ürünleri',
-                    'Motorunuzun uzun ömürlü olması için bakım ve koruma ürünleri',
-                    'assets/images/motor-bakim.png',
-                  ),
-                  _buildProductCardWithImage(
-                    Icons.ac_unit_outlined,
-                    'Antifrizler',
-                    'Motor soğutma sistemleri için yüksek kaliteli antifriz ürünleri',
-                    'assets/images/antifiriz.png',
-                  ),
-                  _buildProductCardWithImage(
                     Icons.settings_outlined,
                     'Şanzıman ve Dişli Yağları',
                     'Şanzıman ve dişli sistemleri için özel formülasyonlu yağlar',
                     'assets/images/sanziman.png',
                   ),
                   _buildProductCardWithImage(
+                    Icons.build_circle_outlined,
+                    'Hidrolik Sistem Yağları',
+                    'Hidrolik sistemleriniz için yüksek performanslı yağlar',
+                    'assets/images/motor-bakim.png',
+                  ),
+                  _buildProductCardWithImage(
                     Icons.inventory_2_outlined,
                     'Sarf Malzemeler',
                     'Fren Hidrolik Sıvıları, Katkı Maddeleri',
                     'assets/images/sarf-malzemeler.png',
+                  ),
+                  _buildProductCardWithImage(
+                    Icons.ac_unit_outlined,
+                    'Antifrizler',
+                    'Motor soğutma sistemleri için yüksek kaliteli antifriz ürünleri',
+                    'assets/images/antifiriz.png',
                   ),
                 ],
               ),
@@ -1646,11 +1646,11 @@ extension _HomePageWidgets on _HomePageState {
                 runSpacing: 40,
                 alignment: WrapAlignment.center,
                 children: [
-                  _buildBrandLogo('assets/images/logos/japanoil.png', 'Japan Oil'),
-                  _buildBrandLogo('assets/images/logos/oilport.png', 'Oilport'),
                   _buildBrandLogo('assets/images/logos/borax.png', 'Borax'),
-                  _buildBrandLogo('assets/images/logos/brava.png', 'Brava'),
+                  _buildBrandLogo('assets/images/logos/japanoil.png', 'Japan Oil'),
                   _buildBrandLogo('assets/images/logos/xenol.png', 'Xenol'),
+                  _buildBrandLogo('assets/images/logos/oilport.png', 'Oilport'),
+                  _buildBrandLogo('assets/images/logos/brava.png', 'Brava'),
                 ],
               ),
             ],
