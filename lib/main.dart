@@ -38,6 +38,23 @@ final GoRouter _router = GoRouter(
         transitionDuration: const Duration(milliseconds: 300),
       ),
     ),
+    GoRoute(
+      path: '/urunler',
+      pageBuilder: (context, state) => CustomTransitionPage<void>(
+        key: state.pageKey,
+        child: ProductsPage(
+          brandFilter: state.uri.queryParameters['marka'],
+          categoryFilter: state.uri.queryParameters['kategori'],
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+      ),
+    ),
   ],
 );
 
@@ -348,8 +365,21 @@ $message
       return _ProductsDropdownNavItem(
         isActive: isActive,
         onProductSelected: (productName) {
-          // Ana sayfaya git ve ürünler bölümüne scroll yap
-          context.go('/');
+          // Kategori map
+          String? kategori;
+          if (productName == 'Motor Yağları') kategori = 'motor';
+          else if (productName == 'Motorsiklet Yağları') kategori = 'motorsiklet';
+          else if (productName == 'Şanzıman ve Dişli Yağları') kategori = 'sanziman';
+          else if (productName == 'Hidrolik Sistem Yağları') kategori = 'hidrolik';
+          else if (productName == 'Sarf Malzemeler') kategori = 'sarf';
+          else if (productName == 'Antifrizler') kategori = 'antifriz';
+          
+          // Ürünler sayfasına kategori ile git
+          if (kategori != null) {
+            context.go('/urunler?kategori=$kategori');
+          } else {
+            context.go('/urunler');
+          }
         },
       );
     }
@@ -359,8 +389,8 @@ $message
       return _BrandsDropdownNavItem(
         isActive: isActive,
         onBrandSelected: (brandName) {
-          // Ana sayfaya git ve markalar bölümüne scroll yap
-          context.go('/');
+          // Ürünler sayfasına git ve marka filtrele
+          context.go('/urunler?marka=${brandName.toLowerCase()}');
         },
       );
     }
@@ -465,12 +495,12 @@ class _ProductsDropdownNavItemState extends State<_ProductsDropdownNavItem> with
   late AnimationController _closeController;
   
   final List<Map<String, String>> _products = [
-    {'name': 'Motor Yağları', 'icon': 'motor-yaglari.png'},
-    {'name': 'Motorsiklet Yağları', 'icon': 'motorsiklet-yaglari.png'},
-    {'name': 'Şanzıman ve Dişli Yağları', 'icon': 'sanziman.png'},
-    {'name': 'Hidrolik Sistem Yağları', 'icon': 'motor-bakim.png'},
-    {'name': 'Sarf Malzemeler', 'icon': 'sarf-malzemeler.png'},
-    {'name': 'Antifrizler', 'icon': 'antifiriz.png'},
+    {'name': 'Motor Yağları', 'icon': 'motor-yaglari.png', 'key': 'motor'},
+    {'name': 'Motorsiklet Yağları', 'icon': 'motorsiklet-yaglari.png', 'key': 'motorsiklet'},
+    {'name': 'Şanzıman ve Dişli Yağları', 'icon': 'sanziman.png', 'key': 'sanziman'},
+    {'name': 'Hidrolik Sistem Yağları', 'icon': 'motor-bakim.png', 'key': 'hidrolik'},
+    {'name': 'Sarf Malzemeler', 'icon': 'sarf-malzemeler.png', 'key': 'sarf'},
+    {'name': 'Antifrizler', 'icon': 'antifiriz.png', 'key': 'antifriz'},
   ];
   
   final Map<String, List<String>> _subMenus = {
@@ -2504,8 +2534,21 @@ class AboutPage extends StatelessWidget {
       return _ProductsDropdownNavItem(
         isActive: isActive,
         onProductSelected: (productName) {
-          // Ana sayfaya git
-          context.go('/');
+          // Kategori map
+          String? kategori;
+          if (productName == 'Motor Yağları') kategori = 'motor';
+          else if (productName == 'Motorsiklet Yağları') kategori = 'motorsiklet';
+          else if (productName == 'Şanzıman ve Dişli Yağları') kategori = 'sanziman';
+          else if (productName == 'Hidrolik Sistem Yağları') kategori = 'hidrolik';
+          else if (productName == 'Sarf Malzemeler') kategori = 'sarf';
+          else if (productName == 'Antifrizler') kategori = 'antifriz';
+          
+          // Ürünler sayfasına kategori ile git
+          if (kategori != null) {
+            context.go('/urunler?kategori=$kategori');
+          } else {
+            context.go('/urunler');
+          }
         },
       );
     }
@@ -2515,8 +2558,8 @@ class AboutPage extends StatelessWidget {
       return _BrandsDropdownNavItem(
         isActive: isActive,
         onBrandSelected: (brandName) {
-          // Ana sayfaya git ve markalar bölümüne scroll yap
-          context.go('/');
+          // Ürünler sayfasına git ve marka filtrele
+          context.go('/urunler?marka=${brandName.toLowerCase()}');
         },
       );
     }
@@ -3101,6 +3144,1285 @@ class _ModernFeatureCardState extends State<_ModernFeatureCard> {
                 letterSpacing: 0.1,
               ),
               textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Ürünler Sayfası
+class ProductsPage extends StatefulWidget {
+  final String? brandFilter;
+  final String? categoryFilter;
+
+  const ProductsPage({
+    super.key,
+    this.brandFilter,
+    this.categoryFilter,
+  });
+
+  @override
+  State<ProductsPage> createState() => _ProductsPageState();
+}
+
+class _ProductsPageState extends State<ProductsPage> {
+  String? _selectedBrand;
+  String? _selectedCategory;
+
+  final Map<String, List<Map<String, String>>> _products = {
+    'borax-motor': [
+      {'name': 'Borax 10W40 Bidon Motor', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax 15W40 Ağır Dizel Motor', 'image': 'assets/images/borax/motor/borax-15w40-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax 15W40 Bidon Ağır Dizel Motor', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax 20W50 Ağır Dizel Motor', 'image': 'assets/images/borax/motor/borax-20w50-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax 20W50 Bidon Motor', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax 5W40 Bidon Motor', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax DPF 5W30 Motor', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Molygen 0W20 Motor', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Molygen 0W30 Motor', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Molygen 10W40 Motor', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Molygen 5W30 Motor', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+    ],
+    'borax-sanziman': [
+      {'name': 'Borax 30 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-30-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax 75W80 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax 75W90 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-75w90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax 80:90 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-80:90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax 85W140 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-85w140-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax EP 75W80 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Şanzıman', 'image': 'assets/images/borax/sanziman/borax-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+    ],
+    'borax-hidrolik': [
+      {'name': 'Borax Hidrolik', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
+    ],
+    'brava-motorsiklet': [
+      {'name': 'Brava 10W40 4T Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava 10W40 4T Semi Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava 10W50 4T Semi Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w50-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava 10W50 Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w50-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava 15W50 4T Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-15w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava 5W40 4T Semi Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-5w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava 5W50 4T Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+    ],
+    'brava-katki': [
+      {'name': 'Brava Chain Cleaner', 'image': 'assets/images/brava/katki/brava-chain cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
+      {'name': 'Brava Katkı', 'image': 'assets/images/brava/katki/brava-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
+      {'name': 'Brava Nano Katkı', 'image': 'assets/images/brava/katki/brava-nano-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
+    ],
+    'japanoil-motor': [
+      {'name': 'Japan Oil Bipower Molytech 5W30', 'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları'},
+      {'name': 'Japan Oil Molytech 5W30 Motor', 'image': 'assets/images/japanoil/motor/japanoil-molytech-5w30-motor.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları'},
+    ],
+    'japanoil-motorsiklet': [
+      {'name': 'Japan Oil Bipower 10W40 Motorsiklet', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-10w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Japan Oil Bipower 15W50 Motorsiklet', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-15w50-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Japan Oil Bipower 20W40 Motorsiklet', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
+    ],
+    'japanoil-sanziman': [
+      {'name': 'Japan Oil Bipower CVT NS3 Şanzıman', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Japan Oil Bipower CVT Şanzıman', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
+    ],
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedBrand = widget.brandFilter;
+    _selectedCategory = widget.categoryFilter;
+  }
+
+  String _getCategoryDisplayName(String? key) {
+    if (key == null || key == 'Tümü') return 'Tümü';
+    switch (key) {
+      case 'motor':
+        return 'Motor Yağları';
+      case 'motorsiklet':
+        return 'Motorsiklet Yağları';
+      case 'sanziman':
+        return 'Şanzıman ve Dişli Yağları';
+      case 'hidrolik':
+        return 'Hidrolik Sistem Yağları';
+      case 'antifriz':
+        return 'Antifrizler';
+      case 'direksiyon':
+        return 'Direksiyon';
+      case 'fren':
+        return 'Fren Hidrolik Sıvıları';
+      case 'katki':
+        return 'Katkı Maddeleri';
+      case 'sarf':
+        return 'Sarf Malzemeler';
+      default:
+        return key;
+    }
+  }
+
+  List<Map<String, String>> _getFilteredProducts() {
+    List<Map<String, String>> filtered = [];
+    
+    _products.forEach((key, products) {
+      bool matchesBrand = _selectedBrand == null || _selectedBrand == 'Tümü';
+      bool matchesCategory = _selectedCategory == null || _selectedCategory == 'Tümü';
+      
+      if (_selectedBrand != null && _selectedBrand != 'Tümü') {
+        // "Japan Oil" -> "japanoil", "Borax" -> "borax"
+        String normalizedBrand = _selectedBrand!.toLowerCase().replaceAll(' ', '');
+        matchesBrand = key.toLowerCase().startsWith(normalizedBrand);
+      }
+      
+      if (_selectedCategory != null && _selectedCategory != 'Tümü') {
+        String normalizedCategory = _selectedCategory!.toLowerCase();
+        String lowerKey = key.toLowerCase();
+        
+        // "sarf" seçilirse hem fren hem katkı ürünlerini göster
+        if (normalizedCategory == 'sarf') {
+          matchesCategory = lowerKey.contains('-katki') || lowerKey.contains('-fren');
+        } 
+        // "katki" seçilirse kategori badge'ine göre filtrele
+        else if (normalizedCategory == 'katki') {
+          // Ürünlerin category field'ına bak
+          matchesCategory = products.any((product) => 
+            product['category']?.toLowerCase().contains('katkı') ?? false
+          );
+        }
+        // "fren" seçilirse kategori badge'ine göre filtrele
+        else if (normalizedCategory == 'fren') {
+          matchesCategory = products.any((product) => 
+            product['category']?.toLowerCase().contains('fren') ?? false
+          );
+        }
+        // Diğer kategoriler için key bazlı kontrol
+        else {
+          matchesCategory = lowerKey.contains('-$normalizedCategory');
+        }
+      }
+      
+      if (matchesBrand && matchesCategory) {
+        filtered.addAll(products);
+      }
+    });
+    
+    return filtered;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final filteredProducts = _getFilteredProducts();
+    
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              // Spacer for fixed elements
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 142), // 42px top bar + 100px header
+              ),
+              // Content
+              SliverToBoxAdapter(
+                child: _buildContent(context, filteredProducts),
+              ),
+              // Footer
+              SliverToBoxAdapter(
+                child: ModernFooter(),
+              ),
+            ],
+          ),
+          // Fixed Top Info Bar
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: _buildTopInfoBar(),
+          ),
+          // Fixed Header
+          Positioned(
+            top: 42,
+            left: 0,
+            right: 0,
+            child: _buildHeader(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.black.withOpacity(0.06),
+            width: 1,
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 20,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Logo ve Şirket İsmi
+            GestureDetector(
+              onTap: () => context.go('/'),
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFFF8F9FA),
+                            Colors.white,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: const Color(0xFFE5E7EB),
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.08),
+                            blurRadius: 12,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Image.asset(
+                        'assets/images/mnr-petrol.jpg',
+                        height: 80,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF111827),
+                            letterSpacing: 0.3,
+                            height: 1.3,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Antalya Madeni Yağ',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF6B7280),
+                            letterSpacing: 0.2,
+                            height: 1.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Navigation
+            Row(
+              children: [
+                _buildNavItem(context, 'Ana Sayfa', false),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'Ürünler', true),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'Markalar', false),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'Hakkımızda', false),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'İletişim', false),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(BuildContext context, String title, bool isActive) {
+    // Ürünler için dropdown menü
+    if (title == 'Ürünler') {
+      return _ProductsDropdownNavItem(
+        isActive: isActive,
+        onProductSelected: (productName) {
+          // Kategori map
+          String? kategori;
+          if (productName == 'Motor Yağları') kategori = 'motor';
+          else if (productName == 'Motorsiklet Yağları') kategori = 'motorsiklet';
+          else if (productName == 'Şanzıman ve Dişli Yağları') kategori = 'sanziman';
+          else if (productName == 'Hidrolik Sistem Yağları') kategori = 'hidrolik';
+          else if (productName == 'Sarf Malzemeler') kategori = 'sarf';
+          else if (productName == 'Antifrizler') kategori = 'antifriz';
+          
+          // Ürünler sayfasına kategori ile git
+          if (kategori != null) {
+            context.go('/urunler?kategori=$kategori');
+          } else {
+            context.go('/urunler');
+          }
+        },
+      );
+    }
+    
+    // Markalar için dropdown menü
+    if (title == 'Markalar') {
+      return _BrandsDropdownNavItem(
+        isActive: isActive,
+        onBrandSelected: (brandName) {
+          context.go('/urunler?marka=${brandName.toLowerCase()}');
+        },
+      );
+    }
+    
+    return _ModernNavItem(
+      title: title,
+      isActive: isActive,
+      onTap: () {
+        if (title == 'Ana Sayfa') {
+          context.go('/');
+        } else if (title == 'Hakkımızda') {
+          context.go('/hakkimizda');
+        } else if (title == 'İletişim') {
+          context.go('/?scrollTo=contact');
+        }
+      },
+    );
+  }
+
+  Widget _buildContent(BuildContext context, List<Map<String, String>> products) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Title
+              const Text(
+                'ÜRÜNLER',
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFF111827),
+                  letterSpacing: 1,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Breadcrumb
+              _buildBreadcrumb(),
+              const SizedBox(height: 40),
+              // Sidebar + Products Layout
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Sol - Sidebar Filtreler (280px)
+                  SizedBox(
+                    width: 280,
+                    child: _buildSidebar(),
+                  ),
+                  const SizedBox(width: 40),
+                  // Sağ - Ürünler
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Ürün sayısı
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    const Color(0xFFD71920).withOpacity(0.1),
+                                    const Color(0xFFD71920).withOpacity(0.05),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: const Color(0xFFD71920).withOpacity(0.2),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    '${products.length}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                      color: Color(0xFFD71920),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  const Text(
+                                    'Ürün Bulundu',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF6B7280),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 28),
+                        // Products Grid
+                        if (products.isEmpty)
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 100),
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.inventory_2_outlined,
+                                    size: 64,
+                                    color: Colors.grey[400],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'Bu filtreye uygun ürün bulunamadı',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        else
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3, // 3 kolon (sidebar varken)
+                              mainAxisSpacing: 24,
+                              crossAxisSpacing: 24,
+                              childAspectRatio: 0.75,
+                            ),
+                            itemCount: products.length,
+                            itemBuilder: (context, index) {
+                              return _buildProductCard(products[index]);
+                            },
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilters() {
+    return Row(
+      children: [
+        // Brand Filter
+        _buildFilterDropdown(
+          'Marka',
+          _selectedBrand ?? 'Tümü',
+          ['Tümü', 'Borax', 'Brava', 'Japan Oil'],
+          (value) {
+            setState(() {
+              _selectedBrand = value == 'Tümü' ? null : value;
+            });
+          },
+        ),
+        const SizedBox(width: 20),
+        // Category Filter
+        _buildFilterDropdown(
+          'Kategori',
+          _getCategoryDisplayName(_selectedCategory ?? 'Tümü'),
+          [
+            'Tümü',
+            'Motor Yağları',
+            'Motorsiklet Yağları',
+            'Şanzıman ve Dişli Yağları',
+            'Hidrolik Sistem Yağları',
+            'Sarf Malzemeler',
+            'Fren Hidrolik Sıvıları',  // Ok yok - DropdownButton'da eklenecek
+            'Katkı Maddeleri',          // Ok yok - DropdownButton'da eklenecek
+          ],
+          (value) {
+            setState(() {
+              if (value == 'Tümü') {
+                _selectedCategory = null;
+              } else if (value == 'Motor Yağları') {
+                _selectedCategory = 'motor';
+              } else if (value == 'Motorsiklet Yağları') {
+                _selectedCategory = 'motorsiklet';
+              } else if (value == 'Şanzıman ve Dişli Yağları') {
+                _selectedCategory = 'sanziman';
+              } else if (value == 'Hidrolik Sistem Yağları') {
+                _selectedCategory = 'hidrolik';
+              } else if (value == 'Sarf Malzemeler') {
+                _selectedCategory = 'sarf';
+              } else if (value == 'Fren Hidrolik Sıvıları') {
+                _selectedCategory = 'fren';
+              } else if (value == 'Katkı Maddeleri') {
+                _selectedCategory = 'katki';
+              }
+            });
+          },
+        ),
+        const Spacer(),
+        // Result count
+        Text(
+          '${_getFilteredProducts().length} Ürün',
+          style: const TextStyle(
+            fontSize: 16,
+            color: Color(0xFF6B7280),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilterDropdown(String label, String value, List<String> items, Function(String) onChanged) {
+    return _ModernFilterDropdown(
+      label: label,
+      value: value,
+      items: items,
+      onChanged: onChanged,
+    );
+  }
+
+  Widget _buildBreadcrumb() {
+    List<String> breadcrumbs = ['Ürünler'];
+    
+    if (_selectedBrand != null && _selectedBrand != 'Tümü') {
+      breadcrumbs.add(_selectedBrand!);
+    }
+    
+    if (_selectedCategory != null) {
+      breadcrumbs.add(_getCategoryDisplayName(_selectedCategory));
+    }
+    
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: const Color(0xFFE5E7EB),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.home_rounded,
+            size: 16,
+            color: Color(0xFF9CA3AF),
+          ),
+          const SizedBox(width: 8),
+          for (int i = 0; i < breadcrumbs.length; i++) ...[
+            if (i > 0)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Icon(
+                  Icons.chevron_right_rounded,
+                  size: 16,
+                  color: Colors.grey[300],
+                ),
+              ),
+            Text(
+              breadcrumbs[i],
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: i == breadcrumbs.length - 1 ? FontWeight.w700 : FontWeight.w500,
+                color: i == breadcrumbs.length - 1
+                    ? const Color(0xFFD71920)
+                    : const Color(0xFF6B7280),
+                letterSpacing: 0.2,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSidebar() {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white,
+            const Color(0xFFFAFAFA),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: const Color(0xFFE5E7EB),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Filtreler başlığı
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFFD71920).withOpacity(0.05),
+                  Colors.transparent,
+                ],
+              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD71920).withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(
+                    Icons.tune_rounded,
+                    size: 20,
+                    color: Color(0xFFD71920),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                const Text(
+                  'Filtreler',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF111827),
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Marka filtresi
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 8),
+                _buildSidebarSection('Marka', _buildBrandFilters()),
+                const SizedBox(height: 20),
+                Divider(color: Colors.grey[200], thickness: 1),
+                const SizedBox(height: 20),
+                _buildSidebarSection('Kategori', _buildCategoryFilters()),
+                const SizedBox(height: 24),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSidebarSection(String title, Widget content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title.toUpperCase(),
+          style: const TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w800,
+            color: Color(0xFF6B7280),
+            letterSpacing: 1.2,
+          ),
+        ),
+        const SizedBox(height: 16),
+        content,
+      ],
+    );
+  }
+
+  Widget _buildBrandFilters() {
+    final brands = ['Tümü', 'Borax', 'Brava', 'Japan Oil'];
+    String selected = _selectedBrand ?? 'Tümü';
+    
+    return Column(
+      children: brands.asMap().entries.map((entry) {
+        int index = entry.key;
+        String brand = entry.value;
+        bool isSelected = brand == selected;
+        return _buildCheckboxItem(
+          brand,
+          isSelected,
+          () {
+            setState(() {
+              _selectedBrand = brand == 'Tümü' ? null : brand;
+            });
+          },
+          key: 'brand_$index',
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildCategoryFilters() {
+    final categories = [
+      {'name': 'Tümü', 'key': null, 'isSubCategory': false},
+      {'name': 'Motor Yağları', 'key': 'motor', 'isSubCategory': false},
+      {'name': 'Motorsiklet Yağları', 'key': 'motorsiklet', 'isSubCategory': false},
+      {'name': 'Şanzıman ve Dişli Yağları', 'key': 'sanziman', 'isSubCategory': false},
+      {'name': 'Hidrolik Sistem Yağları', 'key': 'hidrolik', 'isSubCategory': false},
+      {'name': 'Sarf Malzemeler', 'key': 'sarf', 'isSubCategory': false},
+      {'name': 'Fren Hidrolik Sıvıları', 'key': 'fren', 'isSubCategory': true},
+      {'name': 'Katkı Maddeleri', 'key': 'katki', 'isSubCategory': true},
+    ];
+    
+    return Column(
+      children: categories.asMap().entries.map((entry) {
+        int index = entry.key;
+        var category = entry.value;
+        bool isSelected = _selectedCategory == category['key'];
+        bool isSubCategory = category['isSubCategory'] as bool;
+        
+        return _buildCheckboxItem(
+          category['name'] as String,
+          isSelected,
+          () {
+            setState(() {
+              _selectedCategory = category['key'] as String?;
+            });
+          },
+          indent: isSubCategory ? 20.0 : 0.0,
+          key: 'category_$index',
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildCheckboxItem(String label, bool isSelected, VoidCallback onTap, {double indent = 0.0, String key = ''}) {
+    return _AnimatedCheckboxItem(
+      key: ValueKey(key),
+      label: label,
+      isSelected: isSelected,
+      onTap: onTap,
+      indent: indent,
+    );
+  }
+
+  Widget _buildProductCard(Map<String, String> product) {
+    return _ModernProductCard(product: product);
+  }
+}
+
+// Animated Checkbox Item Widget for Sidebar
+class _AnimatedCheckboxItem extends StatefulWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+  final double indent;
+
+  const _AnimatedCheckboxItem({
+    Key? key,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+    this.indent = 0.0,
+  }) : super(key: key);
+
+  @override
+  State<_AnimatedCheckboxItem> createState() => _AnimatedCheckboxItemState();
+}
+
+class _AnimatedCheckboxItemState extends State<_AnimatedCheckboxItem> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: InkWell(
+        onTap: widget.onTap,
+        borderRadius: BorderRadius.circular(10),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: EdgeInsets.only(
+            left: widget.indent + 12,
+            top: 10,
+            bottom: 10,
+            right: 12,
+          ),
+          decoration: BoxDecoration(
+            color: widget.isSelected
+                ? const Color(0xFFD71920).withOpacity(0.08)
+                : _isHovered
+                    ? const Color(0xFFF3F4F6)
+                    : Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: widget.isSelected
+                        ? const Color(0xFFD71920)
+                        : _isHovered
+                            ? const Color(0xFF9CA3AF)
+                            : const Color(0xFFD1D5DB),
+                    width: 2,
+                  ),
+                  color: widget.isSelected ? const Color(0xFFD71920) : Colors.transparent,
+                  boxShadow: widget.isSelected
+                      ? [
+                          BoxShadow(
+                            color: const Color(0xFFD71920).withOpacity(0.3),
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                          ),
+                        ]
+                      : [],
+                ),
+                child: widget.isSelected
+                    ? const Icon(
+                        Icons.check_rounded,
+                        size: 14,
+                        color: Colors.white,
+                      )
+                    : null,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  widget.label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: widget.isSelected ? FontWeight.w600 : FontWeight.w500,
+                    color: widget.isSelected
+                        ? const Color(0xFF111827)
+                        : _isHovered
+                            ? const Color(0xFF374151)
+                            : const Color(0xFF6B7280),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Modern Filter Dropdown Widget
+class _ModernFilterDropdown extends StatefulWidget {
+  final String label;
+  final String value;
+  final List<String> items;
+  final Function(String) onChanged;
+
+  const _ModernFilterDropdown({
+    required this.label,
+    required this.value,
+    required this.items,
+    required this.onChanged,
+  });
+
+  @override
+  State<_ModernFilterDropdown> createState() => _ModernFilterDropdownState();
+}
+
+class _ModernFilterDropdownState extends State<_ModernFilterDropdown> {
+  bool _isHovered = false;
+
+  IconData _getIconForLabel() {
+    if (widget.label == 'Marka') {
+      return Icons.local_offer_outlined;
+    } else if (widget.label == 'Kategori') {
+      return Icons.category_outlined;
+    }
+    return Icons.filter_list;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        constraints: const BoxConstraints(minWidth: 280), // Minimum genişlik
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.white,
+              Color(0xFFF8F9FA),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: const Color(0xFFE5E7EB),
+            width: 2,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(_isHovered ? 0.12 : 0.06),
+              blurRadius: _isHovered ? 14 : 10,
+              offset: Offset(0, _isHovered ? 5 : 3),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Icon
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF3F4F6),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                _getIconForLabel(),
+                size: 18,
+                color: const Color(0xFF6B7280),
+              ),
+            ),
+            const SizedBox(width: 12),
+            // Label ve Dropdown birlikte
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '${widget.label}:',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF6B7280),
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // Dropdown
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.white,
+                  ),
+                  child: DropdownButton<String>(
+                    value: widget.value,
+                    underline: const SizedBox(),
+                    icon: Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: const Color(0xFFD71920),
+                      size: 24,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF111827),
+                      letterSpacing: -0.2,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    dropdownColor: Colors.white,
+                    elevation: 8,
+                    selectedItemBuilder: (BuildContext context) {
+                      // Seçili item'da ok işareti gösterme
+                      return widget.items.map((item) {
+                        return Text(
+                          item, // Ok işareti yok, sadece isim
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF111827),
+                            letterSpacing: -0.2,
+                          ),
+                        );
+                      }).toList();
+                    },
+                items: widget.items.map((item) {
+                  bool isSelected = item == widget.value;
+                  
+                  // Alt kategorileri belirle (Sarf Malzemeler'in altındakiler)
+                  bool isSubCategory = item == 'Fren Hidrolik Sıvıları' || item == 'Katkı Maddeleri';
+                  
+                  return DropdownMenuItem(
+                    value: item, // Temiz value
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          // Ok işareti için sabit genişlik
+                          SizedBox(
+                            width: 20,
+                            child: Text(
+                              isSubCategory ? '→' : '',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: isSelected
+                                    ? const Color(0xFFD71920)
+                                    : const Color(0xFF111827),
+                              ),
+                            ),
+                          ),
+                          // Kategori adı
+                          Expanded(
+                            child: Text(
+                              item,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: isSelected
+                                    ? const Color(0xFFD71920)
+                                    : const Color(0xFF111827),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+                    onChanged: (newValue) {
+                      if (newValue != null) {
+                        widget.onChanged(newValue);
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Modern Product Card Widget
+class _ModernProductCard extends StatefulWidget {
+  final Map<String, String> product;
+
+  const _ModernProductCard({required this.product});
+
+  @override
+  State<_ModernProductCard> createState() => _ModernProductCardState();
+}
+
+class _ModernProductCardState extends State<_ModernProductCard> {
+  bool _isHovered = false;
+
+  String _getBrandLogoFileName(String brandName) {
+    // "Japan Oil" -> "japanoil", "Borax" -> "borax", etc.
+    return brandName.toLowerCase().replaceAll(' ', '');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
+        transform: Matrix4.translationValues(0, _isHovered ? -12 : 0, 0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: _isHovered
+                ? const Color(0xFFD71920).withOpacity(0.3)
+                : const Color(0xFFE5E7EB),
+            width: 2,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered
+                  ? const Color(0xFFD71920).withOpacity(0.2)
+                  : Colors.black.withOpacity(0.06),
+              blurRadius: _isHovered ? 30 : 15,
+              offset: Offset(0, _isHovered ? 16 : 8),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Image Container with Gradient
+            Expanded(
+              child: Stack(
+                children: [
+                  // Background
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          const Color(0xFFF8F9FA),
+                          const Color(0xFFFFFFFF),
+                        ],
+                      ),
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    child: Image.asset(
+                      widget.product['image']!,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  // Category Badge
+                  Positioned(
+                    top: 12,
+                    right: 12,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD71920),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFD71920).withOpacity(0.3),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        widget.product['category']!,
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Brand Logo
+                  Positioned(
+                    top: 12,
+                    left: 12,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Image.asset(
+                        'assets/images/logos/${_getBrandLogoFileName(widget.product['brand']!)}.png',
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Product Info
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Product Name
+                  Text(
+                    widget.product['name']!,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: _isHovered ? const Color(0xFFD71920) : const Color(0xFF111827),
+                      height: 1.4,
+                      letterSpacing: -0.2,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  // Brand Name
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.verified,
+                        size: 14,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        widget.product['brand']!,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[600],
+                          letterSpacing: 0.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
