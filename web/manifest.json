@@ -1,0 +1,35 @@
+{
+    "name": "MNR Petrol",
+    "short_name": "MNR Petrol",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#D71920",
+    "description": "MNR Petrol - Kaliteli Motor Yağları ve Endüstriyel Ürünler",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/mnr-petrol.jpg",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "icons/mnr-petrol.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "icons/mnr-petrol.jpg",
+            "sizes": "192x192",
+            "type": "image/jpeg",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/mnr-petrol.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg",
+            "purpose": "maskable"
+        }
+    ]
+}
