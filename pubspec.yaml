@@ -78,6 +78,7 @@ flutter:
     - assets/images/oilport/direksiyon/
     - assets/images/oilport/antifriz/
     - assets/images/oilport/sarf/
+    - assets/images/skynell/fren/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

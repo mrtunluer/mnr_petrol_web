@@ -964,6 +964,7 @@ class _BrandsDropdownNavItemState extends State<_BrandsDropdownNavItem> with Sin
     {'name': 'Xenol', 'logo': 'xenol.png'},
     {'name': 'Oilport', 'logo': 'oilport.png'},
     {'name': 'Brava', 'logo': 'brava.png'},
+    {'name': 'Skynell', 'logo': 'skynell.png'},
   ];
 
   @override
@@ -1791,9 +1792,11 @@ extension _HomePageWidgets on _HomePageState {
                 ),
               ),
               SizedBox(height: isMobile ? 40 : (isTablet ? 50 : 60)),
+              // Mobilde Wrap kullan (alt alta), Desktop/Tablet'te 3'er 3'er satırlar
+              if (isMobile)
               Wrap(
-                spacing: isMobile ? 24 : (isTablet ? 32 : 40),
-                runSpacing: isMobile ? 24 : (isTablet ? 32 : 40),
+                  spacing: 24,
+                  runSpacing: 24,
                 alignment: WrapAlignment.center,
                 children: [
                   _buildBrandLogo('assets/images/logos/borax.png', 'Borax', isMobile, isTablet),
@@ -1801,8 +1804,37 @@ extension _HomePageWidgets on _HomePageState {
                   _buildBrandLogo('assets/images/logos/xenol.png', 'Xenol', isMobile, isTablet),
                   _buildBrandLogo('assets/images/logos/oilport.png', 'Oilport', isMobile, isTablet),
                   _buildBrandLogo('assets/images/logos/brava.png', 'Brava', isMobile, isTablet),
-                ],
-              ),
+                    _buildBrandLogo('assets/images/logos/skynell.png', 'Skynell', isMobile, isTablet),
+                  ],
+                )
+              else
+                Column(
+                  children: [
+                    // İlk satır - 3 marka
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildBrandLogo('assets/images/logos/borax.png', 'Borax', isMobile, isTablet),
+                        SizedBox(width: isTablet ? 32 : 40),
+                        _buildBrandLogo('assets/images/logos/japanoil.png', 'Japan Oil', isMobile, isTablet),
+                        SizedBox(width: isTablet ? 32 : 40),
+                        _buildBrandLogo('assets/images/logos/xenol.png', 'Xenol', isMobile, isTablet),
+                      ],
+                    ),
+                    SizedBox(height: isTablet ? 32 : 40),
+                    // İkinci satır - 3 marka
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildBrandLogo('assets/images/logos/oilport.png', 'Oilport', isMobile, isTablet),
+                        SizedBox(width: isTablet ? 32 : 40),
+                        _buildBrandLogo('assets/images/logos/brava.png', 'Brava', isMobile, isTablet),
+                        SizedBox(width: isTablet ? 32 : 40),
+                        _buildBrandLogo('assets/images/logos/skynell.png', 'Skynell', isMobile, isTablet),
+                      ],
+                    ),
+                  ],
+                ),
             ],
           ),
         ),
@@ -2083,91 +2115,91 @@ extension _HomePageWidgets on _HomePageState {
                                 ),
                               ),
                             ] else
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: _nameController,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Zorunlu alan';
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'Adınız Soyadınız',
-                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                        filled: true,
-                                        fillColor: const Color(0xFFF8F9FA),
-                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Colors.red, width: 1),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Colors.red, width: 2),
-                                        ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: _nameController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Zorunlu alan';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'Adınız Soyadınız',
+                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                      filled: true,
+                                      fillColor: const Color(0xFFF8F9FA),
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.red, width: 1),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.red, width: 2),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: _emailController,
-                                      keyboardType: TextInputType.emailAddress,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Zorunlu alan';
-                                        }
-                                        if (!value.contains('@')) {
-                                          return 'Geçersiz e-posta';
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'E-posta Adresiniz',
-                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                        filled: true,
-                                        fillColor: const Color(0xFFF8F9FA),
-                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Colors.red, width: 1),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Colors.red, width: 2),
-                                        ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: _emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Zorunlu alan';
+                                      }
+                                      if (!value.contains('@')) {
+                                        return 'Geçersiz e-posta';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'E-posta Adresiniz',
+                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                      filled: true,
+                                      fillColor: const Color(0xFFF8F9FA),
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.red, width: 1),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.red, width: 2),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 16),
                             if (isMobile) ...[
                               TextFormField(
@@ -2231,74 +2263,74 @@ extension _HomePageWidgets on _HomePageState {
                                 ),
                               ),
                             ] else
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: _phoneController,
-                                      keyboardType: TextInputType.phone,
-                                      decoration: InputDecoration(
-                                        hintText: 'Telefon (Opsiyonel)',
-                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                        filled: true,
-                                        fillColor: const Color(0xFFF8F9FA),
-                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
-                                        ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: _phoneController,
+                                    keyboardType: TextInputType.phone,
+                                    decoration: InputDecoration(
+                                      hintText: 'Telefon (Opsiyonel)',
+                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                      filled: true,
+                                      fillColor: const Color(0xFFF8F9FA),
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: _subjectController,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Zorunlu alan';
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'Konu Başlığı',
-                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                        filled: true,
-                                        fillColor: const Color(0xFFF8F9FA),
-                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Colors.red, width: 1),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide: const BorderSide(color: Colors.red, width: 2),
-                                        ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: _subjectController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Zorunlu alan';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'Konu Başlığı',
+                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                      filled: true,
+                                      fillColor: const Color(0xFFF8F9FA),
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.red, width: 1),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.red, width: 2),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _messageController,
@@ -3678,6 +3710,7 @@ class _ProductsPageState extends State<ProductsPage> {
     ],
     'borax-hidrolik': [
       {'name': 'Borax Hydro Plus 68 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
+      {'name': 'Borax Hydro Plus 46 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
     ],
     'brava-motorsiklet': [
       {'name': 'Brava Extreme 9000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
@@ -3728,10 +3761,15 @@ class _ProductsPageState extends State<ProductsPage> {
       {'name': 'Oilport ATF', 'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png', 'brand': 'Oilport', 'category': 'Hidrolik Sistem Yağları'},
     ],
     'oilport-antifriz': [
-      {'name': 'Oilport Bidon Antifreeze', 'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png', 'brand': 'Oilport', 'category': 'Antifrizler'},
+      {'name': 'Oilport Antifreeze', 'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png', 'brand': 'Oilport', 'category': 'Antifrizler'},
     ],
     'oilport-katki': [
       {'name': 'Oilport Bıçkı Zincir Yağı', 'image': 'assets/images/oilport/sarf/oilport-zincir.png', 'brand': 'Oilport', 'category': 'Katkı Maddeleri'},
+    ],
+    'skynell-fren': [
+      {'name': 'Skynell DOT3', 'image': 'assets/images/skynell/fren/skynell-dot3-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları'},
+      {'name': 'Skynell DOT4', 'image': 'assets/images/skynell/fren/skynell-dot4-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları'},
+      {'name': 'Skynell Balata Temizleyici', 'image': 'assets/images/skynell/fren/skynell-balata.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları'},
     ],
   };
 
@@ -4423,7 +4461,7 @@ class _ProductsPageState extends State<ProductsPage> {
         _buildFilterDropdown(
           'Marka',
           _selectedBrand ?? 'Tümü',
-          ['Tümü', 'Borax', 'Brava', 'Japan Oil', 'Xenol', 'Oilport'],
+          ['Tümü', 'Borax', 'Brava', 'Japan Oil', 'Xenol', 'Oilport', 'Skynell'],
           (value) {
             setState(() {
               _selectedBrand = value == 'Tümü' ? null : value;
@@ -4659,7 +4697,7 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Widget _buildBrandFilters() {
-    final brands = ['Tümü', 'Borax', 'Brava', 'Japan Oil', 'Xenol', 'Oilport'];
+    final brands = ['Tümü', 'Borax', 'Brava', 'Japan Oil', 'Xenol', 'Oilport', 'Skynell'];
     String selected = _selectedBrand ?? 'Tümü';
     
     return Column(
@@ -4871,6 +4909,15 @@ class _ProductsPageState extends State<ProductsPage> {
                         () {
                           setModalState(() {
                             tempSelectedBrand = 'oilport';
+                          });
+                        },
+                      ),
+                      _buildDrawerFilterItem(
+                        'Skynell',
+                        tempSelectedBrand == 'skynell',
+                        () {
+                          setModalState(() {
+                            tempSelectedBrand = 'skynell';
                           });
                         },
                       ),
@@ -5610,12 +5657,12 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
-                          widget.product['brand']!,
-                          style: TextStyle(
+                        widget.product['brand']!,
+                        style: TextStyle(
                             fontSize: isMobile ? 11 : 12,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey[600],
-                            letterSpacing: 0.2,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[600],
+                          letterSpacing: 0.2,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -5635,7 +5682,7 @@ class _ModernProductCardState extends State<_ModernProductCard> {
 }
 
 // Product Detail Page
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
   final String productId;
 
   const ProductDetailPage({
@@ -5643,6 +5690,11 @@ class ProductDetailPage extends StatelessWidget {
     required this.productId,
   });
 
+  @override
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
+}
+
+class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -5656,7 +5708,7 @@ class ProductDetailPage extends StatelessWidget {
     for (var productList in allProducts.values) {
       for (var p in productList) {
         String pid = _generateProductId(p['brand']!, p['name']!);
-        if (pid == productId) {
+        if (pid == widget.productId) {
           product = p;
           break;
         }
@@ -5703,7 +5755,7 @@ class ProductDetailPage extends StatelessWidget {
               top: isMobile ? 32 : 42,
               left: 0,
               right: 0,
-              child: _ProductDetailHeader(productId: productId, isMobile: isMobile),
+              child: _ProductDetailHeader(productId: widget.productId, isMobile: isMobile),
             ),
           ],
         ),
@@ -5723,6 +5775,95 @@ class ProductDetailPage extends StatelessWidget {
         .replaceAll('ö', 'o')
         .replaceAll('ç', 'c');
     return '$brandNorm-$nameNorm';
+  }
+
+  // Hacim seçeneği gösterilmeli mi ve hangi hacimler kontrol et
+  List<String>? _getAvailableVolumes(Map<String, String> product) {
+    // Motor Yağları kontrolü
+    if (product['category'] == 'Motor Yağları') {
+      // Oilport motor yağlarını hariç tut
+      if (product['brand'] == 'Oilport') return null;
+      
+      // Borax Ultimate DX tenekeleri hariç tut
+      String productName = product['name']!.toLowerCase();
+      if (product['brand'] == 'Borax' && 
+          (productName.contains('ultimate dx') && !productName.contains('bidon'))) {
+        return null;
+      }
+      
+      return ['1 Litre', '4 Litre', '5 Litre'];
+    }
+    
+    // Oilport Antifriz kontrolü
+    if (product['category'] == 'Antifrizler' && product['brand'] == 'Oilport') {
+      return ['1 Litre', '1.5 Litre', '3 Litre', '14 Litre'];
+    }
+    
+    return null;
+  }
+
+  // Hacim bilgisi widget'i (sadece gösterim için)
+  Widget _buildVolumeSelector(bool isMobile, List<String> volumes) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Mevcut Hacimler',
+          style: TextStyle(
+            fontSize: isMobile ? 13 : 14,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFF6B7280),
+            letterSpacing: 0.5,
+          ),
+        ),
+        SizedBox(height: isMobile ? 10 : 12),
+        Wrap(
+          spacing: isMobile ? 8 : 10,
+          runSpacing: isMobile ? 8 : 10,
+          children: volumes.map((volume) {
+            return Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 14 : 16,
+                vertical: isMobile ? 8 : 10,
+              ),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    const Color(0xFF059669).withOpacity(0.1),
+                    const Color(0xFF059669).withOpacity(0.05),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(isMobile ? 8 : 10),
+                border: Border.all(
+                  color: const Color(0xFF059669).withOpacity(0.3),
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.check_circle_rounded,
+                    size: isMobile ? 14 : 16,
+                    color: const Color(0xFF059669),
+                  ),
+                  SizedBox(width: isMobile ? 6 : 8),
+                  Text(
+                    volume,
+                    style: TextStyle(
+                      fontSize: isMobile ? 12 : 13,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFF059669),
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 
   Widget _buildDetailContent(BuildContext context, Map<String, String> product) {
@@ -5940,6 +6081,11 @@ class ProductDetailPage extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 24),
+                                // Hacim Seçenekleri
+                                if (_getAvailableVolumes(product) != null) ...[
+                                  _buildVolumeSelector(isMobile, _getAvailableVolumes(product)!),
+                                  const SizedBox(height: 24),
+                                ],
                                 // Ürün Özellikleri
                                 _buildFeature(Icons.verified_rounded, 'Orijinal Ürün', 'Yetkili distribütör garantisi'),
                                 const SizedBox(height: 12),
@@ -6076,7 +6222,12 @@ class ProductDetailPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: 32),
+                            // Hacim Seçenekleri
+                            if (_getAvailableVolumes(product) != null) ...[
+                              _buildVolumeSelector(isMobile, _getAvailableVolumes(product)!),
+                              const SizedBox(height: 32),
+                            ],
                             // Ürün Özellikleri
                             _buildFeature(Icons.verified_rounded, 'Orijinal Ürün', 'Yetkili distribütör garantisi'),
                             const SizedBox(height: 16),
