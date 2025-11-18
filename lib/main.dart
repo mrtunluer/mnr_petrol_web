@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:html' as html;
+import 'dart:ui' as ui;
 import 'package:go_router/go_router.dart';
 
 void main() {
@@ -45,6 +46,22 @@ final GoRouter _router = GoRouter(
         child: ProductsPage(
           brandFilter: state.uri.queryParameters['marka'],
           categoryFilter: state.uri.queryParameters['kategori'],
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+      ),
+    ),
+    GoRoute(
+      path: '/urun/:id',
+      pageBuilder: (context, state) => CustomTransitionPage<void>(
+        key: state.pageKey,
+        child: ProductDetailPage(
+          productId: state.pathParameters['id']!,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
@@ -3171,7 +3188,7 @@ class _ProductsPageState extends State<ProductsPage> {
   String? _selectedBrand;
   String? _selectedCategory;
 
-  final Map<String, List<Map<String, String>>> _products = {
+  static final Map<String, List<Map<String, String>>> _products = {
     'borax-motor': [
       {'name': 'Borax Platinum Full Synthetic 10W40', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
@@ -3258,6 +3275,23 @@ class _ProductsPageState extends State<ProductsPage> {
     super.initState();
     _selectedBrand = widget.brandFilter;
     _selectedCategory = widget.categoryFilter;
+  }
+
+  void _updateUrl() {
+    // URL query parametrelerini güncelle
+    final Map<String, String> params = {};
+    
+    if (_selectedBrand != null && _selectedBrand != 'Tümü') {
+      params['marka'] = _selectedBrand!;
+    }
+    
+    if (_selectedCategory != null && _selectedCategory != 'Tümü') {
+      params['kategori'] = _selectedCategory!;
+    }
+    
+    // URL'yi güncelle (state korunur)
+    final uri = Uri(path: '/urunler', queryParameters: params.isEmpty ? null : params);
+    context.go(uri.toString());
   }
 
   String _getCategoryDisplayName(String? key) {
@@ -3693,6 +3727,7 @@ class _ProductsPageState extends State<ProductsPage> {
             setState(() {
               _selectedBrand = value == 'Tümü' ? null : value;
             });
+            _updateUrl();
           },
         ),
         const SizedBox(width: 20),
@@ -3733,6 +3768,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 _selectedCategory = 'katki';
               }
             });
+            _updateUrl();
           },
         ),
         const Spacer(),
@@ -3937,6 +3973,7 @@ class _ProductsPageState extends State<ProductsPage> {
             setState(() {
               _selectedBrand = brand == 'Tümü' ? null : brand;
             });
+            _updateUrl();
           },
           key: 'brand_$index',
         );
@@ -3971,6 +4008,7 @@ class _ProductsPageState extends State<ProductsPage> {
             setState(() {
               _selectedCategory = category['key'] as String?;
             });
+            _updateUrl();
           },
           indent: isSubCategory ? 20.0 : 0.0,
           key: 'category_$index',
@@ -4307,13 +4345,32 @@ class _ModernProductCardState extends State<_ModernProductCard> {
     return brandName.toLowerCase().replaceAll(' ', '');
   }
 
+  String _generateProductId() {
+    // Ürün ID'si: brand-category-name formatında URL-safe
+    String brand = widget.product['brand']!.toLowerCase().replaceAll(' ', '-');
+    String name = widget.product['name']!.toLowerCase()
+        .replaceAll(' ', '-')
+        .replaceAll('/', '-')
+        .replaceAll('ı', 'i')
+        .replaceAll('ğ', 'g')
+        .replaceAll('ü', 'u')
+        .replaceAll('ş', 's')
+        .replaceAll('ö', 'o')
+        .replaceAll('ç', 'c');
+    return '$brand-$name';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: AnimatedContainer(
+    return GestureDetector(
+      onTap: () {
+        context.go('/urun/${_generateProductId()}');
+      },
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutCubic,
         transform: Matrix4.translationValues(0, _isHovered ? -12 : 0, 0),
@@ -4467,6 +4524,810 @@ class _ModernProductCardState extends State<_ModernProductCard> {
             ),
           ],
         ),
+      ),
+      ),
+    );
+  }
+}
+
+// Product Detail Page
+class ProductDetailPage extends StatelessWidget {
+  final String productId;
+
+  const ProductDetailPage({
+    super.key,
+    required this.productId,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Tüm ürünleri ProductsPage'den al
+    final allProducts = _ProductsPageState._products;
+    
+    // ID'ye göre ürünü bul
+    Map<String, String>? product;
+    for (var productList in allProducts.values) {
+      for (var p in productList) {
+        String pid = _generateProductId(p['brand']!, p['name']!);
+        if (pid == productId) {
+          product = p;
+          break;
+        }
+      }
+      if (product != null) break;
+    }
+
+    if (product == null) {
+      return Scaffold(
+        body: Center(child: Text('Ürün bulunamadı')),
+      );
+    }
+
+    return SelectionArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF9FAFB),
+        body: Stack(
+          children: [
+            CustomScrollView(
+              slivers: [
+                // Spacer for fixed elements
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 142), // 42px top bar + 100px header
+                ),
+                // Content
+                SliverToBoxAdapter(
+                  child: _buildDetailContent(context, product),
+                ),
+                // Footer
+                SliverToBoxAdapter(
+                  child: ModernFooter(),
+                ),
+              ],
+            ),
+            // Fixed Top Info Bar
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: _buildTopInfoBar(),
+            ),
+            // Fixed Header
+            Positioned(
+              top: 42,
+              left: 0,
+              right: 0,
+              child: _buildHeader(context),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static String _generateProductId(String brand, String name) {
+    String brandNorm = brand.toLowerCase().replaceAll(' ', '-');
+    String nameNorm = name.toLowerCase()
+        .replaceAll(' ', '-')
+        .replaceAll('/', '-')
+        .replaceAll('ı', 'i')
+        .replaceAll('ğ', 'g')
+        .replaceAll('ü', 'u')
+        .replaceAll('ş', 's')
+        .replaceAll('ö', 'o')
+        .replaceAll('ç', 'c');
+    return '$brandNorm-$nameNorm';
+  }
+
+  Widget _buildTopInfoBar() {
+    return Container(
+      height: 42,
+      decoration: const BoxDecoration(
+        color: Color(0xFF1a1a1a),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.phone, color: Colors.white, size: 16),
+            const SizedBox(width: 8),
+            const Text(
+              '+90 532 562 71 23',
+              style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(width: 24),
+            const Icon(Icons.location_on, color: Colors.white, size: 16),
+            const SizedBox(width: 8),
+            const Text(
+              'Uncalı Mh. Konyaaltı / Antalya',
+              style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: Colors.black.withOpacity(0.06), width: 1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () => context.go('/'),
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Image.asset(
+                      'assets/images/mnr-petrol.jpg',
+                      height: 70,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 24),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF374151),
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Antalya Madeni Yağ',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF9CA3AF),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                _buildNavItem(context, 'Ana Sayfa', '/', false, null, null),
+                _buildNavItem(context, 'Hakkımızda', '/hakkimizda', false, null, null),
+                _buildNavItem(context, 'Ürünler', '/urunler', false, null, null),
+                _buildNavItem(context, 'İletişim', '/', true, null, null),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(BuildContext context, String title, String path, bool isScroll, Function? onProductSelected, Function? onBrandSelected) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: InkWell(
+        onTap: () {
+          if (isScroll) {
+            context.go('/#iletisim');
+          } else {
+            context.go(path);
+          }
+        },
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF1F2937),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailContent(BuildContext context, Map<String, String> product) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Geri Butonu + Breadcrumb
+              Row(
+                children: [
+                  // Geri Butonu
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: InkWell(
+                      onTap: () {
+                        // Browser history'yi kullanarak geri git (state korunur)
+                        html.window.history.back();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.04),
+                              blurRadius: 10,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(
+                              Icons.arrow_back_rounded,
+                              size: 18,
+                              color: Color(0xFF6B7280),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Geri',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF6B7280),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  // Breadcrumb
+                  _buildBreadcrumb(context, product),
+                ],
+              ),
+              const SizedBox(height: 40),
+              // Product Detail Card
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 30,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Sol - Görsel
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        height: 600,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              const Color(0xFFF9FAFB),
+                              const Color(0xFFFFFFFF),
+                            ],
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            bottomLeft: Radius.circular(24),
+                          ),
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(60),
+                            child: _ZoomableImage(imagePath: product['image']!),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Sağ - Bilgiler
+                    Expanded(
+                      flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(60),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Marka Logosu
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: const Color(0xFFE5E7EB), width: 2),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.04),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Image.asset(
+                                'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            const SizedBox(height: 32),
+                            // Ürün Adı
+                            Text(
+                              product['name']!,
+                              style: const TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.w900,
+                                color: Color(0xFF111827),
+                                height: 1.3,
+                                letterSpacing: -0.5,
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            // Kategori
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    const Color(0xFFD71920).withOpacity(0.1),
+                                    const Color(0xFFD71920).withOpacity(0.05),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: const Color(0xFFD71920).withOpacity(0.2),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                product['category']!,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFFD71920),
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 40),
+                            // Ürün Özellikleri
+                            _buildFeature(Icons.verified_rounded, 'Orijinal Ürün', 'Yetkili distribütör garantisi'),
+                            const SizedBox(height: 16),
+                            _buildFeature(Icons.inventory_2_rounded, 'Stokta Mevcut', 'Hızlı teslimat imkanı'),
+                            const SizedBox(height: 16),
+                            _buildFeature(Icons.workspace_premium_rounded, 'Kalite Belgeli', 'Uluslararası standartlarda'),
+                            const SizedBox(height: 40),
+                            // İletişim Butonu
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  context.go('/#iletisim');
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFFD71920),
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  elevation: 0,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.phone_rounded, color: Colors.white, size: 22),
+                                    const SizedBox(width: 12),
+                                    const Text(
+                                      'Fiyat Bilgisi Al',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white,
+                                        letterSpacing: 0.3,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBreadcrumb(BuildContext context, Map<String, String> product) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: () => context.go('/'),
+            child: Icon(Icons.home_rounded, size: 16, color: Color(0xFF9CA3AF)),
+          ),
+          const SizedBox(width: 8),
+          Icon(Icons.chevron_right_rounded, size: 16, color: Colors.grey[300]),
+          const SizedBox(width: 8),
+          InkWell(
+            onTap: () => context.go('/urunler'),
+            child: Text(
+              'Ürünler',
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF6B7280)),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Icon(Icons.chevron_right_rounded, size: 16, color: Colors.grey[300]),
+          const SizedBox(width: 8),
+          Text(
+            product['brand']!,
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF6B7280)),
+          ),
+          const SizedBox(width: 8),
+          Icon(Icons.chevron_right_rounded, size: 16, color: Colors.grey[300]),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Text(
+              product['name']!,
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Color(0xFFD71920)),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeature(IconData icon, String title, String subtitle) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                const Color(0xFFD71920).withOpacity(0.1),
+                const Color(0xFFD71920).withOpacity(0.05),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, size: 24, color: const Color(0xFFD71920)),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF111827),
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF6B7280),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// Tıklanabilir Görsel Widget'ı (Modal açar)
+class _ZoomableImage extends StatefulWidget {
+  final String imagePath;
+  
+  const _ZoomableImage({required this.imagePath});
+  
+  @override
+  State<_ZoomableImage> createState() => _ZoomableImageState();
+}
+
+class _ZoomableImageState extends State<_ZoomableImage> {
+  bool _isHovered = false;
+  
+  void _showFullImage() {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.9),
+      builder: (context) => _FullImageDialog(imagePath: widget.imagePath),
+    );
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.zoomIn,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: _showFullImage,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          transform: Matrix4.identity()
+            ..scale(_isHovered ? 1.02 : 1.0), // Hafif büyüme (tıklanabilir olduğunu göster)
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  widget.imagePath,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              // Zoom ikonu (hover durumunda)
+              if (_isHovered)
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Icon(
+                      Icons.zoom_in,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Tam Ekran Görsel Dialog'u
+class _FullImageDialog extends StatefulWidget {
+  final String imagePath;
+  
+  const _FullImageDialog({required this.imagePath});
+  
+  @override
+  State<_FullImageDialog> createState() => _FullImageDialogState();
+}
+
+class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
+  final TransformationController _transformationController = TransformationController();
+  
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
+    
+    _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+    
+    _controller.forward();
+  }
+  
+  @override
+  void dispose() {
+    _controller.dispose();
+    _transformationController.dispose();
+    super.dispose();
+  }
+  
+  void _close() {
+    _controller.reverse().then((_) => Navigator.of(context).pop());
+  }
+  
+  void _handleTapUp(TapUpDetails details, BoxConstraints constraints) {
+    final currentScale = _transformationController.value.getMaxScaleOnAxis();
+    
+    if (currentScale > 1.0) {
+      // Zaten zoom'lanmışsa, reset yap
+      _transformationController.value = Matrix4.identity();
+    } else {
+      // Tıklanan noktaya zoom yap
+      final position = details.localPosition;
+      final double scale = 2.5; // 2.5x zoom
+      
+      // Tıklanan noktayı merkeze al
+      final double x = -position.dx * (scale - 1);
+      final double y = -position.dy * (scale - 1);
+      
+      _transformationController.value = Matrix4.identity()
+        ..translate(x, y)
+        ..scale(scale);
+    }
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _close, // Dışarı tıklayınca kapat
+      child: Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.all(40),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return Opacity(
+              opacity: _opacityAnimation.value,
+              child: Transform.scale(
+                scale: _scaleAnimation.value,
+                child: child,
+              ),
+            );
+          },
+          child: Stack(
+            children: [
+              // Görsel
+              Center(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return GestureDetector(
+                      onTap: () {}, // Görsele tıklayınca kapanmasın (event'i durdur)
+                      onTapUp: (details) => _handleTapUp(details, constraints),
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.9,
+                          maxHeight: MediaQuery.of(context).size.height * 0.9,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              blurRadius: 50,
+                              spreadRadius: 10,
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(24),
+                          child: InteractiveViewer(
+                            transformationController: _transformationController,
+                            minScale: 0.5,
+                            maxScale: 4.0,
+                            child: Image.asset(
+                              widget.imagePath,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            // Kapat butonu
+            Positioned(
+              top: 20,
+              right: 20,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: _close,
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.black87,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Bilgi metni (alt kısımda)
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.95),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.touch_app, size: 18, color: Color(0xFF6B7280)),
+                      SizedBox(width: 8),
+                      Text(
+                        'Tıklayarak yakınlaştırın • Tekrar tıklayarak uzaklaştırın',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF6B7280),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       ),
     );
   }
