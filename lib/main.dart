@@ -3706,6 +3706,7 @@ class _ProductsPageState extends State<ProductsPage> {
             'Motorsiklet Yağları',
             'Şanzıman ve Dişli Yağları',
             'Hidrolik Sistem Yağları',
+            'Antifrizler',
             'Sarf Malzemeler',
             'Fren Hidrolik Sıvıları',  // Ok yok - DropdownButton'da eklenecek
             'Katkı Maddeleri',          // Ok yok - DropdownButton'da eklenecek
@@ -3722,6 +3723,8 @@ class _ProductsPageState extends State<ProductsPage> {
                 _selectedCategory = 'sanziman';
               } else if (value == 'Hidrolik Sistem Yağları') {
                 _selectedCategory = 'hidrolik';
+              } else if (value == 'Antifrizler') {
+                _selectedCategory = 'antifriz';
               } else if (value == 'Sarf Malzemeler') {
                 _selectedCategory = 'sarf';
               } else if (value == 'Fren Hidrolik Sıvıları') {
@@ -3948,6 +3951,7 @@ class _ProductsPageState extends State<ProductsPage> {
       {'name': 'Motorsiklet Yağları', 'key': 'motorsiklet', 'isSubCategory': false},
       {'name': 'Şanzıman ve Dişli Yağları', 'key': 'sanziman', 'isSubCategory': false},
       {'name': 'Hidrolik Sistem Yağları', 'key': 'hidrolik', 'isSubCategory': false},
+      {'name': 'Antifrizler', 'key': 'antifriz', 'isSubCategory': false},
       {'name': 'Sarf Malzemeler', 'key': 'sarf', 'isSubCategory': false},
       {'name': 'Fren Hidrolik Sıvıları', 'key': 'fren', 'isSubCategory': true},
       {'name': 'Katkı Maddeleri', 'key': 'katki', 'isSubCategory': true},
