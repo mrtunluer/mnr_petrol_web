@@ -219,6 +219,9 @@ $message
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
     return Scaffold(
       body: Stack(
         children: [
@@ -226,8 +229,8 @@ $message
             controller: _scrollController,
             slivers: [
               // Spacer for fixed top bar and header
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 142), // 42px top bar + 100px header
+              SliverToBoxAdapter(
+                child: SizedBox(height: isMobile ? 90 : 142), // Mobile: 32px top bar + 58px header, Desktop: 42px + 100px
               ),
               // Hero Section
               SliverToBoxAdapter(
@@ -260,7 +263,7 @@ $message
           ),
           // Floating Header
           Positioned(
-            top: 42,
+            top: isMobile ? 32 : 42,
             left: 0,
             right: 0,
             child: _buildFloatingHeader(context),
@@ -271,9 +274,12 @@ $message
   }
 
   Widget _buildFloatingHeader(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      height: 100,
+      height: isMobile ? 58 : 100,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
@@ -291,84 +297,200 @@ $message
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Logo ve Şirket İsmi
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        const Color(0xFFF8F9FA),
-                        Colors.white,
-                      ],
+        padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 16 : 60,
+          vertical: isMobile ? 8 : 10,
+        ),
+        child: isMobile
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Logo (Mobil - Küçük)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFFF8F9FA),
+                          Colors.white,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: const Color(0xFFE5E7EB),
+                        width: 1,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: const Color(0xFFE5E7EB),
-                      width: 1.5,
+                    child: Image.asset(
+                      'assets/images/mnr-petrol.jpg',
+                      height: 36,
+                      fit: BoxFit.contain,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
+                  ),
+                  // Hamburger Menu
+                  IconButton(
+                    icon: const Icon(Icons.menu),
+                    iconSize: 28,
+                    color: const Color(0xFF111827),
+                    onPressed: () {
+                      _showMobileMenu(context);
+                    },
+                  ),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Logo ve Şirket İsmi (Desktop)
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFFF8F9FA),
+                              Colors.white,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: const Color(0xFFE5E7EB),
+                            width: 1.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.08),
+                              blurRadius: 12,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Image.asset(
+                          'assets/images/mnr-petrol.jpg',
+                          height: 80,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF111827),
+                              letterSpacing: 0.3,
+                              height: 1.3,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Antalya Madeni Yağ',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF6B7280),
+                              letterSpacing: 0.2,
+                              height: 1.3,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  child: Image.asset(
-                    'assets/images/mnr-petrol.jpg',
-                    height: 80,
-                    fit: BoxFit.contain,
+                  // Navigation (Desktop)
+                  Row(
+                    children: [
+                      _buildNavItem(context, 'Ana Sayfa', 0, true),
+                      const SizedBox(width: 32),
+                      _buildNavItem(context, 'Ürünler', 1, false),
+                      const SizedBox(width: 32),
+                      _buildNavItem(context, 'Markalar', 2, false),
+                      const SizedBox(width: 32),
+                      _buildNavItem(context, 'Hakkımızda', 3, false),
+                      const SizedBox(width: 32),
+                      _buildNavItem(context, 'İletişim', 4, false),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 16),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF111827),
-                        letterSpacing: 0.3,
-                        height: 1.3,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Antalya Madeni Yağ',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFF6B7280),
-                        letterSpacing: 0.2,
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
+      ),
+    );
+  }
+
+  void _showMobileMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
-            // Navigation
-            Row(
-              children: [
-                _buildNavItem(context, 'Ana Sayfa', 0, true),
-                const SizedBox(width: 32),
-                _buildNavItem(context, 'Ürünler', 1, false),
-                const SizedBox(width: 32),
-                _buildNavItem(context, 'Markalar', 2, false),
-                const SizedBox(width: 32),
-                _buildNavItem(context, 'Hakkımızda', 3, false),
-                const SizedBox(width: 32),
-                _buildNavItem(context, 'İletişim', 4, false),
-              ],
+            const SizedBox(height: 20),
+            _buildMobileMenuItem(context, 'Ana Sayfa', Icons.home_outlined, () {
+              Navigator.pop(context);
+              context.go('/');
+            }),
+            _buildMobileMenuItem(context, 'Ürünler', Icons.inventory_2_outlined, () {
+              Navigator.pop(context);
+              context.go('/urunler');
+            }),
+            _buildMobileMenuItem(context, 'Markalar', Icons.business_outlined, () {
+              Navigator.pop(context);
+              // Markalar dropdown'u açmak yerine ürünler sayfasına git
+              context.go('/urunler');
+            }),
+            _buildMobileMenuItem(context, 'Hakkımızda', Icons.info_outlined, () {
+              Navigator.pop(context);
+              context.go('/hakkimizda');
+            }),
+            _buildMobileMenuItem(context, 'İletişim', Icons.mail_outlined, () {
+              Navigator.pop(context);
+              _scrollToContact();
+            }),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobileMenuItem(BuildContext context, String title, IconData icon, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Row(
+          children: [
+            Icon(icon, size: 24, color: const Color(0xFF111827)),
+            const SizedBox(width: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF111827),
+              ),
             ),
           ],
         ),
@@ -1137,8 +1259,12 @@ class _BrandsDropdownNavItemState extends State<_BrandsDropdownNavItem> with Sin
 
 extension _HomePageWidgets on _HomePageState {
   Widget _buildHeroSection(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    final isTablet = screenWidth >= 768 && screenWidth < 1024;
+    
     return SizedBox(
-      height: 700,
+      height: isMobile ? 600 : (isTablet ? 650 : 700),
       child: Stack(
         children: [
           // Background Image
@@ -1167,18 +1293,21 @@ extension _HomePageWidgets on _HomePageState {
           Positioned.fill(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 900),
-              padding: const EdgeInsets.only(
-                top: 140, // Header (80px) + ekstra boşluk
-                bottom: 140, // Simetrik boşluk
-                left: 40,
-                right: 40,
+              padding: EdgeInsets.only(
+                top: isMobile ? 80 : (isTablet ? 110 : 140),
+                bottom: isMobile ? 80 : (isTablet ? 110 : 140),
+                left: isMobile ? 20 : (isTablet ? 30 : 40),
+                right: isMobile ? 20 : (isTablet ? 30 : 40),
               ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Badge
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 18 : 24,
+                      vertical: isMobile ? 8 : 10,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFD71920),
                       borderRadius: BorderRadius.circular(50),
@@ -1190,27 +1319,28 @@ extension _HomePageWidgets on _HomePageState {
                         ),
                       ],
                     ),
-                    child: const Text(
+                    child: Text(
                       'PREMİUM KALİTE',
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: isMobile ? 11 : 13,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
-                        letterSpacing: 3,
+                        letterSpacing: isMobile ? 2 : 3,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 25),
+                  SizedBox(height: isMobile ? 20 : 25),
                   // Main Title
-                  const Text(
+                  Text(
                     'MNR PETROL',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 68,
+                      fontSize: isMobile ? 36 : (isTablet ? 52 : 68),
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
-                      letterSpacing: 4,
+                      letterSpacing: isMobile ? 2 : 4,
                       height: 1.1,
-                      shadows: [
+                      shadows: const [
                         Shadow(
                           offset: Offset(0, 4),
                           blurRadius: 20,
@@ -1219,18 +1349,18 @@ extension _HomePageWidgets on _HomePageState {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 18),
+                  SizedBox(height: isMobile ? 14 : 18),
                   // Subtitle
-                  const Text(
+                  Text(
                     'Yüksek Performanslı Motor Yağları ve Endüstriyel Ürünler',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: isMobile ? 15 : (isTablet ? 18 : 22),
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
                       height: 1.5,
                       letterSpacing: 0.5,
-                      shadows: [
+                      shadows: const [
                         Shadow(
                           offset: Offset(0, 2),
                           blurRadius: 10,
@@ -1239,11 +1369,11 @@ extension _HomePageWidgets on _HomePageState {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 45),
+                  SizedBox(height: isMobile ? 35 : 45),
                   // Buttons
                   Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
+                    spacing: isMobile ? 12 : 16,
+                    runSpacing: isMobile ? 12 : 16,
                     alignment: WrapAlignment.center,
                     children: [
                       ElevatedButton(
@@ -1251,9 +1381,9 @@ extension _HomePageWidgets on _HomePageState {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFD71920),
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 36,
-                            vertical: 20,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isMobile ? 24 : 36,
+                            vertical: isMobile ? 16 : 20,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
@@ -1263,28 +1393,28 @@ extension _HomePageWidgets on _HomePageState {
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
-            Text(
+                          children: [
+                            Text(
                               'Ürünlerimizi Keşfedin',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: isMobile ? 14 : 16,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 0.5,
                               ),
                             ),
-                            SizedBox(width: 10),
-                            Icon(Icons.arrow_forward, size: 20),
-          ],
-        ),
-      ),
+                            SizedBox(width: isMobile ? 8 : 10),
+                            Icon(Icons.arrow_forward, size: isMobile ? 18 : 20),
+                          ],
+                        ),
+                      ),
                       OutlinedButton(
                         onPressed: _scrollToContact,
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          side: const BorderSide(color: Colors.white, width: 2.5),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 36,
-                            vertical: 20,
+                          side: BorderSide(color: Colors.white, width: isMobile ? 2 : 2.5),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isMobile ? 24 : 36,
+                            vertical: isMobile ? 16 : 20,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
@@ -1292,13 +1422,13 @@ extension _HomePageWidgets on _HomePageState {
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Icon(Icons.phone, size: 20),
-                            SizedBox(width: 10),
+                          children: [
+                            Icon(Icons.phone, size: isMobile ? 18 : 20),
+                            SizedBox(width: isMobile ? 8 : 10),
                             Text(
                               'İletişime Geç',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: isMobile ? 14 : 16,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 0.5,
                               ),
@@ -1308,10 +1438,13 @@ extension _HomePageWidgets on _HomePageState {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 55),
+                  SizedBox(height: isMobile ? 40 : 55),
                   // Stats
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 16 : (isTablet ? 28 : 40),
+                      vertical: isMobile ? 20 : (isTablet ? 25 : 30),
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(20),
@@ -1330,21 +1463,21 @@ extension _HomePageWidgets on _HomePageState {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        _buildStatCard('15+', 'Yıllık Tecrübe'),
+                        _buildStatCard('15+', 'Yıllık Tecrübe', isMobile),
                         Container(
-                          height: 50,
+                          height: isMobile ? 40 : 50,
                           width: 1,
-                          margin: const EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
                           color: Colors.white.withOpacity(0.3),
                         ),
-                        _buildStatCard('1000+', 'Mutlu Müşteri'),
+                        _buildStatCard('1000+', 'Mutlu Müşteri', isMobile),
                         Container(
-                          height: 50,
+                          height: isMobile ? 40 : 50,
                           width: 1,
-                          margin: const EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
                           color: Colors.white.withOpacity(0.3),
                         ),
-                        _buildStatCard('5', 'Premium Marka'),
+                        _buildStatCard('5', 'Premium Marka', isMobile),
                       ],
                     ),
                   ),
@@ -1357,24 +1490,24 @@ extension _HomePageWidgets on _HomePageState {
     );
   }
 
-  Widget _buildStatCard(String number, String label) {
+  Widget _buildStatCard(String number, String label, bool isMobile) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           number,
-          style: const TextStyle(
-            fontSize: 38,
+          style: TextStyle(
+            fontSize: isMobile ? 28 : 38,
             fontWeight: FontWeight.w900,
             color: Colors.white,
             height: 1,
           ),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: isMobile ? 6 : 8),
         Text(
           label,
           style: TextStyle(
-            fontSize: 13,
+            fontSize: isMobile ? 11 : 13,
             color: Colors.white.withOpacity(0.9),
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
@@ -1385,8 +1518,15 @@ extension _HomePageWidgets on _HomePageState {
   }
 
   Widget _buildProductsSection(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    final isTablet = screenWidth >= 768 && screenWidth < 1024;
+    
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 40 : (isTablet ? 50 : 60),
+        horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
+      ),
       color: Colors.white,
       child: Center(
         child: ConstrainedBox(
@@ -1394,38 +1534,40 @@ extension _HomePageWidgets on _HomePageState {
           child: Column(
             children: [
               Container(
-                width: 60,
+                width: isMobile ? 50 : 60,
                 height: 4,
                 decoration: BoxDecoration(
                   color: const Color(0xFFD71920),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const SizedBox(height: 20),
-              const Text(
+              SizedBox(height: isMobile ? 16 : 20),
+              Text(
                 'Ürünlerimiz',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 42,
+                  fontSize: isMobile ? 28 : (isTablet ? 36 : 42),
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1A1A1A),
+                  color: const Color(0xFF1A1A1A),
                 ),
               ),
-              const SizedBox(height: 20),
-              const Text(
+              SizedBox(height: isMobile ? 12 : 20),
+              Text(
                 'Geniş ürün yelpazemiz ile her türlü ihtiyacınıza çözüm sunuyoruz',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF4A4A4A),
+                  fontSize: isMobile ? 14 : 18,
+                  color: const Color(0xFF4A4A4A),
                 ),
               ),
-              const SizedBox(height: 60),
+              SizedBox(height: isMobile ? 40 : (isTablet ? 50 : 60)),
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                mainAxisSpacing: 24,
-                crossAxisSpacing: 24,
-                childAspectRatio: 1.1,
+                crossAxisCount: isMobile ? 1 : (isTablet ? 2 : 3),
+                mainAxisSpacing: isMobile ? 16 : (isTablet ? 20 : 24),
+                crossAxisSpacing: isMobile ? 16 : (isTablet ? 20 : 24),
+                childAspectRatio: isMobile ? 1.4 : (isTablet ? 1.2 : 1.1),
                 children: [
                   _buildProductCardWithImage(
                     Icons.directions_car_outlined,
@@ -1663,14 +1805,21 @@ extension _HomePageWidgets on _HomePageState {
   }
 
   Widget _buildBrandsSection(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    final isTablet = screenWidth >= 768 && screenWidth < 1024;
+    
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
-      decoration: BoxDecoration(
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 40 : (isTablet ? 50 : 60),
+        horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
+      ),
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFFF8F9FA),
+            Color(0xFFF8F9FA),
             Colors.white,
           ],
         ),
@@ -1681,41 +1830,43 @@ extension _HomePageWidgets on _HomePageState {
           child: Column(
             children: [
               Container(
-                width: 60,
+                width: isMobile ? 50 : 60,
                 height: 4,
                 decoration: BoxDecoration(
                   color: const Color(0xFFD71920),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const SizedBox(height: 20),
-              const Text(
+              SizedBox(height: isMobile ? 16 : 20),
+              Text(
                 'Markalarımız',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 42,
+                  fontSize: isMobile ? 28 : (isTablet ? 36 : 42),
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1A1A1A),
+                  color: const Color(0xFF1A1A1A),
                 ),
               ),
-              const SizedBox(height: 20),
-              const Text(
+              SizedBox(height: isMobile ? 12 : 20),
+              Text(
                 'Güvenilir ve kaliteli markalarla hizmetinizdeyiz',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF4A4A4A),
+                  fontSize: isMobile ? 14 : 18,
+                  color: const Color(0xFF4A4A4A),
                 ),
               ),
-              const SizedBox(height: 60),
+              SizedBox(height: isMobile ? 40 : (isTablet ? 50 : 60)),
               Wrap(
-                spacing: 40,
-                runSpacing: 40,
+                spacing: isMobile ? 24 : (isTablet ? 32 : 40),
+                runSpacing: isMobile ? 24 : (isTablet ? 32 : 40),
                 alignment: WrapAlignment.center,
                 children: [
-                  _buildBrandLogo('assets/images/logos/borax.png', 'Borax'),
-                  _buildBrandLogo('assets/images/logos/japanoil.png', 'Japan Oil'),
-                  _buildBrandLogo('assets/images/logos/xenol.png', 'Xenol'),
-                  _buildBrandLogo('assets/images/logos/oilport.png', 'Oilport'),
-                  _buildBrandLogo('assets/images/logos/brava.png', 'Brava'),
+                  _buildBrandLogo('assets/images/logos/borax.png', 'Borax', isMobile, isTablet),
+                  _buildBrandLogo('assets/images/logos/japanoil.png', 'Japan Oil', isMobile, isTablet),
+                  _buildBrandLogo('assets/images/logos/xenol.png', 'Xenol', isMobile, isTablet),
+                  _buildBrandLogo('assets/images/logos/oilport.png', 'Oilport', isMobile, isTablet),
+                  _buildBrandLogo('assets/images/logos/brava.png', 'Brava', isMobile, isTablet),
                 ],
               ),
             ],
@@ -1725,7 +1876,7 @@ extension _HomePageWidgets on _HomePageState {
     );
   }
 
-  Widget _buildBrandLogo(String imagePath, String brandName) {
+  Widget _buildBrandLogo(String imagePath, String brandName, bool isMobile, bool isTablet) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
@@ -1735,23 +1886,23 @@ extension _HomePageWidgets on _HomePageState {
           context.go('/urunler?marka=$markaParam');
         },
         child: Container(
-          width: 200,
-          height: 120,
-          padding: const EdgeInsets.all(20),
+          width: isMobile ? 140 : (isTablet ? 170 : 200),
+          height: isMobile ? 90 : (isTablet ? 105 : 120),
+          padding: EdgeInsets.all(isMobile ? 16 : (isTablet ? 18 : 20)),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: const Color(0xFFE5E7EB),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Image.asset(
             imagePath,
@@ -1763,15 +1914,22 @@ extension _HomePageWidgets on _HomePageState {
   }
 
   Widget _buildContactSection(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    final isTablet = screenWidth >= 768 && screenWidth < 1024;
+    
     return Container(
       key: _contactKey,
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 50 : (isTablet ? 65 : 80),
+        horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
+      ),
       decoration: BoxDecoration(
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage('assets/images/iletisim-arkaplan.jpg'),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.7),
+            Colors.black54,
             BlendMode.darken,
           ),
         ),
@@ -1783,13 +1941,13 @@ extension _HomePageWidgets on _HomePageState {
             children: [
               // Başlık Bölümü
               Container(
-                width: 80,
-                height: 5,
+                width: isMobile ? 60 : 80,
+                height: isMobile ? 4 : 5,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [
-                      const Color(0xFFD71920),
-                      const Color(0xFFE53935),
+                      Color(0xFFD71920),
+                      Color(0xFFE53935),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(3),
@@ -1802,15 +1960,16 @@ extension _HomePageWidgets on _HomePageState {
                   ],
                 ),
               ),
-              const SizedBox(height: 25),
-              const Text(
+              SizedBox(height: isMobile ? 20 : 25),
+              Text(
                 'Bize Ulaşın',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 48,
+                  fontSize: isMobile ? 32 : (isTablet ? 40 : 48),
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: -1,
-                  shadows: [
+                  shadows: const [
                     Shadow(
                       color: Colors.black38,
                       blurRadius: 20,
@@ -1819,14 +1978,15 @@ extension _HomePageWidgets on _HomePageState {
                   ],
                 ),
               ),
-              const SizedBox(height: 15),
-              const Text(
+              SizedBox(height: isMobile ? 12 : 15),
+              Text(
                 'Sorularınız için her zaman yanınızdayız',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: isMobile ? 15 : 18,
                   color: Colors.white,
                   fontWeight: FontWeight.w400,
-                  shadows: [
+                  shadows: const [
                     Shadow(
                       color: Colors.black26,
                       blurRadius: 10,
@@ -1835,12 +1995,14 @@ extension _HomePageWidgets on _HomePageState {
                   ],
                 ),
               ),
-              const SizedBox(height: 60),
-              Row(
+              SizedBox(height: isMobile ? 40 : (isTablet ? 50 : 60)),
+              Flex(
+                direction: isMobile ? Axis.vertical : Axis.horizontal,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    flex: 5,
+                  Flexible(
+                    flex: isMobile ? 0 : 5,
+                    fit: isMobile ? FlexFit.loose : FlexFit.tight,
                     child: Column(
                       children: [
                         _buildModernContactCard(
@@ -1848,22 +2010,27 @@ extension _HomePageWidgets on _HomePageState {
                           'Telefon',
                           '+90 532 562 71 23',
                           'Hafta içi 09:00 - 18:00',
+                          isMobile,
+                          isTablet,
                         ),
-                        const SizedBox(height: 24),
+                        SizedBox(height: isMobile ? 16 : 24),
                         _buildModernContactCard(
                           Icons.location_on_rounded,
                           'Adres',
                           'Uncalı Mh. Şehit Teğmen Abdulkadir Güler Cad.',
                           'Bilgi Sitesi, Konyaaltı / Antalya',
+                          isMobile,
+                          isTablet,
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 40),
-                  Expanded(
-                    flex: 7,
+                  SizedBox(width: isMobile ? 0 : 40, height: isMobile ? 24 : 0),
+                  Flexible(
+                    flex: isMobile ? 0 : 7,
+                    fit: isMobile ? FlexFit.loose : FlexFit.tight,
                     child: Container(
-                      padding: const EdgeInsets.all(40),
+                      padding: EdgeInsets.all(isMobile ? 24 : (isTablet ? 32 : 40)),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.95),
                         borderRadius: BorderRadius.circular(24),
@@ -1884,25 +2051,25 @@ extension _HomePageWidgets on _HomePageState {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Text(
+                            Text(
                               'Mesaj Gönderin',
                               style: TextStyle(
-                                fontSize: 28,
+                                fontSize: isMobile ? 22 : (isTablet ? 25 : 28),
                                 fontWeight: FontWeight.w800,
-                                color: Color(0xFF1A1A1A),
+                                color: const Color(0xFF1A1A1A),
                                 letterSpacing: -0.5,
                               ),
                             ),
-                            const SizedBox(height: 8),
-                            const Text(
+                            SizedBox(height: isMobile ? 6 : 8),
+                            Text(
                               'Formu doldurun, size en kısa sürede geri dönüş yapalım',
                               style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFF6B7280),
+                                fontSize: isMobile ? 13 : 15,
+                                color: const Color(0xFF6B7280),
                                 height: 1.5,
                               ),
                             ),
-                            const SizedBox(height: 32),
+                            SizedBox(height: isMobile ? 24 : 32),
                             Row(
                               children: [
                                 Expanded(
@@ -2138,12 +2305,12 @@ extension _HomePageWidgets on _HomePageState {
     );
   }
 
-  Widget _buildModernContactCard(IconData icon, String title, String content, String subtitle) {
+  Widget _buildModernContactCard(IconData icon, String title, String content, String subtitle, bool isMobile, bool isTablet) {
     return Container(
-      padding: const EdgeInsets.all(28),
+      padding: EdgeInsets.all(isMobile ? 20 : (isTablet ? 24 : 28)),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.95),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
         border: Border.all(
           color: Colors.white.withOpacity(0.3),
           width: 1,
@@ -2151,15 +2318,15 @@ extension _HomePageWidgets on _HomePageState {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
-            blurRadius: 30,
-            offset: const Offset(0, 8),
+            blurRadius: isMobile ? 20 : 30,
+            offset: Offset(0, isMobile ? 6 : 8),
           ),
         ],
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(isMobile ? 12 : 16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -2169,45 +2336,45 @@ extension _HomePageWidgets on _HomePageState {
                   const Color(0xFFE53935).withOpacity(0.05),
                 ],
               ),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(isMobile ? 12 : 16),
             ),
             child: Icon(
               icon,
-              size: 32,
+              size: isMobile ? 24 : 32,
               color: const Color(0xFFD71920),
             ),
           ),
-          const SizedBox(width: 20),
+          SizedBox(width: isMobile ? 14 : 20),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 13,
+                  style: TextStyle(
+                    fontSize: isMobile ? 11 : 13,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF9CA3AF),
+                    color: const Color(0xFF9CA3AF),
                     letterSpacing: 0.5,
                   ),
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: isMobile ? 4 : 6),
                 Text(
                   content,
-                  style: const TextStyle(
-                    fontSize: 17,
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 17,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF1A1A1A),
+                    color: const Color(0xFF1A1A1A),
                     height: 1.3,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: isMobile ? 3 : 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 13,
+                  style: TextStyle(
+                    fontSize: isMobile ? 11 : 13,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF9CA3AF),
+                    color: const Color(0xFF9CA3AF),
                   ),
                 ),
               ],
@@ -2823,64 +2990,76 @@ class AboutPage extends StatelessWidget {
 
 // Top Info Bar Widget (Tüm sayfalarda kullanılır)
 Widget _buildTopInfoBar() {
-  return Container(
-    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-    decoration: BoxDecoration(
-      color: const Color(0xFF1F2937),
-      border: Border(
-        bottom: BorderSide(
-          color: const Color(0xFFD71920).withOpacity(0.3),
-          width: 1,
+  return Builder(
+    builder: (context) {
+      final screenWidth = MediaQuery.of(context).size.width;
+      final isMobile = screenWidth < 768;
+      
+      return Container(
+        padding: EdgeInsets.symmetric(
+          vertical: isMobile ? 8 : 10,
+          horizontal: isMobile ? 16 : 40,
         ),
-      ),
-    ),
-    child: Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 1200),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Telefon
-            Icon(
-              Icons.phone_outlined,
-              size: 16,
-              color: const Color(0xFFD71920),
-            ),
-            const SizedBox(width: 8),
-            const Text(
-              '+90 532 562 71 23',
-              style: TextStyle(
-                fontSize: 13,
-                color: Color(0xFFE5E7EB),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(width: 30),
-            Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF1F2937),
+          border: Border(
+            bottom: BorderSide(
+              color: const Color(0xFFD71920).withOpacity(0.3),
               width: 1,
-              height: 16,
-              color: Colors.white.withOpacity(0.2),
             ),
-            const SizedBox(width: 30),
-            // Adres
-            Icon(
-              Icons.location_on_outlined,
-              size: 16,
-              color: const Color(0xFFD71920),
-            ),
-            const SizedBox(width: 8),
-            const Text(
-              'Uncalı Mh., Konyaaltı / Antalya',
-              style: TextStyle(
-                fontSize: 13,
-                color: Color(0xFFE5E7EB),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1200),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Telefon
+                Icon(
+                  Icons.phone_outlined,
+                  size: isMobile ? 14 : 16,
+                  color: const Color(0xFFD71920),
+                ),
+                SizedBox(width: isMobile ? 6 : 8),
+                Text(
+                  '+90 532 562 71 23',
+                  style: TextStyle(
+                    fontSize: isMobile ? 11 : 13,
+                    color: const Color(0xFFE5E7EB),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                if (!isMobile) ...[
+                  const SizedBox(width: 30),
+                  Container(
+                    width: 1,
+                    height: 16,
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                  const SizedBox(width: 30),
+                  // Adres
+                  const Icon(
+                    Icons.location_on_outlined,
+                    size: 16,
+                    color: Color(0xFFD71920),
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Uncalı Mh., Konyaaltı / Antalya',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Color(0xFFE5E7EB),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      );
+    },
   );
 }
 
@@ -2890,72 +3069,189 @@ class ModernFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            const Color(0xFF1F2937),
-            const Color(0xFF111827),
+            Color(0xFF1F2937),
+            Color(0xFF111827),
           ],
         ),
       ),
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1200),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Image.asset(
-                              'assets/images/mnr-petrol.jpg',
-                              height: 45,
-                              fit: BoxFit.contain,
-                            ),
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(
+              vertical: isMobile ? 40 : 60,
+              horizontal: isMobile ? 20 : 40,
+            ),
+            child: isMobile
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Logo
+                      Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.15),
+                                blurRadius: 8,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 25),
+                          child: Image.asset(
+                            'assets/images/mnr-petrol.jpg',
+                            height: 36,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      const Center(
+                        child: Text(
+                          'Kaliteli motor yağları ve endüstriyel ürünler',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFF9CA3AF),
+                            height: 1.5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      // Hızlı Erişim
+                      const Text(
+                        'HIZLI ERİŞİM',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildMobileFooterLink(context, 'Ana Sayfa', Icons.home_outlined),
+                      _buildMobileFooterLink(context, 'Ürünler', Icons.inventory_2_outlined),
+                      _buildMobileFooterLink(context, 'Markalar', Icons.business_outlined),
+                      _buildMobileFooterLink(context, 'Hakkımızda', Icons.info_outlined),
+                      _buildMobileFooterLink(context, 'İletişim', Icons.mail_outlined),
+                      const SizedBox(height: 20),
+                      // İletişim Bilgileri
+                      const Text(
+                        'İLETİŞİM',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.phone_outlined,
+                            size: 14,
+                            color: Color(0xFFD71920),
+                          ),
+                          const SizedBox(width: 8),
                           const Text(
-                            'Kaliteli motor yağları ve\nendüstriyel ürünler',
+                            '+90 532 562 71 23',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 13,
                               color: Color(0xFF9CA3AF),
-                              height: 1.7,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(width: 60),
-                    Expanded(
-                      child: Column(
+                      const SizedBox(height: 10),
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'HIZLI ERİŞİM',
-                            style: TextStyle(
+                          const Icon(
+                            Icons.location_on_outlined,
+                            size: 14,
+                            color: Color(0xFFD71920),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: const Text(
+                              'Uncalı Mh. Şehit Teğmen\nAbdulkadir Güler Cad.\nKonyaaltı / Antalya',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF9CA3AF),
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1200),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/mnr-petrol.jpg',
+                                    height: 45,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                const SizedBox(height: 25),
+                                const Text(
+                                  'Kaliteli motor yağları ve\nendüstriyel ürünler',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xFF9CA3AF),
+                                    height: 1.7,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 60),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'HIZLI ERİŞİM',
+                                  style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
@@ -2998,7 +3294,10 @@ class ModernFooter extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 40),
+            padding: EdgeInsets.symmetric(
+              vertical: isMobile ? 16 : 24,
+              horizontal: isMobile ? 20 : 40,
+            ),
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
@@ -3010,17 +3309,55 @@ class ModernFooter extends StatelessWidget {
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1200),
-                child: const Text(
+                child: Text(
                   '© 2025 MNR Petrol. Tüm hakları saklıdır.',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF6B7280),
+                    fontSize: isMobile ? 11 : 14,
+                    color: const Color(0xFF6B7280),
                   ),
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMobileFooterLink(BuildContext context, String text, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: GestureDetector(
+        onTap: () {
+          if (text == 'Hakkımızda') {
+            context.go('/hakkimizda');
+          } else if (text == 'Ana Sayfa') {
+            context.go('/');
+          } else if (text == 'İletişim') {
+            context.go('/?scrollTo=contact');
+          } else if (text == 'Ürünler') {
+            context.go('/urunler');
+          }
+        },
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 14,
+              color: const Color(0xFFD71920),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 13,
+                color: Color(0xFF9CA3AF),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
