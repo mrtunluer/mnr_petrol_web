@@ -2000,160 +2000,301 @@ extension _HomePageWidgets on _HomePageState {
                               ),
                             ),
                             SizedBox(height: isMobile ? 24 : 32),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: _nameController,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Zorunlu alan';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'Adınız Soyadınız',
-                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                      filled: true,
-                                      fillColor: const Color(0xFFF8F9FA),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Colors.red, width: 1),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Colors.red, width: 2),
+                            if (isMobile) ...[
+                              TextFormField(
+                                controller: _nameController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Zorunlu alan';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Adınız Soyadınız',
+                                  hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                  filled: true,
+                                  fillColor: const Color(0xFFF8F9FA),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Colors.red, width: 1),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Colors.red, width: 2),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              TextFormField(
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Zorunlu alan';
+                                  }
+                                  if (!value.contains('@')) {
+                                    return 'Geçersiz e-posta';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'E-posta Adresiniz',
+                                  hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                  filled: true,
+                                  fillColor: const Color(0xFFF8F9FA),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Colors.red, width: 1),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Colors.red, width: 2),
+                                  ),
+                                ),
+                              ),
+                            ] else
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: _nameController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Zorunlu alan';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'Adınız Soyadınız',
+                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                        filled: true,
+                                        fillColor: const Color(0xFFF8F9FA),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.red, width: 1),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.red, width: 2),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: _emailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Zorunlu alan';
-                                      }
-                                      if (!value.contains('@')) {
-                                        return 'Geçersiz e-posta';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'E-posta Adresiniz',
-                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                      filled: true,
-                                      fillColor: const Color(0xFFF8F9FA),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Colors.red, width: 1),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Colors.red, width: 2),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: _emailController,
+                                      keyboardType: TextInputType.emailAddress,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Zorunlu alan';
+                                        }
+                                        if (!value.contains('@')) {
+                                          return 'Geçersiz e-posta';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'E-posta Adresiniz',
+                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                        filled: true,
+                                        fillColor: const Color(0xFFF8F9FA),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.red, width: 1),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.red, width: 2),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
                             const SizedBox(height: 16),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: _phoneController,
-                                    keyboardType: TextInputType.phone,
-                                    decoration: InputDecoration(
-                                      hintText: 'Telefon (Opsiyonel)',
-                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                      filled: true,
-                                      fillColor: const Color(0xFFF8F9FA),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                            if (isMobile) ...[
+                              TextFormField(
+                                controller: _phoneController,
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                  hintText: 'Telefon (Opsiyonel)',
+                                  hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                  filled: true,
+                                  fillColor: const Color(0xFFF8F9FA),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              TextFormField(
+                                controller: _subjectController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Zorunlu alan';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Konu Başlığı',
+                                  hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                  filled: true,
+                                  fillColor: const Color(0xFFF8F9FA),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Colors.red, width: 1),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: const BorderSide(color: Colors.red, width: 2),
+                                  ),
+                                ),
+                              ),
+                            ] else
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: _phoneController,
+                                      keyboardType: TextInputType.phone,
+                                      decoration: InputDecoration(
+                                        hintText: 'Telefon (Opsiyonel)',
+                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                        filled: true,
+                                        fillColor: const Color(0xFFF8F9FA),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: _subjectController,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Zorunlu alan';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'Konu Başlığı',
-                                      hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
-                                      filled: true,
-                                      fillColor: const Color(0xFFF8F9FA),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Colors.red, width: 1),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide: const BorderSide(color: Colors.red, width: 2),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: _subjectController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Zorunlu alan';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'Konu Başlığı',
+                                        hintStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+                                        filled: true,
+                                        fillColor: const Color(0xFFF8F9FA),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Color(0xFFD71920), width: 2),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.red, width: 1),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.red, width: 2),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _messageController,
