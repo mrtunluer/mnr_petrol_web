@@ -4283,9 +4283,9 @@ class _ProductsPageState extends State<ProductsPage> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          childAspectRatio: 1.2,
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 20,
+                          childAspectRatio: 0.75, // Daha uzun, daha modern kartlar
                         ),
                         itemCount: products.length,
                         itemBuilder: (context, index) {
@@ -5438,6 +5438,9 @@ class _ModernProductCardState extends State<_ModernProductCard> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
     return GestureDetector(
       onTap: () {
         context.go('/urun/${_generateProductId()}');
@@ -5449,23 +5452,23 @@ class _ModernProductCardState extends State<_ModernProductCard> {
         child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutCubic,
-        transform: Matrix4.translationValues(0, _isHovered ? -12 : 0, 0),
+        transform: Matrix4.translationValues(0, _isHovered && !isMobile ? -12 : 0, 0),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
           border: Border.all(
             color: _isHovered
                 ? const Color(0xFFD71920).withOpacity(0.3)
                 : const Color(0xFFE5E7EB),
-            width: 2,
+            width: isMobile ? 1.5 : 2,
           ),
           boxShadow: [
             BoxShadow(
               color: _isHovered
-                  ? const Color(0xFFD71920).withOpacity(0.2)
-                  : Colors.black.withOpacity(0.06),
-              blurRadius: _isHovered ? 30 : 15,
-              offset: Offset(0, _isHovered ? 16 : 8),
+                  ? const Color(0xFFD71920).withOpacity(0.15)
+                  : Colors.black.withOpacity(isMobile ? 0.04 : 0.06),
+              blurRadius: _isHovered ? (isMobile ? 20 : 30) : (isMobile ? 10 : 15),
+              offset: Offset(0, _isHovered ? (isMobile ? 8 : 16) : (isMobile ? 4 : 8)),
             ),
           ],
         ),
@@ -5474,21 +5477,24 @@ class _ModernProductCardState extends State<_ModernProductCard> {
           children: [
             // Image Container with Gradient
             Expanded(
+              flex: isMobile ? 3 : 2, // Mobilde görsel daha büyük
               child: Stack(
                 children: [
                   // Background
                   Container(
-                    padding: const EdgeInsets.all(24),
+                    padding: EdgeInsets.all(isMobile ? 32 : 24),
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          const Color(0xFFF8F9FA),
-                          const Color(0xFFFFFFFF),
+                          Color(0xFFF8F9FA),
+                          Color(0xFFFFFFFF),
                         ],
                       ),
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(isMobile ? 16 : 20),
+                      ),
                     ),
                     child: Image.asset(
                       widget.product['image']!,
@@ -5497,10 +5503,13 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                   ),
                   // Category Badge
                   Positioned(
-                    top: 12,
-                    right: 12,
+                    top: isMobile ? 10 : 12,
+                    right: isMobile ? 10 : 12,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 10 : 12,
+                        vertical: isMobile ? 5 : 6,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFD71920),
                         borderRadius: BorderRadius.circular(20),
@@ -5514,8 +5523,8 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                       ),
                       child: Text(
                         widget.product['category']!,
-                        style: const TextStyle(
-                          fontSize: 10,
+                        style: TextStyle(
+                          fontSize: isMobile ? 9 : 10,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -5525,13 +5534,13 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                   ),
                   // Brand Logo
                   Positioned(
-                    top: 12,
-                    left: 12,
+                    top: isMobile ? 10 : 12,
+                    left: isMobile ? 10 : 12,
                     child: Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(isMobile ? 6 : 8),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(isMobile ? 8 : 10),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
@@ -5542,8 +5551,8 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                       ),
                       child: Image.asset(
                         'assets/images/logos/${_getBrandLogoFileName(widget.product['brand']!)}.png',
-                        width: 32,
-                        height: 32,
+                        width: isMobile ? 28 : 32,
+                        height: isMobile ? 28 : 32,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -5553,19 +5562,22 @@ class _ModernProductCardState extends State<_ModernProductCard> {
             ),
             // Product Info
             Container(
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
+              padding: EdgeInsets.all(isMobile ? 16 : 20),
+              decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(isMobile ? 16 : 20),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   // Product Name
                   Text(
                     widget.product['name']!,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: isMobile ? 14 : 15,
                       fontWeight: FontWeight.w700,
                       color: _isHovered ? const Color(0xFFD71920) : const Color(0xFF111827),
                       height: 1.4,
@@ -5574,23 +5586,27 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: isMobile ? 6 : 8),
                   // Brand Name
                   Row(
                     children: [
                       Icon(
                         Icons.verified,
-                        size: 14,
+                        size: isMobile ? 13 : 14,
                         color: Colors.grey[400],
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        widget.product['brand']!,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey[600],
-                          letterSpacing: 0.2,
+                      Expanded(
+                        child: Text(
+                          widget.product['brand']!,
+                          style: TextStyle(
+                            fontSize: isMobile ? 11 : 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[600],
+                            letterSpacing: 0.2,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
