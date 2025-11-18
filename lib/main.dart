@@ -423,7 +423,11 @@ $message
   }
 
   void _showMobileMenu(BuildContext context) {
-    showGlobalMobileMenu(context, currentPage: 'home');
+    showGlobalMobileMenu(
+      context,
+      currentPage: 'home',
+      onContactTap: _scrollToContact,
+    );
   }
 
   Widget _buildNavItem(BuildContext context, String title, int section, bool isActive) {
@@ -2952,7 +2956,7 @@ class AboutPage extends StatelessWidget {
 }
 
 // Global Mobile Menu Widget (Tüm sayfalarda tutarlı hamburger menü)
-void showGlobalMobileMenu(BuildContext context, {String? currentPage}) {
+void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallback? onContactTap}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -3020,7 +3024,15 @@ void showGlobalMobileMenu(BuildContext context, {String? currentPage}) {
             Icons.mail_outlined,
             () {
               Navigator.pop(context);
-              context.go('/?scrollTo=contact');
+              if (currentPage == 'home' && onContactTap != null) {
+                // Ana sayfadayız, direkt scroll yap
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  onContactTap();
+                });
+              } else {
+                // Başka sayfadayız, ana sayfaya git ve scroll yap
+                context.go('/?scrollTo=contact');
+              }
             },
             isActive: currentPage == 'contact',
           ),
