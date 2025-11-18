@@ -406,8 +406,8 @@ $message
       return _BrandsDropdownNavItem(
         isActive: isActive,
         onBrandSelected: (brandName) {
-          // Ürünler sayfasına git ve marka filtrele
-          context.go('/urunler?marka=${brandName.toLowerCase()}');
+          // Ürünler sayfasına git ve marka filtrele (boşlukları kaldır)
+          context.go('/urunler?marka=${brandName.toLowerCase().replaceAll(' ', '')}');
         },
       );
     }
@@ -1247,7 +1247,7 @@ extension _HomePageWidgets on _HomePageState {
                     alignment: WrapAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => context.go('/urunler'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFD71920),
                           foregroundColor: Colors.white,
@@ -1552,9 +1552,26 @@ extension _HomePageWidgets on _HomePageState {
   }
 
   Widget _buildProductCardWithImage(IconData icon, String title, String description, String imagePath) {
+    // Kategori mapping
+    String? kategori;
+    if (title == 'Motor Yağları') kategori = 'motor';
+    else if (title == 'Motorsiklet Yağları') kategori = 'motorsiklet';
+    else if (title == 'Şanzıman ve Dişli Yağları') kategori = 'sanziman';
+    else if (title == 'Hidrolik Sistem Yağları') kategori = 'hidrolik';
+    else if (title == 'Sarf Malzemeler') kategori = 'sarf';
+    else if (title == 'Antifrizler') kategori = 'antifriz';
+    
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: ClipRRect(
+      child: GestureDetector(
+        onTap: () {
+          if (kategori != null) {
+            context.go('/urunler?kategori=$kategori');
+          } else {
+            context.go('/urunler');
+          }
+        },
+        child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Container(
           decoration: BoxDecoration(
@@ -1640,6 +1657,7 @@ extension _HomePageWidgets on _HomePageState {
             ],
           ),
         ),
+        ),
       ),
     );
   }
@@ -1708,15 +1726,23 @@ extension _HomePageWidgets on _HomePageState {
   }
 
   Widget _buildBrandLogo(String imagePath, String brandName) {
-    return Container(
-      width: 200,
-      height: 120,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFFE5E7EB),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          // Marka ismini normalize et (Japan Oil -> japanoil)
+          String markaParam = brandName.toLowerCase().replaceAll(' ', '');
+          context.go('/urunler?marka=$markaParam');
+        },
+        child: Container(
+          width: 200,
+          height: 120,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: const Color(0xFFE5E7EB),
           width: 1,
         ),
         boxShadow: [
@@ -1726,10 +1752,12 @@ extension _HomePageWidgets on _HomePageState {
             offset: const Offset(0, 4),
           ),
         ],
-      ),
-      child: Image.asset(
-        imagePath,
-        fit: BoxFit.contain,
+          ),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
+        ),
       ),
     );
   }
@@ -2575,8 +2603,8 @@ class AboutPage extends StatelessWidget {
       return _BrandsDropdownNavItem(
         isActive: isActive,
         onBrandSelected: (brandName) {
-          // Ürünler sayfasına git ve marka filtrele
-          context.go('/urunler?marka=${brandName.toLowerCase()}');
+          // Ürünler sayfasına git ve marka filtrele (boşlukları kaldır)
+          context.go('/urunler?marka=${brandName.toLowerCase().replaceAll(' ', '')}');
         },
       );
     }
@@ -3341,18 +3369,13 @@ class _ProductsPageState extends State<ProductsPage> {
         if (normalizedCategory == 'sarf') {
           matchesCategory = lowerKey.contains('-katki') || lowerKey.contains('-fren');
         } 
-        // "katki" seçilirse kategori badge'ine göre filtrele
+        // "katki" seçilirse sadece katkı maddeleri
         else if (normalizedCategory == 'katki') {
-          // Ürünlerin category field'ına bak
-          matchesCategory = products.any((product) => 
-            product['category']?.toLowerCase().contains('katkı') ?? false
-          );
+          matchesCategory = lowerKey.contains('-katki');
         }
-        // "fren" seçilirse kategori badge'ine göre filtrele
+        // "fren" seçilirse sadece fren hidrolik sıvıları
         else if (normalizedCategory == 'fren') {
-          matchesCategory = products.any((product) => 
-            product['category']?.toLowerCase().contains('fren') ?? false
-          );
+          matchesCategory = lowerKey.contains('-fren');
         }
         // Diğer kategoriler için key bazlı kontrol
         else {
@@ -3546,13 +3569,15 @@ class _ProductsPageState extends State<ProductsPage> {
           else if (productName == 'Hidrolik Sistem Yağları') kategori = 'hidrolik';
           else if (productName == 'Sarf Malzemeler') kategori = 'sarf';
           else if (productName == 'Antifrizler') kategori = 'antifriz';
+          else if (productName == 'Fren Hidrolik Sıvıları') kategori = 'fren';
+          else if (productName == 'Katkı Maddeleri') kategori = 'katki';
           
-          // Ürünler sayfasına kategori ile git
-          if (kategori != null) {
-            context.go('/urunler?kategori=$kategori');
-          } else {
-            context.go('/urunler');
-          }
+          // State'i güncelle ve URL'yi değiştir
+          setState(() {
+            _selectedCategory = kategori;
+            _selectedBrand = null; // Markayı temizle - sadece kategori filtresi
+          });
+          _updateUrl();
         },
       );
     }
@@ -3562,7 +3587,13 @@ class _ProductsPageState extends State<ProductsPage> {
       return _BrandsDropdownNavItem(
         isActive: isActive,
         onBrandSelected: (brandName) {
-          context.go('/urunler?marka=${brandName.toLowerCase()}');
+          // Marka ismini normalize et ve _updateUrl kullanarak state'i güncelle
+          String markaParam = brandName.toLowerCase().replaceAll(' ', '');
+          setState(() {
+            _selectedBrand = markaParam;
+            _selectedCategory = null; // Kategoriyi temizle - sadece marka filtresi
+          });
+          _updateUrl();
         },
       );
     }
@@ -3965,7 +3996,10 @@ class _ProductsPageState extends State<ProductsPage> {
       children: brands.asMap().entries.map((entry) {
         int index = entry.key;
         String brand = entry.value;
-        bool isSelected = brand == selected;
+        // Marka karşılaştırması: URL'deki "japanoil" ile "Japan Oil" eşleşmeli
+        String brandNormalized = brand.toLowerCase().replaceAll(' ', '');
+        String selectedNormalized = selected.toLowerCase().replaceAll(' ', '');
+        bool isSelected = brandNormalized == selectedNormalized;
         return _buildCheckboxItem(
           brand,
           isSelected,
@@ -4584,19 +4618,19 @@ class ProductDetailPage extends StatelessWidget {
                 ),
               ],
             ),
-            // Fixed Top Info Bar
+            // Fixed Top Info Bar (global)
             Positioned(
               top: 0,
               left: 0,
               right: 0,
               child: _buildTopInfoBar(),
             ),
-            // Fixed Header
+            // Fixed Header (shared component)
             Positioned(
               top: 42,
               left: 0,
               right: 0,
-              child: _buildHeader(context),
+              child: _SharedHeader(currentPath: '/urun/$productId'),
             ),
           ],
         ),
@@ -4616,128 +4650,6 @@ class ProductDetailPage extends StatelessWidget {
         .replaceAll('ö', 'o')
         .replaceAll('ç', 'c');
     return '$brandNorm-$nameNorm';
-  }
-
-  Widget _buildTopInfoBar() {
-    return Container(
-      height: 42,
-      decoration: const BoxDecoration(
-        color: Color(0xFF1a1a1a),
-      ),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.phone, color: Colors.white, size: 16),
-            const SizedBox(width: 8),
-            const Text(
-              '+90 532 562 71 23',
-              style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(width: 24),
-            const Icon(Icons.location_on, color: Colors.white, size: 16),
-            const SizedBox(width: 8),
-            const Text(
-              'Uncalı Mh. Konyaaltı / Antalya',
-              style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.black.withOpacity(0.06), width: 1)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1400),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () => context.go('/'),
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Image.asset(
-                      'assets/images/mnr-petrol.jpg',
-                      height: 70,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 24),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF374151),
-                        letterSpacing: 0.3,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Antalya Madeni Yağ',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF9CA3AF),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ],
-                ),
-                Spacer(),
-                _buildNavItem(context, 'Ana Sayfa', '/', false, null, null),
-                _buildNavItem(context, 'Hakkımızda', '/hakkimizda', false, null, null),
-                _buildNavItem(context, 'Ürünler', '/urunler', false, null, null),
-                _buildNavItem(context, 'İletişim', '/', true, null, null),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(BuildContext context, String title, String path, bool isScroll, Function? onProductSelected, Function? onBrandSelected) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
-        onTap: () {
-          if (isScroll) {
-            context.go('/#iletisim');
-          } else {
-            context.go(path);
-          }
-        },
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF1F2937),
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _buildDetailContent(BuildContext context, Map<String, String> product) {
@@ -4922,37 +4834,29 @@ class ProductDetailPage extends StatelessWidget {
                             const SizedBox(height: 16),
                             _buildFeature(Icons.workspace_premium_rounded, 'Kalite Belgeli', 'Uluslararası standartlarda'),
                             const SizedBox(height: 40),
-                            // İletişim Butonu
-                            SizedBox(
+                            // Telefon Numarası (Tıklanamaz)
+                            Container(
                               width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  context.go('/#iletisim');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFD71920),
-                                  padding: const EdgeInsets.symmetric(vertical: 20),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                  elevation: 0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.phone_rounded, color: Colors.white, size: 22),
-                                    const SizedBox(width: 12),
-                                    const Text(
-                                      'Fiyat Bilgisi Al',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                        letterSpacing: 0.3,
-                                      ),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFD71920),
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.phone_rounded, color: Colors.white, size: 22),
+                                  const SizedBox(width: 12),
+                                  const Text(
+                                    '+90 532 562 71 23',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -5059,6 +4963,177 @@ class ProductDetailPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+// Paylaşılan Header Widget (Tüm sayfalarda kullanılır - Dropdown'larla birlikte)
+class _SharedHeader extends StatelessWidget {
+  final String currentPath;
+  
+  const _SharedHeader({required this.currentPath});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.black.withOpacity(0.06),
+            width: 1,
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 20,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Logo ve Şirket İsmi
+            GestureDetector(
+              onTap: () => context.go('/'),
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFFF8F9FA),
+                            Colors.white,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: const Color(0xFFE5E7EB),
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.08),
+                            blurRadius: 12,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Image.asset(
+                        'assets/images/mnr-petrol.jpg',
+                        height: 80,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF111827),
+                            letterSpacing: 0.3,
+                            height: 1.3,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Antalya Madeni Yağ',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF6B7280),
+                            letterSpacing: 0.2,
+                            height: 1.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Navigation
+            Row(
+              children: [
+                _buildNavItem(context, 'Ana Sayfa', currentPath == '/'),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'Ürünler', currentPath.startsWith('/urunler') || currentPath.startsWith('/urun/')),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'Markalar', false),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'Hakkımızda', currentPath == '/hakkimizda'),
+                const SizedBox(width: 32),
+                _buildNavItem(context, 'İletişim', false),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildNavItem(BuildContext context, String title, bool isActive) {
+    // Ürünler için dropdown menü
+    if (title == 'Ürünler') {
+      return _ProductsDropdownNavItem(
+        isActive: isActive,
+        onProductSelected: (productName) {
+          // Kategori map
+          String? kategori;
+          if (productName == 'Motor Yağları') kategori = 'motor';
+          else if (productName == 'Motorsiklet Yağları') kategori = 'motorsiklet';
+          else if (productName == 'Şanzıman ve Dişli Yağları') kategori = 'sanziman';
+          else if (productName == 'Hidrolik Sistem Yağları') kategori = 'hidrolik';
+          else if (productName == 'Sarf Malzemeler') kategori = 'sarf';
+          else if (productName == 'Antifrizler') kategori = 'antifriz';
+          else if (productName == 'Fren Hidrolik Sıvıları') kategori = 'fren';
+          else if (productName == 'Katkı Maddeleri') kategori = 'katki';
+          
+          // Ürünler sayfasına kategori ile git
+          if (kategori != null) {
+            context.go('/urunler?kategori=$kategori');
+          } else {
+            context.go('/urunler');
+          }
+        },
+      );
+    }
+    
+    // Markalar için dropdown menü
+    if (title == 'Markalar') {
+      return _BrandsDropdownNavItem(
+        isActive: isActive,
+        onBrandSelected: (brandName) {
+          context.go('/urunler?marka=${brandName.toLowerCase().replaceAll(' ', '')}');
+        },
+      );
+    }
+    
+    return _ModernNavItem(
+      title: title,
+      isActive: isActive,
+      onTap: () {
+        if (title == 'Ana Sayfa') {
+          context.go('/');
+        } else if (title == 'Hakkımızda') {
+          context.go('/hakkimizda');
+        } else if (title == 'İletişim') {
+          context.go('/?scrollTo=contact');
+        }
+      },
     );
   }
 }
