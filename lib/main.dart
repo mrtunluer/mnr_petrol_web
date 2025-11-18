@@ -3173,84 +3173,83 @@ class _ProductsPageState extends State<ProductsPage> {
 
   final Map<String, List<Map<String, String>>> _products = {
     'borax-motor': [
-      {'name': 'Borax 10W40 Bidon Motor', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax 15W40 Ağır Dizel Motor', 'image': 'assets/images/borax/motor/borax-15w40-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax 15W40 Bidon Ağır Dizel Motor', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax 20W50 Ağır Dizel Motor', 'image': 'assets/images/borax/motor/borax-20w50-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax 20W50 Bidon Motor', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax 5W40 Bidon Motor', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax DPF 5W30 Motor', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Molygen 0W20 Motor', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Molygen 0W30 Motor', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Molygen 10W40 Motor', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Molygen 5W30 Motor', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Platinum Full Synthetic 10W40', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Ultimate DX 20W50', 'image': 'assets/images/borax/motor/borax-20w50-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax 20W50', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Platinium Full Synthetic 5W40', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Platinium Full Synthetic DPF 5W30', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 0W20', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 0W30', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 10W40', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 5W30', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
     ],
     'borax-sanziman': [
-      {'name': 'Borax 30 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-30-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax 75W80 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax 75W90 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-75w90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax 80:90 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-80:90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax 85W140 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-85w140-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax EP 75W80 Şanzıman', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Şanzıman', 'image': 'assets/images/borax/sanziman/borax-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 30', 'image': 'assets/images/borax/sanziman/borax-30-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax 75W80', 'image': 'assets/images/borax/sanziman/borax-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 75W90', 'image': 'assets/images/borax/sanziman/borax-75w90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80:90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 85W140', 'image': 'assets/images/borax/sanziman/borax-85w140-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax EP 75W80', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series', 'image': 'assets/images/borax/sanziman/borax-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
     ],
     'borax-hidrolik': [
-      {'name': 'Borax Hidrolik', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
+      {'name': 'Borax Hydro Plus 68 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
     ],
     'brava-motorsiklet': [
-      {'name': 'Brava 10W40 4T Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava 10W40 4T Semi Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava 10W50 4T Semi Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w50-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava 10W50 Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-10w50-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava 15W50 4T Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-15w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava 5W40 4T Semi Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-5w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava 5W50 4T Motorsiklet', 'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 9000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 6000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 6000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 9000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 6000 4T 15W50', 'image': 'assets/images/brava/motorsiklet/brava-15w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 6000 4T 5W40', 'image': 'assets/images/brava/motorsiklet/brava-5w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 9000 4T 5W50', 'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
     ],
     'brava-katki': [
-      {'name': 'Brava Chain Cleaner', 'image': 'assets/images/brava/katki/brava-chain cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
+      {'name': 'Brava Zincir Temizleyici', 'image': 'assets/images/brava/katki/brava-chain cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
       {'name': 'Brava Katkı', 'image': 'assets/images/brava/katki/brava-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
-      {'name': 'Brava Nano Katkı', 'image': 'assets/images/brava/katki/brava-nano-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
+      {'name': 'Brava Nano Complex', 'image': 'assets/images/brava/katki/brava-nano-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
     ],
     'japanoil-motor': [
-      {'name': 'Japan Oil Bipower Molytech 5W30', 'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları'},
-      {'name': 'Japan Oil Molytech 5W30 Motor', 'image': 'assets/images/japanoil/motor/japanoil-molytech-5w30-motor.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları'},
+      {'name': 'Japan Oil Molytech Sn+ Plus Tam Sentetik 5W30', 'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları'}
     ],
     'japanoil-motorsiklet': [
-      {'name': 'Japan Oil Bipower 10W40 Motorsiklet', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-10w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Japan Oil Bipower 15W50 Motorsiklet', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-15w50-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Japan Oil Bipower 20W40 Motorsiklet', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Japan Oil 4T 10W-40 SN MA2 Red', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-10w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Japan Oıl 4T 15W-50 SM-MA 2 Purple', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-15w50-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Japan Oil 4T 20W40 SE-MA 2 Grey', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
     ],
     'japanoil-sanziman': [
-      {'name': 'Japan Oil Bipower CVT NS3 Şanzıman', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Japan Oil Bipower CVT Şanzıman', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Japan Oil Otomatik Şanzıman Cvt Fluid-Ns-3', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Japan Oil Otomatik Şanzıman Atf-Cvt-Fe', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
     ],
     'xenol-motor': [
-      {'name': 'Xenol 10W40', 'image': 'assets/images/xenol/motor/xenol-10w40.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
-      {'name': 'Xenol 5W30 Motor', 'image': 'assets/images/xenol/motor/xenol-5w30-motor.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
+      {'name': 'Xenol Ceramix Blue 10W40 SN/CF', 'image': 'assets/images/xenol/motor/xenol-10w40.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
+      {'name': 'Xenol Ceramix Blue 5W30 SN/CF', 'image': 'assets/images/xenol/motor/xenol-5w30-motor.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
     ],
     'xenol-sanziman': [
-      {'name': 'Xenol ATF Dexron Şanzıman', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Xenol CVT Şanzıman', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Xenol Atf Dexron VI', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Xenol Cvt Fluid', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
     ],
     'xenol-hidrolik': [
-      {'name': 'Xenol Green ATF Direksiyon', 'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png', 'brand': 'Xenol', 'category': 'Hidrolik Sistem Yağları'},
+      {'name': 'Xenol Green Atf', 'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png', 'brand': 'Xenol', 'category': 'Hidrolik Sistem Yağları'},
     ],
     'oilport-motor': [
-      {'name': 'Oilport 10W40 Motor', 'image': 'assets/images/oilport/motor/oilport-10w40-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
-      {'name': 'Oilport 20W50 Motor', 'image': 'assets/images/oilport/motor/oilport-20w50-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
-      {'name': 'Oilport 5W30 Motor', 'image': 'assets/images/oilport/motor/oilport-5w30-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
+      {'name': 'Oilport 10W40', 'image': 'assets/images/oilport/motor/oilport-10w40-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
+      {'name': 'Oilport 20W50', 'image': 'assets/images/oilport/motor/oilport-20w50-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
+      {'name': 'Oilport 5W30', 'image': 'assets/images/oilport/motor/oilport-5w30-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
     ],
     'oilport-motorsiklet': [
-      {'name': 'Oilport 4T 10W40 Motorsiklet', 'image': 'assets/images/oilport/motorsiklet/oilport-4t-10w40-motorsiklet.png', 'brand': 'Oilport', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Oilport 4T 10W40', 'image': 'assets/images/oilport/motorsiklet/oilport-4t-10w40-motorsiklet.png', 'brand': 'Oilport', 'category': 'Motorsiklet Yağları'},
     ],
     'oilport-hidrolik': [
-      {'name': 'Oilport ATF Direksiyon', 'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png', 'brand': 'Oilport', 'category': 'Hidrolik Sistem Yağları'},
+      {'name': 'Oilport ATF', 'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png', 'brand': 'Oilport', 'category': 'Hidrolik Sistem Yağları'},
     ],
     'oilport-antifriz': [
       {'name': 'Oilport Bidon Antifreeze', 'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png', 'brand': 'Oilport', 'category': 'Antifrizler'},
     ],
     'oilport-katki': [
-      {'name': 'Oilport Zincir', 'image': 'assets/images/oilport/sarf/oilport-zincir.png', 'brand': 'Oilport', 'category': 'Katkı Maddeleri'},
+      {'name': 'Oilport Bıçkı Zincir Yağı', 'image': 'assets/images/oilport/sarf/oilport-zincir.png', 'brand': 'Oilport', 'category': 'Katkı Maddeleri'},
     ],
   };
 
@@ -3347,41 +3346,43 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     final filteredProducts = _getFilteredProducts();
     
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          CustomScrollView(
-            slivers: [
-              // Spacer for fixed elements
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 142), // 42px top bar + 100px header
-              ),
-              // Content
-              SliverToBoxAdapter(
-                child: _buildContent(context, filteredProducts),
-              ),
-              // Footer
-              SliverToBoxAdapter(
-                child: ModernFooter(),
-              ),
-            ],
-          ),
-          // Fixed Top Info Bar
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: _buildTopInfoBar(),
-          ),
-          // Fixed Header
-          Positioned(
-            top: 42,
+    return SelectionArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            CustomScrollView(
+              slivers: [
+                // Spacer for fixed elements
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 142), // 42px top bar + 100px header
+                ),
+                // Content
+                SliverToBoxAdapter(
+                  child: _buildContent(context, filteredProducts),
+                ),
+                // Footer
+                SliverToBoxAdapter(
+                  child: ModernFooter(),
+                ),
+              ],
+            ),
+            // Fixed Top Info Bar
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: _buildTopInfoBar(),
+            ),
+            // Fixed Header
+            Positioned(
+              top: 42,
             left: 0,
             right: 0,
             child: _buildHeader(context),
           ),
         ],
+      ),
       ),
     );
   }
