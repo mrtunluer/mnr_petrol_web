@@ -3224,6 +3224,34 @@ class _ProductsPageState extends State<ProductsPage> {
       {'name': 'Japan Oil Bipower CVT NS3 Şanzıman', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
       {'name': 'Japan Oil Bipower CVT Şanzıman', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
     ],
+    'xenol-motor': [
+      {'name': 'Xenol 10W40', 'image': 'assets/images/xenol/motor/xenol-10w40.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
+      {'name': 'Xenol 5W30 Motor', 'image': 'assets/images/xenol/motor/xenol-5w30-motor.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
+    ],
+    'xenol-sanziman': [
+      {'name': 'Xenol ATF Dexron Şanzıman', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Xenol CVT Şanzıman', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
+    ],
+    'xenol-hidrolik': [
+      {'name': 'Xenol Green ATF Direksiyon', 'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png', 'brand': 'Xenol', 'category': 'Hidrolik Sistem Yağları'},
+    ],
+    'oilport-motor': [
+      {'name': 'Oilport 10W40 Motor', 'image': 'assets/images/oilport/motor/oilport-10w40-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
+      {'name': 'Oilport 20W50 Motor', 'image': 'assets/images/oilport/motor/oilport-20w50-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
+      {'name': 'Oilport 5W30 Motor', 'image': 'assets/images/oilport/motor/oilport-5w30-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
+    ],
+    'oilport-motorsiklet': [
+      {'name': 'Oilport 4T 10W40 Motorsiklet', 'image': 'assets/images/oilport/motorsiklet/oilport-4t-10w40-motorsiklet.png', 'brand': 'Oilport', 'category': 'Motorsiklet Yağları'},
+    ],
+    'oilport-hidrolik': [
+      {'name': 'Oilport ATF Direksiyon', 'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png', 'brand': 'Oilport', 'category': 'Hidrolik Sistem Yağları'},
+    ],
+    'oilport-antifriz': [
+      {'name': 'Oilport Bidon Antifreeze', 'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png', 'brand': 'Oilport', 'category': 'Antifrizler'},
+    ],
+    'oilport-katki': [
+      {'name': 'Oilport Zincir', 'image': 'assets/images/oilport/sarf/oilport-zincir.png', 'brand': 'Oilport', 'category': 'Katkı Maddeleri'},
+    ],
   };
 
   @override
@@ -3295,7 +3323,15 @@ class _ProductsPageState extends State<ProductsPage> {
         }
         // Diğer kategoriler için key bazlı kontrol
         else {
-          matchesCategory = lowerKey.contains('-$normalizedCategory');
+          // Kesin eşleşme için: "-motor" ve "-motorsiklet" ayrı ayrı kontrol edilmeli
+          if (normalizedCategory == 'motor') {
+            // Sadece "-motor" ile biten, "-motorsiklet" olmayanlar
+            matchesCategory = lowerKey.contains('-motor') && !lowerKey.contains('-motorsiklet');
+          } else if (normalizedCategory == 'motorsiklet') {
+            matchesCategory = lowerKey.contains('-motorsiklet');
+          } else {
+            matchesCategory = lowerKey.contains('-$normalizedCategory');
+          }
         }
       }
       
@@ -3651,7 +3687,7 @@ class _ProductsPageState extends State<ProductsPage> {
         _buildFilterDropdown(
           'Marka',
           _selectedBrand ?? 'Tümü',
-          ['Tümü', 'Borax', 'Brava', 'Japan Oil'],
+          ['Tümü', 'Borax', 'Brava', 'Japan Oil', 'Xenol', 'Oilport'],
           (value) {
             setState(() {
               _selectedBrand = value == 'Tümü' ? null : value;
@@ -3882,7 +3918,7 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Widget _buildBrandFilters() {
-    final brands = ['Tümü', 'Borax', 'Brava', 'Japan Oil'];
+    final brands = ['Tümü', 'Borax', 'Brava', 'Japan Oil', 'Xenol', 'Oilport'];
     String selected = _selectedBrand ?? 'Tümü';
     
     return Column(

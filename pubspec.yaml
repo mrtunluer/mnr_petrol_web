@@ -70,6 +70,14 @@ flutter:
     - assets/images/japanoil/motor/
     - assets/images/japanoil/motorsiklet/
     - assets/images/japanoil/sanziman/
+    - assets/images/xenol/motor/
+    - assets/images/xenol/sanziman/
+    - assets/images/xenol/direksiyon/
+    - assets/images/oilport/motor/
+    - assets/images/oilport/motorsiklet/
+    - assets/images/oilport/direksiyon/
+    - assets/images/oilport/antifriz/
+    - assets/images/oilport/sarf/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
