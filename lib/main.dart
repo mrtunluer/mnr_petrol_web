@@ -3202,15 +3202,22 @@ class ModernFooter extends StatelessWidget {
     final isMobile = screenWidth < 768;
     
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
           colors: [
-            Color(0xFF1F2937),
-            Color(0xFF111827),
+            const Color(0xFF0F172A), // Slate 900
+            const Color(0xFF020617), // Slate 950
           ],
         ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFD71920).withOpacity(0.05),
+            blurRadius: 40,
+            offset: const Offset(0, -10),
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -3227,34 +3234,36 @@ class ModernFooter extends StatelessWidget {
                       // Logo
                       Center(
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(16),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                blurRadius: 8,
-                                offset: const Offset(0, 3),
+                                color: const Color(0xFFD71920).withOpacity(0.15),
+                                blurRadius: 16,
+                                offset: const Offset(0, 6),
                               ),
                             ],
                           ),
                           child: Image.asset(
                             'assets/images/mnr-petrol.jpg',
-                            height: 36,
+                            height: 42,
                             fit: BoxFit.contain,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
                       const Center(
                         child: Text(
                           'Kaliteli motor yağları ve endüstriyel ürünler',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 13,
-                            color: Color(0xFF9CA3AF),
-                            height: 1.5,
+                            fontSize: 14,
+                            color: Color(0xFF94A3B8),
+                            height: 1.6,
+                            fontWeight: FontWeight.w400,
+                            letterSpacing: 0.2,
                           ),
                         ),
                       ),
@@ -3346,31 +3355,33 @@ class ModernFooter extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(16),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        blurRadius: 10,
-                                        offset: const Offset(0, 4),
+                                        color: const Color(0xFFD71920).withOpacity(0.2),
+                                        blurRadius: 20,
+                                        offset: const Offset(0, 8),
                                       ),
                                     ],
                                   ),
                                   child: Image.asset(
                                     'assets/images/mnr-petrol.jpg',
-                                    height: 45,
+                                    height: 55,
                                     fit: BoxFit.contain,
                                   ),
                                 ),
-                                const SizedBox(height: 25),
+                                const SizedBox(height: 28),
                                 const Text(
                                   'Kaliteli motor yağları ve\nendüstriyel ürünler',
                                   style: TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFF9CA3AF),
-                                    height: 1.7,
+                                    fontSize: 16,
+                                    color: Color(0xFF94A3B8),
+                                    height: 1.8,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: 0.2,
                                   ),
                                 ),
                               ],
@@ -3427,27 +3438,49 @@ class ModernFooter extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(
-              vertical: isMobile ? 16 : 24,
+              vertical: isMobile ? 20 : 28,
               horizontal: isMobile ? 20 : 40,
             ),
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withOpacity(0.05),
                   width: 1,
                 ),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.3),
+                  Colors.black.withOpacity(0.1),
+                ],
               ),
             ),
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1200),
-                child: Text(
-                  '© 2025 MNR Petrol. Tüm hakları saklıdır.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: isMobile ? 11 : 14,
-                    color: const Color(0xFF6B7280),
-                  ),
+                child: Column(
+                  children: [
+                    Text(
+                      '© ${DateTime.now().year} MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: isMobile ? 12 : 14,
+                        color: const Color(0xFF94A3B8),
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                    SizedBox(height: isMobile ? 6 : 8),
+                    Text(
+                      'Tüm hakları saklıdır.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: isMobile ? 10 : 12,
+                        color: const Color(0xFF64748B),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -3505,6 +3538,10 @@ class ModernFooter extends StatelessWidget {
               context.go('/hakkimizda');
             } else if (text == 'Ana Sayfa') {
               context.go('/');
+            } else if (text == 'Ürünler') {
+              context.go('/urunler');
+            } else if (text == 'Markalar') {
+              context.go('/urunler');
             } else if (text == 'İletişim') {
               context.go('/?scrollTo=contact');
             }
