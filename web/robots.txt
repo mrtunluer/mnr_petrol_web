@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Disallow: /flutter_service_worker.js
+Disallow: /flutter_bootstrap.js
+Disallow: /version.json
+
+Sitemap: https://mnrpetrol.com/sitemap.xml
+
+# Google Bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+
+# Yandex Bot
+User-agent: Yandex
+Allow: /
+

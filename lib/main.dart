@@ -3462,8 +3462,8 @@ class ModernFooter extends StatelessWidget {
                   children: [
                     Text(
                       '© ${DateTime.now().year} MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
                         fontSize: isMobile ? 12 : 14,
                         color: const Color(0xFF94A3B8),
                         fontWeight: FontWeight.w500,
@@ -3725,9 +3725,9 @@ class _ProductsPageState extends State<ProductsPage> {
   static final Map<String, List<Map<String, String>>> _products = {
     'borax-motor': [
       {'name': 'Borax Platinum Full Synthetic 10W40', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Ultimate DX 20W50', 'image': 'assets/images/borax/motor/borax-20w50-agır-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Ultimate DX 20W50', 'image': 'assets/images/borax/motor/borax-20w50-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax 20W50', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax Platinium Full Synthetic 5W40', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax Platinium Full Synthetic DPF 5W30', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
@@ -3737,13 +3737,13 @@ class _ProductsPageState extends State<ProductsPage> {
       {'name': 'Borax Full Synthetic Molygen Green 5W30', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
     ],
     'borax-sanziman': [
-      {'name': 'Borax Ultimate EP Series 30', 'image': 'assets/images/borax/sanziman/borax-30-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax 75W80', 'image': 'assets/images/borax/sanziman/borax-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series 75W90', 'image': 'assets/images/borax/sanziman/borax-75w90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80:90-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series 85W140', 'image': 'assets/images/borax/sanziman/borax-85w140-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax EP 75W80', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series', 'image': 'assets/images/borax/sanziman/borax-sanzıman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 30', 'image': 'assets/images/borax/sanziman/borax-30-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax 75W80', 'image': 'assets/images/borax/sanziman/borax-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 75W90', 'image': 'assets/images/borax/sanziman/borax-75w90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80:90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 85W140', 'image': 'assets/images/borax/sanziman/borax-85w140-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax EP 75W80', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series', 'image': 'assets/images/borax/sanziman/borax-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
     ],
     'borax-hidrolik': [
       {'name': 'Borax Hydro Plus 68 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
@@ -3759,7 +3759,7 @@ class _ProductsPageState extends State<ProductsPage> {
       {'name': 'Brava Extreme 9000 4T 5W50', 'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
     ],
     'brava-katki': [
-      {'name': 'Brava Zincir Temizleyici', 'image': 'assets/images/brava/katki/brava-chain cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
+      {'name': 'Brava Zincir Temizleyici', 'image': 'assets/images/brava/katki/brava-chain-cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
       {'name': 'Brava Katkı', 'image': 'assets/images/brava/katki/brava-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
       {'name': 'Brava Nano Complex', 'image': 'assets/images/brava/katki/brava-nano-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
     ],
@@ -3772,16 +3772,16 @@ class _ProductsPageState extends State<ProductsPage> {
       {'name': 'Japan Oil 4T 20W40 SE-MA 2 Grey', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
     ],
     'japanoil-sanziman': [
-      {'name': 'Japan Oil Otomatik Şanzıman Cvt Fluid-Ns-3', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Japan Oil Otomatik Şanzıman Atf-Cvt-Fe', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanzıman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Japan Oil Otomatik Şanzıman Cvt Fluid-Ns-3', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Japan Oil Otomatik Şanzıman Atf-Cvt-Fe', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
     ],
     'xenol-motor': [
       {'name': 'Xenol Ceramix Blue 10W40 SN/CF', 'image': 'assets/images/xenol/motor/xenol-10w40.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
       {'name': 'Xenol Ceramix Blue 5W30 SN/CF', 'image': 'assets/images/xenol/motor/xenol-5w30-motor.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
     ],
     'xenol-sanziman': [
-      {'name': 'Xenol Atf Dexron VI', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Xenol Cvt Fluid', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanzıman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Xenol Atf Dexron VI', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Xenol Cvt Fluid', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
     ],
     'xenol-hidrolik': [
       {'name': 'Xenol Green Atf', 'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png', 'brand': 'Xenol', 'category': 'Hidrolik Sistem Yağları'},
@@ -5595,6 +5595,62 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                     child: Image.asset(
                       widget.product['image']!,
                       fit: BoxFit.contain,
+                      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                        if (wasSynchronouslyLoaded) return child;
+                        return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: frame != null
+                              ? child
+                              : Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: isMobile ? 32 : 40,
+                                        height: isMobile ? 32 : 40,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 3,
+                                          valueColor: AlwaysStoppedAnimation<Color>(
+                                            const Color(0xFFD71920).withOpacity(0.7),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: isMobile ? 12 : 16),
+                                      Text(
+                                        'Yükleniyor...',
+                                        style: TextStyle(
+                                          fontSize: isMobile ? 11 : 12,
+                                          color: const Color(0xFF9CA3AF),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.broken_image_outlined,
+                                size: isMobile ? 40 : 48,
+                                color: const Color(0xFFE5E7EB),
+                              ),
+                              SizedBox(height: isMobile ? 8 : 12),
+                              Text(
+                                'Görsel yüklenemedi',
+                                style: TextStyle(
+                                  fontSize: isMobile ? 10 : 11,
+                                  color: const Color(0xFF9CA3AF),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                   // Category Badge
@@ -5650,6 +5706,28 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                         width: isMobile ? 28 : 32,
                         height: isMobile ? 28 : 32,
                         fit: BoxFit.contain,
+                        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                          if (wasSynchronouslyLoaded) return child;
+                          return frame != null
+                              ? child
+                              : SizedBox(
+                                  width: isMobile ? 28 : 32,
+                                  height: isMobile ? 28 : 32,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      const Color(0xFFD71920).withOpacity(0.5),
+                                    ),
+                                  ),
+                                );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.image_not_supported_outlined,
+                            size: isMobile ? 24 : 28,
+                            color: const Color(0xFFE5E7EB),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -6054,6 +6132,62 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 child: Image.asset(
                                   product['image']!,
                                   fit: BoxFit.contain,
+                                  frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                                    if (wasSynchronouslyLoaded) return child;
+                                    return AnimatedSwitcher(
+                                      duration: const Duration(milliseconds: 300),
+                                      child: frame != null
+                                          ? child
+                                          : Center(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child: CircularProgressIndicator(
+                                                      strokeWidth: 3,
+                                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                                        const Color(0xFFD71920).withOpacity(0.7),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  const Text(
+                                                    'Yükleniyor...',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Color(0xFF9CA3AF),
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.broken_image_outlined,
+                                            size: 48,
+                                            color: const Color(0xFFE5E7EB),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          const Text(
+                                            'Görsel yüklenemedi',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              color: Color(0xFF9CA3AF),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -6077,6 +6211,28 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.contain,
+                                    frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                                      if (wasSynchronouslyLoaded) return child;
+                                      return frame != null
+                                          ? child
+                                          : SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                                valueColor: AlwaysStoppedAnimation<Color>(
+                                                  const Color(0xFFD71920).withOpacity(0.5),
+                                                ),
+                                              ),
+                                            );
+                                    },
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Icon(
+                                        Icons.image_not_supported_outlined,
+                                        size: 40,
+                                        color: const Color(0xFFE5E7EB),
+                                      );
+                                    },
                                   ),
                                 ),
                                 const SizedBox(height: 20),
@@ -6218,6 +6374,28 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 width: 60,
                                 height: 60,
                                 fit: BoxFit.contain,
+                                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                                  if (wasSynchronouslyLoaded) return child;
+                                  return frame != null
+                                      ? child
+                                      : SizedBox(
+                                          width: 60,
+                                          height: 60,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            valueColor: AlwaysStoppedAnimation<Color>(
+                                              const Color(0xFFD71920).withOpacity(0.5),
+                                            ),
+                                          ),
+                                        );
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Icon(
+                                    Icons.image_not_supported_outlined,
+                                    size: 50,
+                                    color: const Color(0xFFE5E7EB),
+                                  );
+                                },
                               ),
                             ),
                             const SizedBox(height: 32),
@@ -6616,6 +6794,62 @@ class _ZoomableImageState extends State<_ZoomableImage> {
                 child: Image.asset(
                   widget.imagePath,
                   fit: BoxFit.contain,
+                  frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                    if (wasSynchronouslyLoaded) return child;
+                    return AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: frame != null
+                          ? child
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        const Color(0xFFD71920).withOpacity(0.7),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  const Text(
+                                    'Yükleniyor...',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF9CA3AF),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.broken_image_outlined,
+                            size: 64,
+                            color: const Color(0xFFE5E7EB),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Görsel yüklenemedi',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFF9CA3AF),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
               // Zoom ikonu (hover durumunda)
