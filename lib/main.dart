@@ -269,8 +269,11 @@ $message
                 child: _buildContactSection(context),
               ),
               // Footer
-              const SliverToBoxAdapter(
-                child: ModernFooter(),
+              SliverToBoxAdapter(
+                child: ModernFooter(
+                  onBrandsScroll: _scrollToBrands,
+                  onContactScroll: _scrollToContact,
+                ),
               ),
             ],
           ),
@@ -3236,7 +3239,14 @@ Widget _buildTopInfoBar() {
 
 // Modern Footer Widget (Tüm sayfalarda kullanılır)
 class ModernFooter extends StatelessWidget {
-  const ModernFooter({super.key});
+  final VoidCallback? onBrandsScroll;
+  final VoidCallback? onContactScroll;
+  
+  const ModernFooter({
+    super.key,
+    this.onBrandsScroll,
+    this.onContactScroll,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -3542,9 +3552,19 @@ class ModernFooter extends StatelessWidget {
           } else if (text == 'Ana Sayfa') {
             context.go('/');
           } else if (text == 'İletişim') {
+            if (onContactScroll != null) {
+              // Ana sayfadaysak direkt scroll yap
+              onContactScroll!();
+            } else {
             context.go('/?scrollTo=contact');
+            }
           } else if (text == 'Markalar') {
-            context.go('/?scrollTo=brands');
+            if (onBrandsScroll != null) {
+              // Ana sayfadaysak direkt scroll yap
+              onBrandsScroll!();
+            } else {
+              context.go('/?scrollTo=brands');
+            }
           } else if (text == 'Ürünler') {
             context.go('/urunler');
           }
@@ -3585,9 +3605,19 @@ class ModernFooter extends StatelessWidget {
             } else if (text == 'Ürünler') {
               context.go('/urunler');
             } else if (text == 'Markalar') {
-              context.go('/?scrollTo=brands');
+              if (onBrandsScroll != null) {
+                // Ana sayfadaysak direkt scroll yap
+                onBrandsScroll!();
+              } else {
+                context.go('/?scrollTo=brands');
+              }
             } else if (text == 'İletişim') {
+              if (onContactScroll != null) {
+                // Ana sayfadaysak direkt scroll yap
+                onContactScroll!();
+              } else {
               context.go('/?scrollTo=contact');
+              }
             }
           },
           child: Row(
