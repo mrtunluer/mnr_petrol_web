@@ -261,7 +261,7 @@ $message
               SliverToBoxAdapter(
                 child: Container(
                   key: _brandsKey,
-                  child: _buildBrandsSection(context),
+                child: _buildBrandsSection(context),
                 ),
               ),
               // Contact Section
@@ -1104,51 +1104,51 @@ class _BrandsDropdownNavItemState extends State<_BrandsDropdownNavItem> with Sin
       link: _layerLink,
       child: GestureDetector(
         onTap: widget.onHeaderTap,
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          onEnter: (_) {
-            setState(() => _isHovered = true);
-            _showOverlay();
-          },
-          onExit: (_) {
-            setState(() => _isHovered = false);
-            _checkAndClose();
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              border: widget.isActive
-                  ? const Border(
-                      bottom: BorderSide(
-                        color: Color(0xFFD71920),
-                        width: 2,
-                      ),
-                    )
-                  : null,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Markalar',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: widget.isActive ? FontWeight.w700 : FontWeight.w600,
-                    color: _isHovered
-                        ? const Color(0xFFD71920)
-                        : (widget.isActive ? const Color(0xFF111827) : const Color(0xFF1F2937)),
-                    letterSpacing: 0.2,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                Icon(
-                  _isHovered ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                  size: 18,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) {
+          setState(() => _isHovered = true);
+          _showOverlay();
+        },
+        onExit: (_) {
+          setState(() => _isHovered = false);
+          _checkAndClose();
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            border: widget.isActive
+                ? const Border(
+                    bottom: BorderSide(
+                      color: Color(0xFFD71920),
+                      width: 2,
+                    ),
+                  )
+                : null,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Markalar',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: widget.isActive ? FontWeight.w700 : FontWeight.w600,
                   color: _isHovered
                       ? const Color(0xFFD71920)
                       : (widget.isActive ? const Color(0xFF111827) : const Color(0xFF1F2937)),
+                  letterSpacing: 0.2,
                 ),
-              ],
+              ),
+              const SizedBox(width: 4),
+              Icon(
+                _isHovered ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                size: 18,
+                color: _isHovered
+                    ? const Color(0xFFD71920)
+                    : (widget.isActive ? const Color(0xFF111827) : const Color(0xFF1F2937)),
+              ),
+            ],
             ),
           ),
         ),
@@ -3543,6 +3543,8 @@ class ModernFooter extends StatelessWidget {
             context.go('/');
           } else if (text == 'İletişim') {
             context.go('/?scrollTo=contact');
+          } else if (text == 'Markalar') {
+            context.go('/?scrollTo=brands');
           } else if (text == 'Ürünler') {
             context.go('/urunler');
           }
@@ -3583,7 +3585,7 @@ class ModernFooter extends StatelessWidget {
             } else if (text == 'Ürünler') {
               context.go('/urunler');
             } else if (text == 'Markalar') {
-              context.go('/urunler');
+              context.go('/?scrollTo=brands');
             } else if (text == 'İletişim') {
               context.go('/?scrollTo=contact');
             }
@@ -6153,24 +6155,35 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                          // Görsel (Mobil - Üstte)
-                          Container(
-                            height: 300,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color(0xFFF9FAFB),
-                                  Color(0xFFFFFFFF),
-                                ],
+                          // Görsel (Mobil - Üstte) - Tıklanabilir
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                barrierColor: Colors.black.withOpacity(0.9),
+                                builder: (context) => _FullImageDialog(imagePath: product['image']!),
+                              );
+                            },
+                            child: Container(
+                              height: 300,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color(0xFFF9FAFB),
+                                    Color(0xFFFFFFFF),
+                                  ],
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(16),
+                                  topRight: Radius.circular(16),
+                                ),
                               ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16),
-                              ),
-                            ),
-                            child: Center(
+                              child: Stack(
+                                children: [
+                                  // Görsel
+                                  Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(30),
                                 child: Image.asset(
@@ -6234,8 +6247,35 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   },
                                 ),
                               ),
+                            ), // Center kapanışı
+                            // Zoom İkonu (Sağ alt köşe)
+                            Positioned(
+                              bottom: 16,
+                              right: 16,
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.95),
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.15),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: const Icon(
+                                  Icons.zoom_in_rounded,
+                                  size: 24,
+                                  color: Color(0xFFD71920),
+                                ),
+                              ),
                             ),
-                          ),
+                          ], // Stack children kapanışı
+                        ), // Stack kapanışı
+                      ), // Container kapanışı
+                    ), // GestureDetector kapanışı
                           // Bilgiler (Mobil - Altta)
                           Padding(
                             padding: const EdgeInsets.all(20),
