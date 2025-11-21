@@ -7007,6 +7007,7 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
   final TransformationController _transformationController = TransformationController();
+  bool _showInstructions = true;
   
   @override
   void initState() {
@@ -7025,6 +7026,13 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
     );
     
     _controller.forward();
+    
+    // 3 saniye sonra talimatları gizle
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() => _showInstructions = false);
+      }
+    });
   }
   
   @override
@@ -7035,37 +7043,26 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
   }
   
   void _close() {
-    _controller.reverse().then((_) => Navigator.of(context).pop());
-  }
-  
-  void _handleTapUp(TapUpDetails details, BoxConstraints constraints) {
-    final currentScale = _transformationController.value.getMaxScaleOnAxis();
-    
-    if (currentScale > 1.0) {
-      // Zaten zoom'lanmışsa, reset yap
-      _transformationController.value = Matrix4.identity();
-    } else {
-      // Tıklanan noktaya zoom yap
-      final position = details.localPosition;
-      final double scale = 2.5; // 2.5x zoom
-      
-      // Tıklanan noktayı merkeze al
-      final double x = -position.dx * (scale - 1);
-      final double y = -position.dy * (scale - 1);
-      
-      _transformationController.value = Matrix4.identity()
-        ..translate(x, y)
-        ..scale(scale);
-    }
+    _controller.reverse().then((_) {
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    });
   }
   
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _close, // Dışarı tıklayınca kapat
-      child: Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(40),
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isMobile = screenWidth < 768;
+    
+    return Material(
+      color: Colors.black.withOpacity(0.95),
+      child: SafeArea(
+        child: Stack(
+          children: [
+            // Ana görsel alanı - Tam ekran InteractiveViewer
+            Positioned.fill(
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
@@ -7077,118 +7074,142 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
               ),
             );
           },
-          child: Stack(
-            children: [
-              // Görsel
-              Center(
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return GestureDetector(
-                      onTap: () {}, // Görsele tıklayınca kapanmasın (event'i durdur)
-                      onTapUp: (details) => _handleTapUp(details, constraints),
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+                  minScale: 0.5,
+                  maxScale: 4.0,
+                  boundaryMargin: const EdgeInsets.all(20),
+                  child: Center(
                       child: Container(
-                        constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width * 0.9,
-                          maxHeight: MediaQuery.of(context).size.height * 0.9,
-                        ),
+                      margin: EdgeInsets.all(isMobile ? 16 : 40),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(isMobile ? 12 : 24),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.5),
-                              blurRadius: 50,
-                              spreadRadius: 10,
+                            blurRadius: 40,
+                            spreadRadius: 5,
                             ),
                           ],
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(24),
-                          child: InteractiveViewer(
-                            transformationController: _transformationController,
-                            minScale: 0.5,
-                            maxScale: 4.0,
+                        borderRadius: BorderRadius.circular(isMobile ? 12 : 24),
                             child: Image.asset(
                               widget.imagePath,
                               fit: BoxFit.contain,
-                            ),
-                          ),
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: 200,
+                              height: 200,
+                              color: Colors.grey[200],
+                              child: const Center(
+                                child: Icon(
+                                  Icons.broken_image_outlined,
+                                  size: 64,
+                                  color: Colors.grey,
                         ),
                       ),
                     );
                   },
                 ),
               ),
-            // Kapat butonu
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Kapat butonu (Sağ üst)
             Positioned(
-              top: 20,
-              right: 20,
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
+              top: isMobile ? 12 : 20,
+              right: isMobile ? 12 : 20,
                 child: GestureDetector(
                   onTap: _close,
                   child: Container(
-                    padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(isMobile ? 10 : 12),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.3),
-                          blurRadius: 10,
+                        blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
                       ],
                     ),
-                    child: const Icon(
-                      Icons.close,
+                  child: Icon(
+                    Icons.close_rounded,
                       color: Colors.black87,
-                      size: 24,
+                    size: isMobile ? 20 : 24,
                     ),
                   ),
                 ),
               ),
-            ),
-            // Bilgi metni (alt kısımda)
+            
+            // Talimat metni (Alt kısım) - Responsive
+            if (_showInstructions)
             Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
+                bottom: isMobile ? 20 : 40,
+                left: 16,
+                right: 16,
+                child: AnimatedOpacity(
+                  opacity: _showInstructions ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 500),
               child: Center(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 16 : 24,
+                        vertical: isMobile ? 10 : 12,
+                      ),
+                      constraints: BoxConstraints(
+                        maxWidth: isMobile ? screenWidth * 0.9 : 500,
+                      ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.95),
                     borderRadius: BorderRadius.circular(50),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.2),
-                        blurRadius: 10,
+                            blurRadius: 15,
                         offset: const Offset(0, 4),
                       ),
                     ],
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.touch_app, size: 18, color: Color(0xFF6B7280)),
-                      SizedBox(width: 8),
-                      Text(
-                        'Tıklayarak yakınlaştırın • Tekrar tıklayarak uzaklaştırın',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Color(0xFF6B7280),
-                          fontWeight: FontWeight.w500,
-                        ),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            isMobile ? Icons.touch_app_rounded : Icons.zoom_in_rounded,
+                            size: isMobile ? 16 : 18,
+                            color: const Color(0xFF6B7280),
+                          ),
+                          SizedBox(width: isMobile ? 6 : 8),
+                          Flexible(
+                            child: Text(
+                              isMobile 
+                                  ? 'Parmakla büyüt/küçült'
+                                  : 'Fare tekerleği ile yakınlaştır',
+                              style: TextStyle(
+                                fontSize: isMobile ? 11 : 13,
+                                color: const Color(0xFF6B7280),
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
-      ),
       ),
     );
   }
@@ -7311,9 +7332,9 @@ class _ProductDetailHeader extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                      Text(
                                 'MNR Petrol Tarım İnş. San. Tic. Ltd. Şti.',
-                                style: TextStyle(
+                        style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
                                   color: Color(0xFF111827),
@@ -7326,18 +7347,18 @@ class _ProductDetailHeader extends StatelessWidget {
                                 'Antalya Madeni Yağ',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w500,
                                   color: Color(0xFF6B7280),
                                   letterSpacing: 0.2,
                                   height: 1.3,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
+                        ],
+                ),
+              ),
+            ),
                   // Navigation
                   Row(
                     children: [
@@ -7353,7 +7374,7 @@ class _ProductDetailHeader extends StatelessWidget {
                     ],
                   ),
                 ],
-              ),
+      ),
       ),
     );
   }
