@@ -126,6 +126,7 @@ class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
   final _formKey = GlobalKey<FormState>();
   final _contactKey = GlobalKey();
+  final _brandsKey = GlobalKey();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -147,9 +148,14 @@ class _HomePageState extends State<HomePage> {
     // Query parametresini kontrol et ve scroll yap
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final uri = GoRouterState.of(context).uri;
-      if (uri.queryParameters['scrollTo'] == 'contact') {
+      final scrollTo = uri.queryParameters['scrollTo'];
+      if (scrollTo == 'contact') {
         Future.delayed(const Duration(milliseconds: 400), () {
           _scrollToContact();
+        });
+      } else if (scrollTo == 'brands') {
+        Future.delayed(const Duration(milliseconds: 400), () {
+          _scrollToBrands();
         });
       }
     });
@@ -168,6 +174,17 @@ class _HomePageState extends State<HomePage> {
 
   void _scrollToContact() {
     final context = _contactKey.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _scrollToBrands() {
+    final context = _brandsKey.currentContext;
     if (context != null) {
       Scrollable.ensureVisible(
         context,
@@ -242,7 +259,10 @@ $message
               ),
               // Brands Section
               SliverToBoxAdapter(
-                child: _buildBrandsSection(context),
+                child: Container(
+                  key: _brandsKey,
+                  child: _buildBrandsSection(context),
+                ),
               ),
               // Contact Section
               SliverToBoxAdapter(
@@ -427,6 +447,7 @@ $message
       context,
       currentPage: 'home',
       onContactTap: _scrollToContact,
+      onBrandsTap: _scrollToBrands,
     );
   }
 
@@ -464,6 +485,10 @@ $message
         onBrandSelected: (brandName) {
           // Ürünler sayfasına git ve marka filtrele (boşlukları kaldır)
           context.go('/urunler?marka=${brandName.toLowerCase().replaceAll(' ', '')}');
+        },
+        onHeaderTap: () {
+          // Ana sayfaya git ve markalar bölümüne scroll yap
+          context.go('/?scrollTo=brands');
         },
       );
     }
@@ -941,10 +966,12 @@ class _ProductsDropdownNavItemState extends State<_ProductsDropdownNavItem> with
 class _BrandsDropdownNavItem extends StatefulWidget {
   final bool isActive;
   final Function(String) onBrandSelected;
+  final VoidCallback? onHeaderTap;
 
   const _BrandsDropdownNavItem({
     required this.isActive,
     required this.onBrandSelected,
+    this.onHeaderTap,
   });
 
   @override
@@ -1075,51 +1102,54 @@ class _BrandsDropdownNavItemState extends State<_BrandsDropdownNavItem> with Sin
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
       link: _layerLink,
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        onEnter: (_) {
-          setState(() => _isHovered = true);
-          _showOverlay();
-        },
-        onExit: (_) {
-          setState(() => _isHovered = false);
-          _checkAndClose();
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            border: widget.isActive
-                ? const Border(
-                    bottom: BorderSide(
-                      color: Color(0xFFD71920),
-                      width: 2,
-                    ),
-                  )
-                : null,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Markalar',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: widget.isActive ? FontWeight.w700 : FontWeight.w600,
+      child: GestureDetector(
+        onTap: widget.onHeaderTap,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          onEnter: (_) {
+            setState(() => _isHovered = true);
+            _showOverlay();
+          },
+          onExit: (_) {
+            setState(() => _isHovered = false);
+            _checkAndClose();
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              border: widget.isActive
+                  ? const Border(
+                      bottom: BorderSide(
+                        color: Color(0xFFD71920),
+                        width: 2,
+                      ),
+                    )
+                  : null,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Markalar',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: widget.isActive ? FontWeight.w700 : FontWeight.w600,
+                    color: _isHovered
+                        ? const Color(0xFFD71920)
+                        : (widget.isActive ? const Color(0xFF111827) : const Color(0xFF1F2937)),
+                    letterSpacing: 0.2,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Icon(
+                  _isHovered ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  size: 18,
                   color: _isHovered
                       ? const Color(0xFFD71920)
                       : (widget.isActive ? const Color(0xFF111827) : const Color(0xFF1F2937)),
-                  letterSpacing: 0.2,
                 ),
-              ),
-              const SizedBox(width: 4),
-              Icon(
-                _isHovered ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                size: 18,
-                color: _isHovered
-                    ? const Color(0xFFD71920)
-                    : (widget.isActive ? const Color(0xFF111827) : const Color(0xFF1F2937)),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -2756,6 +2786,10 @@ class AboutPage extends StatelessWidget {
           // Ürünler sayfasına git ve marka filtrele (boşlukları kaldır)
           context.go('/urunler?marka=${brandName.toLowerCase().replaceAll(' ', '')}');
         },
+        onHeaderTap: () {
+          // Ana sayfaya git ve markalar bölümüne scroll yap
+          context.go('/?scrollTo=brands');
+        },
       );
     }
     
@@ -2988,7 +3022,7 @@ class AboutPage extends StatelessWidget {
 }
 
 // Global Mobile Menu Widget (Tüm sayfalarda tutarlı hamburger menü)
-void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallback? onContactTap}) {
+void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallback? onContactTap, VoidCallback? onBrandsTap}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -3036,7 +3070,15 @@ void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallba
             Icons.business_outlined,
             () {
               Navigator.pop(context);
-              context.go('/urunler');
+              if (currentPage == 'home' && onBrandsTap != null) {
+                // Ana sayfadayız, direkt scroll yap
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  onBrandsTap();
+                });
+              } else {
+                // Başka sayfadayız, ana sayfaya git ve scroll yap
+                context.go('/?scrollTo=brands');
+              }
             },
             isActive: false,
           ),
@@ -3724,23 +3766,25 @@ class _ProductsPageState extends State<ProductsPage> {
 
   static final Map<String, List<Map<String, String>>> _products = {
     'borax-motor': [
+      // Molygen Serisi (Premium)
+      {'name': 'Borax Full Synthetic Molygen Green 0W20', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 0W30', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 5W30', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 10W40', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      // Diğer Motor Yağları
       {'name': 'Borax Platinum Full Synthetic 10W40', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Platinium Full Synthetic DPF 5W30', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Platinium Full Synthetic 5W40', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax Ultimate DX 20W50', 'image': 'assets/images/borax/motor/borax-20w50-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
       {'name': 'Borax 20W50', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Platinium Full Synthetic 5W40', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Platinium Full Synthetic DPF 5W30', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Full Synthetic Molygen Green 0W20', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Full Synthetic Molygen Green 0W30', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Full Synthetic Molygen Green 10W40', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Full Synthetic Molygen Green 5W30', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
     ],
     'borax-sanziman': [
       {'name': 'Borax Ultimate EP Series 30', 'image': 'assets/images/borax/sanziman/borax-30-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
       {'name': 'Borax 75W80', 'image': 'assets/images/borax/sanziman/borax-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
       {'name': 'Borax Ultimate EP Series 75W90', 'image': 'assets/images/borax/sanziman/borax-75w90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80:90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80-90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
       {'name': 'Borax Ultimate EP Series 85W140', 'image': 'assets/images/borax/sanziman/borax-85w140-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
       {'name': 'Borax EP 75W80', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
       {'name': 'Borax Ultimate EP Series', 'image': 'assets/images/borax/sanziman/borax-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
