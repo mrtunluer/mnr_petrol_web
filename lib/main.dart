@@ -4415,6 +4415,82 @@ class _ProductsPageState extends State<ProductsPage> {
                         ),
                       ],
                     ),
+                    
+                    // Aktif Filtreler (Mobil)
+                    if (_selectedBrand != null || _selectedCategory != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            // Marka Filtresi
+                            if (_selectedBrand != null && _selectedBrand != 'Tümü')
+                              _buildFilterChip(
+                                label: _selectedBrand!,
+                                icon: Icons.business_outlined,
+                                onRemove: () {
+                                  setState(() => _selectedBrand = null);
+                                  _updateUrl();
+                                },
+                              ),
+                            // Kategori Filtresi
+                            if (_selectedCategory != null && _selectedCategory != 'Tümü')
+                              _buildFilterChip(
+                                label: _getCategoryDisplayName(_selectedCategory),
+                                icon: Icons.category_outlined,
+                                onRemove: () {
+                                  setState(() => _selectedCategory = null);
+                                  _updateUrl();
+                                },
+                              ),
+                            // Tümünü Temizle
+                            if ((_selectedBrand != null && _selectedBrand != 'Tümü') || 
+                                (_selectedCategory != null && _selectedCategory != 'Tümü'))
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedBrand = null;
+                                    _selectedCategory = null;
+                                  });
+                                  _updateUrl();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[100],
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: Colors.grey[300]!,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.clear_all_rounded,
+                                        size: 16,
+                                        color: Colors.grey[700],
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        'Tümünü Temizle',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey[700],
+                                          letterSpacing: 0.2,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    
                     const SizedBox(height: 24),
                     // Products Grid - Mobil (Modern E-ticaret Tasarımı)
                     if (products.isEmpty)
@@ -4659,6 +4735,65 @@ class _ProductsPageState extends State<ProductsPage> {
       value: value,
       items: items,
       onChanged: onChanged,
+    );
+  }
+
+  Widget _buildFilterChip({
+    required String label,
+    required IconData icon,
+    required VoidCallback onRemove,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            const Color(0xFFD71920).withOpacity(0.1),
+            const Color(0xFFD71920).withOpacity(0.05),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: const Color(0xFFD71920).withOpacity(0.3),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 16,
+            color: const Color(0xFFD71920),
+          ),
+          const SizedBox(width: 6),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFFD71920),
+              letterSpacing: 0.2,
+            ),
+          ),
+          const SizedBox(width: 6),
+          GestureDetector(
+            onTap: onRemove,
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: const Color(0xFFD71920).withOpacity(0.2),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.close_rounded,
+                size: 14,
+                color: Color(0xFFD71920),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -6100,7 +6235,7 @@ class _ModernMobileProductCard extends StatelessWidget {
               ),
             ),
           ],
-        ),
+      ),
       ),
     );
   }
