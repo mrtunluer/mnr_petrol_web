@@ -124,6 +124,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _featuredScrollController = ScrollController();
   final _formKey = GlobalKey<FormState>();
   final _contactKey = GlobalKey();
   final _brandsKey = GlobalKey();
@@ -133,6 +134,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
   bool _isScrolled = false;
+  bool _showLeftArrow = false;
+  bool _showRightArrow = true;
 
   @override
   void initState() {
@@ -143,6 +146,11 @@ class _HomePageState extends State<HomePage> {
       } else if (_scrollController.offset <= 102 && _isScrolled) {
         setState(() => _isScrolled = false);
       }
+    });
+    
+    // Featured products scroll listener
+    _featuredScrollController.addListener(() {
+      _updateArrowVisibility();
     });
     
     // Query parametresini kontrol et ve scroll yap
@@ -158,12 +166,45 @@ class _HomePageState extends State<HomePage> {
           _scrollToBrands();
         });
       }
+      
+      // İlk yüklemede ok görünürlüğünü kontrol et
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _updateArrowVisibility();
+      });
     });
+  }
+  
+  void _updateArrowVisibility() {
+    if (!_featuredScrollController.hasClients) return;
+    
+    final position = _featuredScrollController.position;
+    setState(() {
+      _showLeftArrow = position.pixels > 0;
+      _showRightArrow = position.pixels < position.maxScrollExtent;
+    });
+  }
+  
+  void _scrollFeaturedProducts(bool scrollRight) {
+    if (!_featuredScrollController.hasClients) return;
+    
+    final screenWidth = MediaQuery.of(context).size.width;
+    final scrollAmount = screenWidth < 768 ? 200.0 : 300.0;
+    
+    final targetOffset = scrollRight
+        ? _featuredScrollController.offset + scrollAmount
+        : _featuredScrollController.offset - scrollAmount;
+    
+    _featuredScrollController.animateTo(
+      targetOffset.clamp(0.0, _featuredScrollController.position.maxScrollExtent),
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _featuredScrollController.dispose();
     _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
@@ -253,6 +294,10 @@ $message
               // Hero Section
               SliverToBoxAdapter(
                 child: _buildHeroSection(context),
+              ),
+              // Featured Products Section (Öne Çıkan Ürünler)
+              SliverToBoxAdapter(
+                child: _buildFeaturedProductsSection(context),
               ),
               // Products Section
               SliverToBoxAdapter(
@@ -1773,6 +1818,256 @@ extension _HomePageWidgets on _HomePageState {
     );
   }
 
+  // Featured Products Section (Öne Çıkan Ürünler)
+  Widget _buildFeaturedProductsSection(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    final isTablet = screenWidth >= 768 && screenWidth < 1024;
+
+    // Öne çıkan ürünler listesi
+    final featuredProducts = [
+      // Borax Molygen Serisi (EN ÖNE ALINMIŞTIR)
+      {
+        'name': 'Borax Full Synthetic Molygen Green 0W20',
+        'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'badge': 'Molygen',
+      },
+      {
+        'name': 'Borax Full Synthetic Molygen Green 0W30',
+        'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'badge': 'Molygen',
+      },
+      {
+        'name': 'Borax Full Synthetic Molygen Green 5W30',
+        'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'badge': 'Molygen',
+      },
+      {
+        'name': 'Borax Full Synthetic Molygen Green 10W40',
+        'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'badge': 'Molygen',
+      },
+      // Japan Oil
+      {
+        'name': 'Japan Oil Molytech Sn+ Plus Tam Sentetik 5W30',
+        'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png',
+        'brand': 'Japan Oil',
+        'category': 'Motor Yağları',
+        'badge': 'Premium',
+      },
+      // Xenol Motor Yağları
+      {
+        'name': 'Xenol Ceramix Blue 10W40 SN/CF',
+        'image': 'assets/images/xenol/motor/xenol-10w40.png',
+        'brand': 'Xenol',
+        'category': 'Motor Yağları',
+        'badge': 'Yeni',
+      },
+      {
+        'name': 'Xenol Ceramix Blue 5W30 SN/CF',
+        'image': 'assets/images/xenol/motor/xenol-5w30-motor.png',
+        'brand': 'Xenol',
+        'category': 'Motor Yağları',
+        'badge': 'Yeni',
+      },
+    ];
+
+    return Container(
+      padding: EdgeInsets.only(
+        top: isMobile ? 40 : (isTablet ? 50 : 60),
+        bottom: isMobile ? 40 : (isTablet ? 50 : 60),
+        left: isMobile ? 0 : (isTablet ? 30 : 40),
+        right: isMobile ? 0 : (isTablet ? 30 : 40),
+      ),
+      color: Colors.white,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Column(
+            children: [
+              // Kırmızı çizgi (diğer section'larla uyumlu)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
+                child: Container(
+                  width: isMobile ? 50 : 60,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD71920),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              SizedBox(height: isMobile ? 16 : 20),
+              // Başlık
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
+                child: Text(
+                  'Öne Çıkan Ürünler',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: isMobile ? 28 : (isTablet ? 36 : 42),
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF1A1A1A),
+                  ),
+                ),
+              ),
+              SizedBox(height: isMobile ? 12 : 20),
+              // Alt başlık
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
+                child: Text(
+                  'Premium ve özel ürünlerimizi keşfedin',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 18,
+                    color: const Color(0xFF4A4A4A),
+                  ),
+                ),
+              ),
+              SizedBox(height: isMobile ? 40 : (isTablet ? 50 : 60)),
+              
+              // Ürünler (Horizontal scroll - Mobil ve Desktop)
+              Stack(
+                children: [
+                  SizedBox(
+                    height: isMobile ? 320 : (isTablet ? 380 : 400),
+                    child: ListView.builder(
+                      controller: _featuredScrollController,
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
+                      ),
+                      itemCount: featuredProducts.length,
+                      itemBuilder: (context, index) {
+                        final product = featuredProducts[index];
+                        return Container(
+                          width: isMobile ? 180 : (isTablet ? 240 : 280),
+                          margin: EdgeInsets.only(
+                            right: index < featuredProducts.length - 1 
+                                ? (isMobile ? 16 : 24) 
+                                : 0,
+                          ),
+                          child: _FeaturedProductCard(
+                            product: product,
+                            isMobile: isMobile,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  // Sola scroll ok işareti (sadece sol tarafa scroll edilebiliyorsa)
+                  if (_showLeftArrow)
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      bottom: 0,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () => _scrollFeaturedProducts(false),
+                          child: Container(
+                            width: isMobile ? 50 : 80,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.centerRight,
+                                end: Alignment.centerLeft,
+                                colors: [
+                                  Colors.white.withOpacity(0),
+                                  Colors.white.withOpacity(0.9),
+                                  Colors.white,
+                                ],
+                              ),
+                            ),
+                            child: Center(
+                              child: Container(
+                                padding: EdgeInsets.all(isMobile ? 8 : 12),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFD71920),
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFFD71920).withOpacity(0.3),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Colors.white,
+                                  size: isMobile ? 20 : 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  // Sağa scroll ok işareti (sadece sağ tarafa scroll edilebiliyorsa)
+                  if (_showRightArrow)
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () => _scrollFeaturedProducts(true),
+                          child: Container(
+                            width: isMobile ? 50 : 80,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.white.withOpacity(0),
+                                  Colors.white.withOpacity(0.9),
+                                  Colors.white,
+                                ],
+                              ),
+                            ),
+                            child: Center(
+                              child: Container(
+                                padding: EdgeInsets.all(isMobile ? 8 : 12),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFD71920),
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFFD71920).withOpacity(0.3),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: Colors.white,
+                                  size: isMobile ? 20 : 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+        ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildBrandsSection(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
@@ -3238,6 +3533,201 @@ Widget _buildTopInfoBar() {
   );
 }
 
+// Featured Product Card Widget (Ana sayfa tasarımı ile uyumlu)
+class _FeaturedProductCard extends StatefulWidget {
+  final Map<String, dynamic> product;
+  final bool isMobile;
+
+  const _FeaturedProductCard({
+    required this.product,
+    required this.isMobile,
+  });
+
+  @override
+  State<_FeaturedProductCard> createState() => _FeaturedProductCardState();
+}
+
+class _FeaturedProductCardState extends State<_FeaturedProductCard> {
+  bool _isHovered = false;
+
+  String _generateProductId() {
+    // Ürün ID'si: brand-name formatında URL-safe
+    String brand = (widget.product['brand'] ?? '').toLowerCase().replaceAll(' ', '-');
+    String name = (widget.product['name'] ?? '').toLowerCase()
+        .replaceAll(' ', '-')
+        .replaceAll('/', '-')
+        .replaceAll('ı', 'i')
+        .replaceAll('ş', 's')
+        .replaceAll('ğ', 'g')
+        .replaceAll('ü', 'u')
+        .replaceAll('ö', 'o')
+        .replaceAll('ç', 'c')
+        .replaceAll(RegExp(r'[^\w-]'), '');
+    
+    return '$brand-$name';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: () {
+          context.go('/urun/${_generateProductId()}');
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: _isHovered 
+                  ? const Color(0xFFD71920)
+                  : Colors.grey.withOpacity(0.2),
+              width: _isHovered ? 2 : 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered
+                    ? const Color(0xFFD71920).withOpacity(0.15)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: _isHovered ? 12 : 8,
+                offset: Offset(0, _isHovered ? 6 : 4),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Ürün Görseli
+              Expanded(
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF8F9FA),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12),
+                        ),
+                      ),
+                      padding: EdgeInsets.all(widget.isMobile ? 8 : 16),
+                      child: Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            widget.product['image']!,
+                            fit: BoxFit.contain,
+                            frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                              if (wasSynchronouslyLoaded) return child;
+                              return frame != null
+                                  ? child
+                                  : const Center(
+                                      child: CircularProgressIndicator(
+                                        color: Color(0xFFD71920),
+                                        strokeWidth: 2,
+                                      ),
+                                    );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Center(
+                                child: Icon(
+                                  Icons.broken_image_outlined,
+                                  size: 40,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Badge (Sağ üst)
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: widget.isMobile ? 8 : 10,
+                          vertical: widget.isMobile ? 4 : 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFD71920),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          widget.product['badge'] ?? 'Premium',
+                          style: TextStyle(
+                            fontSize: widget.isMobile ? 9 : 10,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Ürün Bilgileri
+              Padding(
+                padding: EdgeInsets.all(widget.isMobile ? 10 : 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Marka
+                    Text(
+                      widget.product['brand']!,
+                      style: TextStyle(
+                        fontSize: widget.isMobile ? 11 : 12,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFFD71920),
+                      ),
+                    ),
+                    SizedBox(height: widget.isMobile ? 4 : 6),
+                    // Ürün Adı
+                    Text(
+                      widget.product['name']!,
+                      style: TextStyle(
+                        fontSize: widget.isMobile ? 13 : 14,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF1A1A1A),
+                        height: 1.3,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: widget.isMobile ? 8 : 12),
+                    // Detay butonu
+                    Row(
+                      children: [
+                        Text(
+                          'Detayları Gör',
+                          style: TextStyle(
+                            fontSize: widget.isMobile ? 12 : 13,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFFD71920),
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Icon(
+                          Icons.arrow_forward_rounded,
+                          size: widget.isMobile ? 14 : 16,
+                          color: const Color(0xFFD71920),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 // Modern Footer Widget (Tüm sayfalarda kullanılır)
 class ModernFooter extends StatelessWidget {
   final VoidCallback? onBrandsScroll;
@@ -4647,8 +5137,8 @@ class _ProductsPageState extends State<ProductsPage> {
                                       ],
                                     ),
                                     child: Text(
-                                      '${products.length}',
-                                      style: const TextStyle(
+                                    '${products.length}',
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w900,
                                         color: Colors.white,
@@ -4661,9 +5151,9 @@ class _ProductsPageState extends State<ProductsPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Text(
+                                  const Text(
                                         'Ürün',
-                                        style: TextStyle(
+                                    style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Color(0xFF9CA3AF),
