@@ -6278,7 +6278,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
                             ), // Center kapanışı
-                            // Zoom İkonu (Sağ alt köşe)
+                            // Tam Ekran İkonu (Sağ alt köşe)
                             Positioned(
                               bottom: 16,
                               right: 16,
@@ -6296,7 +6296,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   ],
                                 ),
                                 child: const Icon(
-                                  Icons.zoom_in_rounded,
+                                  Icons.fullscreen_rounded,
                                   size: 24,
                                   color: Color(0xFFD71920),
                                 ),
@@ -6892,7 +6892,7 @@ class _ZoomableImageState extends State<_ZoomableImage> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: SystemMouseCursors.zoomIn,
+      cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
@@ -6966,7 +6966,7 @@ class _ZoomableImageState extends State<_ZoomableImage> {
                   },
                 ),
               ),
-              // Zoom ikonu (hover durumunda)
+              // Tam ekran ikonu (hover durumunda)
               if (_isHovered)
                 Positioned(
                   top: 16,
@@ -6978,7 +6978,7 @@ class _ZoomableImageState extends State<_ZoomableImage> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: const Icon(
-                      Icons.zoom_in,
+                      Icons.fullscreen_rounded,
                       color: Colors.white,
                       size: 24,
                     ),
@@ -7006,8 +7006,6 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
-  final TransformationController _transformationController = TransformationController();
-  bool _showInstructions = true;
   
   @override
   void initState() {
@@ -7026,19 +7024,11 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
     );
     
     _controller.forward();
-    
-    // 3 saniye sonra talimatları gizle
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        setState(() => _showInstructions = false);
-      }
-    });
   }
   
   @override
   void dispose() {
     _controller.dispose();
-    _transformationController.dispose();
     super.dispose();
   }
   
@@ -7053,16 +7043,13 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     final isMobile = screenWidth < 768;
     
-    return Material(
-      color: Colors.black.withOpacity(0.95),
-      child: SafeArea(
-        child: Stack(
-          children: [
-            // Ana görsel alanı - Tam ekran InteractiveViewer
-            Positioned.fill(
+    return GestureDetector(
+      onTap: _close,
+      child: Material(
+        color: Colors.black.withOpacity(0.95),
+        child: SafeArea(
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
@@ -7074,14 +7061,20 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
               ),
             );
           },
-                child: InteractiveViewer(
-                  transformationController: _transformationController,
-                  minScale: 0.5,
-                  maxScale: 4.0,
-                  boundaryMargin: const EdgeInsets.all(20),
-                  child: Center(
+          child: Stack(
+            children: [
+                // Ana görsel alanı - Tam ekran, zoom yok
+              Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 16 : 40,
+                      vertical: isMobile ? 60 : 80,
+                    ),
                       child: Container(
-                      margin: EdgeInsets.all(isMobile ? 16 : 40),
+                        constraints: BoxConstraints(
+                        maxWidth: isMobile ? screenWidth * 0.95 : 1200,
+                        maxHeight: MediaQuery.of(context).size.height * 0.8,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                         borderRadius: BorderRadius.circular(isMobile ? 12 : 24),
@@ -7098,6 +7091,40 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
                             child: Image.asset(
                               widget.imagePath,
                               fit: BoxFit.contain,
+                          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                            if (wasSynchronouslyLoaded) return child;
+                            return AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              child: frame != null
+                                  ? child
+                                  : Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 3,
+                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                const Color(0xFFD71920).withOpacity(0.7),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          Text(
+                                            'Yükleniyor...',
+                                            style: TextStyle(
+                                              fontSize: isMobile ? 12 : 14,
+                                              color: Colors.white70,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                        ),
+                      ),
+                    );
+                  },
                           errorBuilder: (context, error, stackTrace) {
                             return Container(
                               width: 200,
@@ -7108,107 +7135,46 @@ class _FullImageDialogState extends State<_FullImageDialog> with SingleTickerPro
                                   Icons.broken_image_outlined,
                                   size: 64,
                                   color: Colors.grey,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            
-            // Kapat butonu (Sağ üst)
+                
+                // Kapat butonu (Sağ üst)
             Positioned(
-              top: isMobile ? 12 : 20,
-              right: isMobile ? 12 : 20,
+                  top: isMobile ? 12 : 20,
+                  right: isMobile ? 12 : 20,
                 child: GestureDetector(
                   onTap: _close,
                   child: Container(
-                  padding: EdgeInsets.all(isMobile ? 10 : 12),
+                      padding: EdgeInsets.all(isMobile ? 10 : 12),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.3),
-                        blurRadius: 12,
+                            blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
                       ],
                     ),
-                  child: Icon(
-                    Icons.close_rounded,
+                      child: Icon(
+                        Icons.close_rounded,
                       color: Colors.black87,
-                    size: isMobile ? 20 : 24,
+                        size: isMobile ? 20 : 24,
                     ),
                   ),
                 ),
               ),
-            
-            // Talimat metni (Alt kısım) - Responsive
-            if (_showInstructions)
-            Positioned(
-                bottom: isMobile ? 20 : 40,
-                left: 16,
-                right: 16,
-                child: AnimatedOpacity(
-                  opacity: _showInstructions ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 500),
-              child: Center(
-                child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 16 : 24,
-                        vertical: isMobile ? 10 : 12,
-                      ),
-                      constraints: BoxConstraints(
-                        maxWidth: isMobile ? screenWidth * 0.9 : 500,
-                      ),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.95),
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                            blurRadius: 15,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            isMobile ? Icons.touch_app_rounded : Icons.zoom_in_rounded,
-                            size: isMobile ? 16 : 18,
-                            color: const Color(0xFF6B7280),
-                          ),
-                          SizedBox(width: isMobile ? 6 : 8),
-                          Flexible(
-                            child: Text(
-                              isMobile 
-                                  ? 'Parmakla büyüt/küçült'
-                                  : 'Fare tekerleği ile yakınlaştır',
-                              style: TextStyle(
-                                fontSize: isMobile ? 11 : 13,
-                                color: const Color(0xFF6B7280),
-                                fontWeight: FontWeight.w500,
-                              ),
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          ],
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -7229,7 +7195,7 @@ class _ProductDetailHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: isMobile ? 58 : 100,
-      decoration: BoxDecoration(
+                  decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
           bottom: BorderSide(
@@ -7237,14 +7203,14 @@ class _ProductDetailHeader extends StatelessWidget {
             width: 1,
           ),
         ),
-        boxShadow: [
-          BoxShadow(
+                    boxShadow: [
+                      BoxShadow(
             color: Colors.black.withOpacity(0.04),
             blurRadius: 20,
             offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+                      ),
+                    ],
+                  ),
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: isMobile ? 16 : 60,
@@ -7297,7 +7263,7 @@ class _ProductDetailHeader extends StatelessWidget {
                     onTap: () => context.go('/'),
                     child: MouseRegion(
                       cursor: SystemMouseCursors.click,
-                      child: Row(
+                  child: Row(
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
