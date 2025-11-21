@@ -190,6 +190,7 @@ class _HomePageState extends State<HomePage> {
         context,
         duration: const Duration(milliseconds: 800),
         curve: Curves.easeInOut,
+        alignment: 0.1, // Biraz yukarıdan göster (ekranın %10'undan başla)
       );
     }
   }
@@ -5595,8 +5596,8 @@ class _ModernProductCardState extends State<_ModernProductCard> {
 
   String _generateProductId() {
     // Ürün ID'si: brand-category-name formatında URL-safe
-    String brand = widget.product['brand']!.toLowerCase().replaceAll(' ', '-');
-    String name = widget.product['name']!.toLowerCase()
+    String brand = (widget.product['brand'] ?? '').toLowerCase().replaceAll(' ', '-');
+    String name = (widget.product['name'] ?? '').toLowerCase()
         .replaceAll(' ', '-')
         .replaceAll('/', '-')
         .replaceAll('ı', 'i')
@@ -5612,6 +5613,13 @@ class _ModernProductCardState extends State<_ModernProductCard> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
+    
+    // Güvenlik kontrolü - gerekli alanlar yoksa render etme
+    if (widget.product['name'] == null || 
+        widget.product['brand'] == null || 
+        widget.product['image'] == null) {
+      return const SizedBox.shrink();
+    }
     
     return GestureDetector(
       onTap: () {
@@ -5669,7 +5677,7 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                       ),
                     ),
                     child: Image.asset(
-                      widget.product['image']!,
+                      widget.product['image'] ?? '',
                       fit: BoxFit.contain,
                       frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
                         if (wasSynchronouslyLoaded) return child;
@@ -5778,7 +5786,7 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                         ],
                       ),
                       child: Image.asset(
-                        'assets/images/logos/${_getBrandLogoFileName(widget.product['brand']!)}.png',
+                        'assets/images/logos/${_getBrandLogoFileName(widget.product['brand'] ?? '')}.png',
                         width: isMobile ? 28 : 32,
                         height: isMobile ? 28 : 32,
                         fit: BoxFit.contain,
@@ -5825,7 +5833,7 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                 children: [
                   // Product Name
                   Text(
-                    widget.product['name']!,
+                    widget.product['name'] ?? '',
                     style: TextStyle(
                       fontSize: isMobile ? 14 : 15,
                       fontWeight: FontWeight.w700,
@@ -5848,7 +5856,7 @@ class _ModernProductCardState extends State<_ModernProductCard> {
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
-                        widget.product['brand']!,
+                        widget.product['brand'] ?? '',
                         style: TextStyle(
                             fontSize: isMobile ? 11 : 12,
                           fontWeight: FontWeight.w500,
