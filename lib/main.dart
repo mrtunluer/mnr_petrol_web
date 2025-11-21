@@ -4415,25 +4415,42 @@ class _ProductsPageState extends State<ProductsPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
-                    // Products Grid - Mobil (1 kolon)
+                    const SizedBox(height: 24),
+                    // Products Grid - Mobil (Modern E-ticaret Tasarımı)
                     if (products.isEmpty)
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 60),
+                          padding: const EdgeInsets.symmetric(vertical: 80),
                           child: Column(
                             children: [
-                              Icon(
-                                Icons.inventory_2_outlined,
-                                size: 48,
-                                color: Colors.grey[400],
+                              Container(
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.inventory_2_outlined,
+                                  size: 56,
+                                  color: Colors.grey[400],
+                                ),
                               ),
-                              const SizedBox(height: 12),
+                              const SizedBox(height: 20),
                               Text(
-                                'Ürün bulunamadı',
+                                'Ürün Bulunamadı',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Farklı filtreler deneyin',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
                                   color: Colors.grey[600],
                                 ),
                               ),
@@ -4442,18 +4459,16 @@ class _ProductsPageState extends State<ProductsPage> {
                         ),
                       )
                     else
-                      GridView.builder(
+                      ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
-                          childAspectRatio: 0.75, // Daha uzun, daha modern kartlar
-                        ),
                         itemCount: products.length,
+                        padding: EdgeInsets.zero,
                         itemBuilder: (context, index) {
-                          return _buildProductCard(products[index]);
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: _ModernMobileProductCard(product: products[index]),
+                          );
                         },
                       ),
                   ],
@@ -5875,6 +5890,217 @@ class _ModernProductCardState extends State<_ModernProductCard> {
           ],
         ),
       ),
+      ),
+    );
+  }
+}
+
+// Modern Mobile Product Card (E-ticaret Tasarımı)
+class _ModernMobileProductCard extends StatelessWidget {
+  final Map<String, String> product;
+
+  const _ModernMobileProductCard({required this.product});
+
+  String _generateProductId() {
+    String brand = (product['brand'] ?? '').toLowerCase().replaceAll(' ', '-');
+    String name = (product['name'] ?? '').toLowerCase()
+        .replaceAll(' ', '-')
+        .replaceAll('/', '-')
+        .replaceAll('ı', 'i')
+        .replaceAll('ğ', 'g')
+        .replaceAll('ü', 'u')
+        .replaceAll('ş', 's')
+        .replaceAll('ö', 'o')
+        .replaceAll('ç', 'c');
+    return '$brand-$name';
+  }
+
+  String _getBrandLogoFileName(String brandName) {
+    return brandName.toLowerCase().replaceAll(' ', '');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Güvenlik kontrolü
+    if (product['name'] == null || product['brand'] == null || product['image'] == null) {
+      return const SizedBox.shrink();
+    }
+
+    return GestureDetector(
+      onTap: () => context.go('/urun/${_generateProductId()}'),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: const Color(0xFFE5E7EB),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Sol: Görsel (120x120)
+            Container(
+              width: 120,
+              height: 120,
+              margin: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFFF8F9FA),
+                    Color(0xFFFFFFFF),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Image.asset(
+                    product['image'] ?? '',
+                    fit: BoxFit.contain,
+                    frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                      if (wasSynchronouslyLoaded) return child;
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: frame != null
+                            ? child
+                            : Center(
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      const Color(0xFFD71920).withOpacity(0.7),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Center(
+                        child: Icon(
+                          Icons.broken_image_outlined,
+                          size: 32,
+                          color: Colors.grey[300],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+            
+            // Sağ: Bilgiler
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 12, 12, 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Üst: Kategori Badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD71920).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        product['category'] ?? '',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFD71920),
+                          letterSpacing: 0.5,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 8),
+                    
+                    // Orta: Ürün Adı
+                    Text(
+                      product['name'] ?? '',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF111827),
+                        height: 1.3,
+                        letterSpacing: -0.2,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    
+                    const SizedBox(height: 8),
+                    
+                    // Alt: Marka Logosu + İsmi
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(
+                              color: const Color(0xFFE5E7EB),
+                              width: 1,
+                            ),
+                          ),
+                          child: Image.asset(
+                            'assets/images/logos/${_getBrandLogoFileName(product['brand'] ?? '')}.png',
+                            width: 20,
+                            height: 20,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const SizedBox(width: 20, height: 20);
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            product['brand'] ?? '',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[700],
+                              letterSpacing: 0.2,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        // Ok ikonu (detaya git)
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 14,
+                          color: Colors.grey[400],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
