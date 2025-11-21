@@ -7191,37 +7191,55 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                          // Görsel (Mobil - Üstte) - Tıklanabilir
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                barrierColor: Colors.black.withOpacity(0.9),
-                                builder: (context) => _FullImageDialog(imagePath: product['image']!),
-                              );
-                            },
-                            child: Container(
-                              height: 300,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFFF9FAFB),
-                                    Color(0xFFFFFFFF),
-                                  ],
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(16),
-                                  topRight: Radius.circular(16),
-                                ),
+                        // Görsel (Mobil - Üstte) - Modern & Büyük
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              barrierColor: Colors.black.withOpacity(0.9),
+                              builder: (context) => _FullImageDialog(imagePath: product['image']!),
+                            );
+                          },
+                          child: Container(
+                            height: 420, // 300 → 420 (daha büyük)
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  const Color(0xFFF8F9FA),
+                                  Colors.white,
+                                  const Color(0xFFF8F9FA).withOpacity(0.3),
+                                ],
                               ),
-                              child: Stack(
-                                children: [
-                                  // Görsel
-                                  Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(30),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
+                              ),
+                              // Modern shadow ekle
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFFD71920).withOpacity(0.05),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
+                            ),
+                            child: Stack(
+                              children: [
+                                // Dekoratif pattern (background)
+                                Positioned.fill(
+                                  child: CustomPaint(
+                                    painter: _ProductBackgroundPainter(),
+                                  ),
+                                ),
+                                // Görsel
+                                Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 40,
+                              ),
                                 child: Image.asset(
                                   product['image']!,
                                   fit: BoxFit.contain,
@@ -7283,32 +7301,40 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   },
                                 ),
                               ),
-                            ), // Center kapanışı
-                            // Tam Ekran İkonu (Sağ alt köşe)
-                            Positioned(
-                              bottom: 16,
-                              right: 16,
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.95),
-                                  borderRadius: BorderRadius.circular(12),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.15),
-                                      blurRadius: 12,
-                                      offset: const Offset(0, 4),
-                                    ),
+                          ), // Center kapanışı
+                          // Modern Zoom İkonu (Sağ alt köşe) - Yeni tasarım
+                          Positioned(
+                            bottom: 20,
+                            right: 20,
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    const Color(0xFFD71920),
+                                    const Color(0xFFB01518),
                                   ],
                                 ),
-                                child: const Icon(
-                                  Icons.fullscreen_rounded,
-                                  size: 24,
-                                  color: Color(0xFFD71920),
-                                ),
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFFD71920).withOpacity(0.4),
+                                    blurRadius: 16,
+                                    offset: const Offset(0, 6),
+                                    spreadRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.zoom_in_rounded,
+                                size: 28,
+                                color: Colors.white,
                               ),
                             ),
-                          ], // Stack children kapanışı
+                          ),
+                        ], // Stack children kapanışı
                         ), // Stack kapanışı
                       ), // Container kapanışı
                     ), // GestureDetector kapanışı
@@ -8368,4 +8394,47 @@ class _ProductDetailHeader extends StatelessWidget {
       },
     );
   }
+}
+
+// Modern Product Background Painter (Dekoratif pattern mobil ürün detayı için)
+class _ProductBackgroundPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = const Color(0xFFD71920).withOpacity(0.02)
+      ..style = PaintingStyle.fill;
+
+    // Subtle circles for decoration
+    canvas.drawCircle(
+      Offset(size.width * 0.1, size.height * 0.2),
+      80,
+      paint,
+    );
+    
+    canvas.drawCircle(
+      Offset(size.width * 0.9, size.height * 0.7),
+      60,
+      paint,
+    );
+    
+    // Subtle lines
+    final linePaint = Paint()
+      ..color = const Color(0xFFD71920).withOpacity(0.03)
+      ..strokeWidth = 1.5
+      ..style = PaintingStyle.stroke;
+    
+    final path = Path()
+      ..moveTo(0, size.height * 0.3)
+      ..quadraticBezierTo(
+        size.width * 0.5,
+        size.height * 0.2,
+        size.width,
+        size.height * 0.4,
+      );
+    
+    canvas.drawPath(path, linePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
