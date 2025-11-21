@@ -137,6 +137,8 @@ class _HomePageState extends State<HomePage> {
   bool _showLeftArrow = false;
   bool _showRightArrow = true;
 
+  String? _lastScrollTo;
+  
   @override
   void initState() {
     super.initState();
@@ -152,26 +154,52 @@ class _HomePageState extends State<HomePage> {
     _featuredScrollController.addListener(() {
       _updateArrowVisibility();
     });
+  }
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     
-    // Query parametresini kontrol et ve scroll yap
+    // Her route değişiminde query parametresini kontrol et
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final uri = GoRouterState.of(context).uri;
       final scrollTo = uri.queryParameters['scrollTo'];
-      if (scrollTo == 'contact') {
-        Future.delayed(const Duration(milliseconds: 400), () {
-          _scrollToContact();
-        });
-      } else if (scrollTo == 'brands') {
-        Future.delayed(const Duration(milliseconds: 400), () {
-          _scrollToBrands();
-        });
+      
+      // Sadece scrollTo değişmişse scroll yap (gereksiz scroll'ları önle)
+      if (scrollTo != null && scrollTo != _lastScrollTo) {
+        _lastScrollTo = scrollTo;
+        
+        // ÖNEMLİ: URL'i HEMEN temizle (scroll öncesi), 
+        // böylece browser history'de temiz URL olacak
+        _cleanScrollParameter();
+        
+        if (scrollTo == 'contact') {
+          Future.delayed(const Duration(milliseconds: 400), () {
+            _scrollToContact();
+          });
+        } else if (scrollTo == 'brands') {
+          Future.delayed(const Duration(milliseconds: 400), () {
+            _scrollToBrands();
+          });
+        }
+      } else if (scrollTo == null && _lastScrollTo != null) {
+        _lastScrollTo = null;
       }
       
       // İlk yüklemede ok görünürlüğünü kontrol et
-      Future.delayed(const Duration(milliseconds: 500), () {
+      if (_featuredScrollController.hasClients) {
         _updateArrowVisibility();
-      });
+      }
     });
+  }
+  
+  void _cleanScrollParameter() {
+    // URL'den scrollTo parametresini temizle (browser history'de)
+    // Sayfa yenilenmeden URL'i güncelle
+    // Hash routing (#/) veya normal routing'e göre düzelt
+    final cleanUrl = html.window.location.hash.isNotEmpty ? '/#/' : '/';
+    html.window.history.replaceState(null, '', cleanUrl);
+    _lastScrollTo = null;
   }
   
   void _updateArrowVisibility() {
@@ -536,8 +564,8 @@ $message
           context.go('/urunler?marka=${brandName.toLowerCase().replaceAll(' ', '')}');
         },
         onHeaderTap: () {
-          // Ana sayfaya git ve markalar bölümüne scroll yap
-          context.go('/?scrollTo=brands');
+          // Ana sayfadaysak direkt scroll (daha smooth)
+          _scrollToBrands();
         },
       );
     }
@@ -551,11 +579,8 @@ $message
         } else if (title == 'Ana Sayfa') {
           context.go('/');
         } else if (title == 'İletişim') {
-          // Önce ana sayfaya git, sonra scroll yap
-          context.go('/');
-          Future.delayed(const Duration(milliseconds: 400), () {
-            _scrollToContact();
-          });
+          // Query parameter ile scroll yap (Ana sayfada olsak da olmasak da çalışır)
+          _scrollToContact();
         }
       },
     );
@@ -1305,17 +1330,19 @@ extension _HomePageWidgets on _HomePageState {
           ),
           // Content
           Positioned.fill(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 900),
-              padding: EdgeInsets.only(
-                top: isMobile ? 80 : (isTablet ? 110 : 140),
-                bottom: isMobile ? 80 : (isTablet ? 110 : 140),
-                left: isMobile ? 20 : (isTablet ? 30 : 40),
-                right: isMobile ? 20 : (isTablet ? 30 : 40),
-              ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+            child: SingleChildScrollView(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 900),
+                padding: EdgeInsets.only(
+                  top: isMobile ? 80 : (isTablet ? 110 : 140),
+                  bottom: isMobile ? 80 : (isTablet ? 110 : 140),
+                  left: isMobile ? 20 : (isTablet ? 30 : 40),
+                  right: isMobile ? 20 : (isTablet ? 30 : 40),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
                   // Badge
                   Container(
                     padding: EdgeInsets.symmetric(
@@ -1474,30 +1501,34 @@ extension _HomePageWidgets on _HomePageState {
                         ),
                       ],
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildStatCard('15+', 'Yıllık Tecrübe', isMobile),
-                        Container(
-                          height: isMobile ? 40 : 50,
-                          width: 1,
-                          margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
-                          color: Colors.white.withOpacity(0.3),
-                        ),
-                        _buildStatCard('1000+', 'Mutlu Müşteri', isMobile),
-                        Container(
-                          height: isMobile ? 40 : 50,
-                          width: 1,
-                          margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
-                          color: Colors.white.withOpacity(0.3),
-                        ),
-                        _buildStatCard('5', 'Premium Marka', isMobile),
-                      ],
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildStatCard('15+', 'Yıllık Tecrübe', isMobile),
+                          Container(
+                            height: isMobile ? 40 : 50,
+                            width: 1,
+                            margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
+                            color: Colors.white.withOpacity(0.3),
+                          ),
+                          _buildStatCard('1000+', 'Mutlu Müşteri', isMobile),
+                          Container(
+                            height: isMobile ? 40 : 50,
+                            width: 1,
+                            margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
+                            color: Colors.white.withOpacity(0.3),
+                          ),
+                          _buildStatCard('5', 'Premium Marka', isMobile),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+          ),
           ),
         ],
       ),
@@ -1861,7 +1892,7 @@ extension _HomePageWidgets on _HomePageState {
         'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png',
         'brand': 'Japan Oil',
         'category': 'Motor Yağları',
-        'badge': 'Premium',
+        'badge': 'Japan Oil',
       },
       // Xenol Motor Yağları
       {
@@ -1869,14 +1900,14 @@ extension _HomePageWidgets on _HomePageState {
         'image': 'assets/images/xenol/motor/xenol-10w40.png',
         'brand': 'Xenol',
         'category': 'Motor Yağları',
-        'badge': 'Yeni',
+        'badge': 'Ceramix',
       },
       {
         'name': 'Xenol Ceramix Blue 5W30 SN/CF',
         'image': 'assets/images/xenol/motor/xenol-5w30-motor.png',
         'brand': 'Xenol',
         'category': 'Motor Yağları',
-        'badge': 'Yeni',
+        'badge': 'Ceramix',
       },
     ];
 
@@ -1939,28 +1970,62 @@ extension _HomePageWidgets on _HomePageState {
                 children: [
                   SizedBox(
                     height: isMobile ? 320 : (isTablet ? 380 : 400),
-                    child: ListView.builder(
-                      controller: _featuredScrollController,
-                      scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
-                      ),
-                      itemCount: featuredProducts.length,
-                      itemBuilder: (context, index) {
-                        final product = featuredProducts[index];
-                        return Container(
-                          width: isMobile ? 180 : (isTablet ? 240 : 280),
-                          margin: EdgeInsets.only(
-                            right: index < featuredProducts.length - 1 
-                                ? (isMobile ? 16 : 24) 
-                                : 0,
-                          ),
-                          child: _FeaturedProductCard(
-                            product: product,
-                            isMobile: isMobile,
-                          ),
-                        );
+                    child: Listener(
+                      onPointerSignal: (event) {
+                        // Touchpad/Mouse wheel horizontal scroll'u yakala
+                        if (event is PointerScrollEvent) {
+                          // Scroll delta'yı al (trackpad horizontal scroll için)
+                          final delta = event.scrollDelta;
+                          
+                          // Yatay scroll öncelikli (trackpad'de sola/sağa kaydırma)
+                          if (delta.dx.abs() > delta.dy.abs()) {
+                            // Yatay kaydırma daha baskın
+                            if (_featuredScrollController.hasClients) {
+                              final newOffset = _featuredScrollController.offset + delta.dx;
+                              _featuredScrollController.jumpTo(
+                                newOffset.clamp(
+                                  0.0,
+                                  _featuredScrollController.position.maxScrollExtent,
+                                ),
+                              );
+                            }
+                          } else if (delta.dy.abs() > 0) {
+                            // Dikey kaydırma - izin ver (normal scroll için)
+                            if (_featuredScrollController.hasClients) {
+                              final newOffset = _featuredScrollController.offset + delta.dy;
+                              _featuredScrollController.jumpTo(
+                                newOffset.clamp(
+                                  0.0,
+                                  _featuredScrollController.position.maxScrollExtent,
+                                ),
+                              );
+                            }
+                          }
+                        }
                       },
+                      child: ListView.builder(
+                        controller: _featuredScrollController,
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
+                        ),
+                        itemCount: featuredProducts.length,
+                        itemBuilder: (context, index) {
+                          final product = featuredProducts[index];
+                          return Container(
+                            width: isMobile ? 180 : (isTablet ? 240 : 280),
+                            margin: EdgeInsets.only(
+                              right: index < featuredProducts.length - 1 
+                                  ? (isMobile ? 16 : 24) 
+                                  : 0,
+                            ),
+                            child: _FeaturedProductCard(
+                              product: product,
+                              isMobile: isMobile,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                   // Sola scroll ok işareti (sadece sol tarafa scroll edilebiliyorsa)
@@ -7261,8 +7326,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: const Color(0xFFE5E7EB), width: 2),
                                   ),
-                                  child: Image.asset(
-                                    'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
+child: Image.asset(
+                                  'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.contain,
@@ -7424,8 +7489,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   ),
                                 ],
                               ),
-                              child: Image.asset(
-                                'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
+child: Image.asset(
+                                  'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
                                 width: 60,
                                 height: 60,
                                 fit: BoxFit.contain,
