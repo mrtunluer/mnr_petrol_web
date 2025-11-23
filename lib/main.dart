@@ -1864,7 +1864,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
-        'description': 'Yeni nesil tam sentetik motor yağı. Molybden teknolojisi ile üstün aşınma koruması sağlar. Yakıt tasarrufu ve çevre dostu formül. Soğuk havalarda kolay çalıştırma, yüksek sıcaklıklarda mükemmel performans. API SN Plus, ACEA C5 standartlarına uygundur.',
+        'description': 'Yeni nesil tam sentetik motor yağı. Molygen katkı teknolojisi ile üstün aşınma ve sürtünme koruması sağlar. Yakıt tasarrufu ve çevre dostu formül sunar. Soğuk havalarda kolay çalıştırma, yüksek sıcaklıklarda mükemmel performans. API SN Plus, ACEA C5 standartlarına uygundur.'
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 0W30',
@@ -1872,7 +1872,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
-        'description': 'Hibrit ve modern benzinli motorlar için özel formül. Molybden katkılı tam sentetik yağ. Düşük sürtünme direnci ile yakıt ekonomisi. Uzun yağ değişim aralığı. ACEA C3, API SN/CF standartlarına uygun. Turbo motorlarda üstün performans.',
+        'description': 'Yeni nesil tam sentetik motor yağı. Molygen katkı teknolojisi ile motor parçalarını aşınmaya ve sürtünmeye karşı korur, yüksek performans sağlar. Düşük viskozitesi sayesinde soğuk havalarda hızlı yağlama, yüksek sıcaklıklarda ise mükemmel koruma sunar. Yakıt tasarrufu ve çevre dostu formülü ile modern benzinli ve dizel motorlar için uygundur.',
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 5W30',
@@ -1880,7 +1880,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
-        'description': 'En popüler viskozite sınıfı ile geniş araç yelpazesine uyum. Molygen teknolojisi ile motor ömrünü uzatır. DPF ve benzinli motorlarda mükemmel uyum. Dört mevsim kullanım. API SN, ACEA A3/B4 onaylı. Akışkanlık ve koruma dengesi.',
+        'description': 'Tam sentetik motor yağı. Molygen katkı teknolojisi sayesinde motor parçalarını aşınmaya ve sürtünmeye karşı korur, motor performansını optimize eder. Düşük sıcaklıklarda hızlı yağlama, yüksek sıcaklıklarda ise üstün koruma sağlar. Yakıt tasarrufu ve çevre dostu formülü ile modern benzinli ve dizel motorlar için uygundur.',
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 10W40',
@@ -1888,7 +1888,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
-        'description': 'Yüksek kilometreli araçlar için ideal çözüm. Molybden katkı ile güçlendirilmiş formül. Aşınmaya karşı maksimum koruma. Yüksek sıcaklık stabilitesi. API SN/CF, ACEA A3/B4. Turbo ve doğal emişli motorlarda kullanılabilir.',
+        'description': 'Tam sentetik motor yağı. Molygen katkı teknolojisi ile motor parçalarını aşınmaya ve sürtünmeye karşı korur, motor performansını optimize eder. Orta viskozitesi sayesinde yüksek sıcaklıklarda güçlü koruma sağlar ve motorun uzun ömürlü çalışmasına katkıda bulunur. Modern benzinli ve dizel motorlar için uygundur.',
       },
       // Japan Oil
       {
@@ -1897,7 +1897,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Japan Oil',
         'category': 'Motor Yağları',
         'badge': 'Japan Oil',
-        'description': 'Japon teknolojisi ile üretilmiş premium tam sentetik motor yağı. Molybden katkılı gelişmiş formül. API SN Plus, ILSAC GF-5. Düşük SAPS özelliği ile DPF uyumlu. Yakıt ekonomisi ve emisyon kontrolü. Modern benzinli ve hibrit motorlarda mükemmel performans.',
+        'description': 'Tam sentetik motor yağı. Molygen katkı teknolojisi ile motor parçalarını aşınmaya ve sürtünmeye karşı korur, motor performansını artırır ve uzun ömür sağlar. Düşük sıcaklıklarda hızlı yağlama, yüksek sıcaklıklarda ise üstün koruma sunar. Yakıt tasarrufu sağlayan ve modern benzinli ile dizel motorlar için ideal bir formüldür.',
       },
       // Xenol Motor Yağları
       {
@@ -1906,7 +1906,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Xenol',
         'category': 'Motor Yağları',
         'badge': 'Ceramix',
-        'description': 'Seramik nano partiküller içeren yenilikçi motor yağı. Metal yüzeylerde ultra kaygan tabaka oluşturur. API SN/CF. Aşırı basınç ve sıcaklıkta koruma. Motor gürültüsünü azaltır. Benzinli ve dizel motorlarda kullanım. Gelişmiş temizleyici katkılar.',
+        'description': 'Tam sentetik motor yağı. Yüksek kimyasal ve termal dirence sahip seramik bileşenler içerir, motor parçalarını aşınmaya ve sürtünmeye karşı korur. Düşük sıcaklıklarda hızlı yağlama sağlar, yüksek sıcaklıklarda ise üstün performans ve koruma sunar. Modern benzinli ve dizel motorlar için uygundur, motor ömrünü uzatır ve verimliliği artırır.',
       },
       {
         'name': 'Xenol Ceramix Blue 5W30 SN/CF',
@@ -1914,7 +1914,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Xenol',
         'category': 'Motor Yağları',
         'badge': 'Ceramix',
-        'description': 'Seramik teknolojisi ile güçlendirilmiş tam sentetik yağ. API SN/CF, ACEA A3/B4. Modern motorlar için optimize edilmiş. Düşük sürtünme direnci ile yakıt tasarrufu. Soğuk start kolaylığı. DPF uyumlu özel formül. Uzun değişim aralıkları.',
+        'description': 'Tam sentetik motor yağı. Yüksek kimyasal ve termal dirence sahip seramik bileşenler ile motor parçalarını aşınmaya ve sürtünmeye karşı korur. Düşük sıcaklıklarda hızlı yağlama, yüksek sıcaklıklarda ise üstün performans ve koruma sağlar. Modern benzinli ve dizel motorlar için uygundur ve motor ömrünü uzatır.',
       },
     ];
 
@@ -4367,16 +4367,15 @@ class _ProductsPageState extends State<ProductsPage> {
         'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png',
         'brand': 'Borax',
         'category': 'Motor Yağları',
-        'description': '''
-Tam sentetik motor yağı. Düşük viskozitesi sayesinde motoru hızlı şekilde yağlar, sürtünmeyi ve aşınmayı azaltır. Yakıt verimliliğini artırır ve motor performansını optimize eder. Modern benzinli ve dizel motorlar için uygundur.        '''
-      },
+        'description': 'Yeni nesil tam sentetik motor yağı. Molygen katkı teknolojisi ile üstün aşınma ve sürtünme koruması sağlar. Yakıt tasarrufu ve çevre dostu formül sunar. Soğuk havalarda kolay çalıştırma, yüksek sıcaklıklarda mükemmel performans. API SN Plus, ACEA C5 standartlarına uygundur.'
+},
       {
         'name': 'Borax Full Synthetic Molygen Green 0W30',
         'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png',
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'description': '''
-Tam sentetik motor yağı. Düşük viskozitesi sayesinde motoru hızlı şekilde yağlar, sürtünmeyi ve aşınmayı azaltır. Yakıt verimliliğini artırır ve motor performansını optimize eder. Modern benzinli ve dizel motorlar için uygundur.        '''
+Yeni nesil tam sentetik motor yağı. Molygen katkı teknolojisi ile motor parçalarını aşınmaya ve sürtünmeye karşı korur, yüksek performans sağlar. Düşük viskozitesi sayesinde soğuk havalarda hızlı yağlama, yüksek sıcaklıklarda ise mükemmel koruma sunar. Yakıt tasarrufu ve çevre dostu formülü ile modern benzinli ve dizel motorlar için uygundur.  '''
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 5W30',
@@ -4384,7 +4383,7 @@ Tam sentetik motor yağı. Düşük viskozitesi sayesinde motoru hızlı şekild
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'description': '''
-Tam sentetik motor yağı. Düşük sıcaklıklarda hızlı akış sağlar, sürtünmeyi ve aşınmayı azaltır. Yakıt verimliliğini artırır ve motor performansını optimize eder. Modern benzinli ve dizel motorlar için uygundur.        '''
+Tam sentetik motor yağı. Molygen katkı teknolojisi sayesinde motor parçalarını aşınmaya ve sürtünmeye karşı korur, motor performansını optimize eder. Düşük sıcaklıklarda hızlı yağlama, yüksek sıcaklıklarda ise üstün koruma sağlar. Yakıt tasarrufu ve çevre dostu formülü ile modern benzinli ve dizel motorlar için uygundur.     '''
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 10W40',
@@ -4392,7 +4391,7 @@ Tam sentetik motor yağı. Düşük sıcaklıklarda hızlı akış sağlar, sür
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'description': '''
-Tam sentetik motor yağı. Orta viskozitesi sayesinde motoru yüksek sıcaklıklarda korur, sürtünmeyi ve aşınmayı azaltır. Motor performansını artırır ve modern benzinli ile dizel motorlar için uygundur.        '''
+Tam sentetik motor yağı. Molygen katkı teknolojisi ile motor parçalarını aşınmaya ve sürtünmeye karşı korur, motor performansını optimize eder. Orta viskozitesi sayesinde yüksek sıcaklıklarda güçlü koruma sağlar ve motorun uzun ömürlü çalışmasına katkıda bulunur. Modern benzinli ve dizel motorlar için uygundur.'''
       },
       // Diğer Motor Yağları
       {
@@ -5065,16 +5064,14 @@ Yakıt verimli CVT ve otomatik şanzıman sistemleri için yüksek performanslı
         'image': 'assets/images/xenol/motor/xenol-10w40.png',
         'brand': 'Xenol',
         'category': 'Motor Yağları',
-        'description': '''
-Yüksek kaliteli baz yağları ile ileri teknoloji katkı maddelerinin harmanlanması sonucu normal emişli ve turbo şarjlı motorların yağlama ihtiyacını karşılamak için üretilen sentetik motor yağıdır. Benzinli, hafif dizel ve LPG’li araçların yağlama gereksinimlerini karşılamak için geliştirilmiş motor yağıdır.        '''
+        'description': 'Tam sentetik motor yağı. Yüksek kimyasal ve termal dirence sahip seramik bileşenler içerir, motor parçalarını aşınmaya ve sürtünmeye karşı korur. Düşük sıcaklıklarda hızlı yağlama sağlar, yüksek sıcaklıklarda ise üstün performans ve koruma sunar. Modern benzinli ve dizel motorlar için uygundur, motor ömrünü uzatır ve verimliliği artırır.'
       },
       {
         'name': 'Xenol Ceramix Blue 5W30 SN/CF',
         'image': 'assets/images/xenol/motor/xenol-5w30-motor.png',
         'brand': 'Xenol',
         'category': 'Motor Yağları',
-        'description': '''
-Tam sentetik motor yağı. Motoru aşınmaya ve yüksek sıcaklıklara karşı korur, sürtünmeyi azaltır ve yakıt verimliliğini artırır. Benzinli ve dizel motorlarla uyumludur, uzun ömürlü ve yüksek performans sağlar.        '''
+        'description': 'Tam sentetik motor yağı. Yüksek kimyasal ve termal dirence sahip seramik bileşenler ile motor parçalarını aşınmaya ve sürtünmeye karşı korur. Düşük sıcaklıklarda hızlı yağlama, yüksek sıcaklıklarda ise üstün performans ve koruma sağlar. Modern benzinli ve dizel motorlar için uygundur ve motor ömrünü uzatır.'
       },
     ],
     'xenol-sanziman': [
