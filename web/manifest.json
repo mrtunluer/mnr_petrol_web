@@ -1,6 +1,7 @@
 {
     "name": "MNR Petrol - Motor Yağları ve Endüstriyel Ürünler",
     "short_name": "MNR Petrol",
+    "version": "2.0.0",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#FFFFFF",

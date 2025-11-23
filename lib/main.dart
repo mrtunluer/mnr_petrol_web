@@ -1864,6 +1864,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
+        'description': 'Yeni nesil tam sentetik motor yağı. Molybden teknolojisi ile üstün aşınma koruması sağlar. Yakıt tasarrufu ve çevre dostu formül. Soğuk havalarda kolay çalıştırma, yüksek sıcaklıklarda mükemmel performans. API SN Plus, ACEA C5 standartlarına uygundur.',
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 0W30',
@@ -1871,6 +1872,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
+        'description': 'Hibrit ve modern benzinli motorlar için özel formül. Molybden katkılı tam sentetik yağ. Düşük sürtünme direnci ile yakıt ekonomisi. Uzun yağ değişim aralığı. ACEA C3, API SN/CF standartlarına uygun. Turbo motorlarda üstün performans.',
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 5W30',
@@ -1878,6 +1880,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
+        'description': 'En popüler viskozite sınıfı ile geniş araç yelpazesine uyum. Molygen teknolojisi ile motor ömrünü uzatır. DPF ve benzinli motorlarda mükemmel uyum. Dört mevsim kullanım. API SN, ACEA A3/B4 onaylı. Akışkanlık ve koruma dengesi.',
       },
       {
         'name': 'Borax Full Synthetic Molygen Green 10W40',
@@ -1885,6 +1888,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Borax',
         'category': 'Motor Yağları',
         'badge': 'Molygen',
+        'description': 'Yüksek kilometreli araçlar için ideal çözüm. Molybden katkı ile güçlendirilmiş formül. Aşınmaya karşı maksimum koruma. Yüksek sıcaklık stabilitesi. API SN/CF, ACEA A3/B4. Turbo ve doğal emişli motorlarda kullanılabilir.',
       },
       // Japan Oil
       {
@@ -1893,6 +1897,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Japan Oil',
         'category': 'Motor Yağları',
         'badge': 'Japan Oil',
+        'description': 'Japon teknolojisi ile üretilmiş premium tam sentetik motor yağı. Molybden katkılı gelişmiş formül. API SN Plus, ILSAC GF-5. Düşük SAPS özelliği ile DPF uyumlu. Yakıt ekonomisi ve emisyon kontrolü. Modern benzinli ve hibrit motorlarda mükemmel performans.',
       },
       // Xenol Motor Yağları
       {
@@ -1901,6 +1906,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Xenol',
         'category': 'Motor Yağları',
         'badge': 'Ceramix',
+        'description': 'Seramik nano partiküller içeren yenilikçi motor yağı. Metal yüzeylerde ultra kaygan tabaka oluşturur. API SN/CF. Aşırı basınç ve sıcaklıkta koruma. Motor gürültüsünü azaltır. Benzinli ve dizel motorlarda kullanım. Gelişmiş temizleyici katkılar.',
       },
       {
         'name': 'Xenol Ceramix Blue 5W30 SN/CF',
@@ -1908,6 +1914,7 @@ extension _HomePageWidgets on _HomePageState {
         'brand': 'Xenol',
         'category': 'Motor Yağları',
         'badge': 'Ceramix',
+        'description': 'Seramik teknolojisi ile güçlendirilmiş tam sentetik yağ. API SN/CF, ACEA A3/B4. Modern motorlar için optimize edilmiş. Düşük sürtünme direnci ile yakıt tasarrufu. Soğuk start kolaylığı. DPF uyumlu özel formül. Uzun değişim aralıkları.',
       },
     ];
 
@@ -4355,90 +4362,90 @@ class _ProductsPageState extends State<ProductsPage> {
   static final Map<String, List<Map<String, String>>> _products = {
     'borax-motor': [
       // Molygen Serisi (Premium)
-      {'name': 'Borax Full Synthetic Molygen Green 0W20', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Full Synthetic Molygen Green 0W30', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Full Synthetic Molygen Green 5W30', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Full Synthetic Molygen Green 10W40', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Full Synthetic Molygen Green 0W20', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Full Synthetic Molygen Green 0W30', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Full Synthetic Molygen Green 5W30', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Full Synthetic Molygen Green 10W40', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
       // Diğer Motor Yağları
-      {'name': 'Borax Platinum Full Synthetic 10W40', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Platinium Full Synthetic DPF 5W30', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Platinium Full Synthetic 5W40', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax Ultimate DX 20W50', 'image': 'assets/images/borax/motor/borax-20w50-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
-      {'name': 'Borax 20W50', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları'},
+      {'name': 'Borax Platinum Full Synthetic 10W40', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Platinium Full Synthetic DPF 5W30', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Platinium Full Synthetic 5W40', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax Ultimate DX 20W50', 'image': 'assets/images/borax/motor/borax-20w50-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Borax 20W50', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
     ],
     'borax-sanziman': [
-      {'name': 'Borax Ultimate EP Series 30', 'image': 'assets/images/borax/sanziman/borax-30-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax 75W80', 'image': 'assets/images/borax/sanziman/borax-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series 75W90', 'image': 'assets/images/borax/sanziman/borax-75w90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80-90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series 85W140', 'image': 'assets/images/borax/sanziman/borax-85w140-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax EP 75W80', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Borax Ultimate EP Series', 'image': 'assets/images/borax/sanziman/borax-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Borax Ultimate EP Series 30', 'image': 'assets/images/borax/sanziman/borax-30-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Borax 75W80', 'image': 'assets/images/borax/sanziman/borax-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Borax Ultimate EP Series 75W90', 'image': 'assets/images/borax/sanziman/borax-75w90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80-90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Borax Ultimate EP Series 85W140', 'image': 'assets/images/borax/sanziman/borax-85w140-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Borax EP 75W80', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Borax Ultimate EP Series', 'image': 'assets/images/borax/sanziman/borax-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
     ],
     'borax-hidrolik': [
-      {'name': 'Borax Hydro Plus 68 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
-      {'name': 'Borax Hydro Plus 46 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları'},
+      {'name': 'Borax Hydro Plus 68 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
+      {'name': 'Borax Hydro Plus 46 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
     ],
     'brava-motorsiklet': [
-      {'name': 'Brava Extreme 9000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava Extreme 6000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava Extreme 6000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava Extreme 9000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava Extreme 6000 4T 15W50', 'image': 'assets/images/brava/motorsiklet/brava-15w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava Extreme 6000 4T 5W40', 'image': 'assets/images/brava/motorsiklet/brava-5w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Brava Extreme 9000 4T 5W50', 'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Brava Extreme 9000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Brava Extreme 6000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Brava Extreme 6000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Brava Extreme 9000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Brava Extreme 6000 4T 15W50', 'image': 'assets/images/brava/motorsiklet/brava-15w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Brava Extreme 6000 4T 5W40', 'image': 'assets/images/brava/motorsiklet/brava-5w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Brava Extreme 9000 4T 5W50', 'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
     ],
     'brava-katki': [
-      {'name': 'Brava Zincir Temizleyici', 'image': 'assets/images/brava/katki/brava-chain-cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
-      {'name': 'Brava Katkı', 'image': 'assets/images/brava/katki/brava-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
-      {'name': 'Brava Nano Complex', 'image': 'assets/images/brava/katki/brava-nano-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri'},
+      {'name': 'Brava Zincir Temizleyici', 'image': 'assets/images/brava/katki/brava-chain-cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
+      {'name': 'Brava Katkı', 'image': 'assets/images/brava/katki/brava-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
+      {'name': 'Brava Nano Complex', 'image': 'assets/images/brava/katki/brava-nano-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
     ],
     'japanoil-motor': [
-      {'name': 'Japan Oil Molytech Sn+ Plus Tam Sentetik 5W30', 'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları'}
+      {'name': 'Japan Oil Molytech Sn+ Plus Tam Sentetik 5W30', 'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'}
     ],
     'japanoil-motorsiklet': [
-      {'name': 'Japan Oil 4T 10W-40 SN MA2 Red', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-10w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Japan Oıl 4T 15W-50 SM-MA 2 Purple', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-15w50-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
-      {'name': 'Japan Oil 4T 20W40 SE-MA 2 Grey', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Japan Oil 4T 10W-40 SN MA2 Red', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-10w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Japan Oıl 4T 15W-50 SM-MA 2 Purple', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-15w50-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {'name': 'Japan Oil 4T 20W40 SE-MA 2 Grey', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
     ],
     'japanoil-sanziman': [
-      {'name': 'Japan Oil Otomatik Şanzıman Cvt Fluid-Ns-3', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Japan Oil Otomatik Şanzıman Atf-Cvt-Fe', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Japan Oil Otomatik Şanzıman Cvt Fluid-Ns-3', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Japan Oil Otomatik Şanzıman Atf-Cvt-Fe', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
     ],
     'xenol-motor': [
-      {'name': 'Xenol Ceramix Blue 10W40 SN/CF', 'image': 'assets/images/xenol/motor/xenol-10w40.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
-      {'name': 'Xenol Ceramix Blue 5W30 SN/CF', 'image': 'assets/images/xenol/motor/xenol-5w30-motor.png', 'brand': 'Xenol', 'category': 'Motor Yağları'},
+      {'name': 'Xenol Ceramix Blue 10W40 SN/CF', 'image': 'assets/images/xenol/motor/xenol-10w40.png', 'brand': 'Xenol', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Xenol Ceramix Blue 5W30 SN/CF', 'image': 'assets/images/xenol/motor/xenol-5w30-motor.png', 'brand': 'Xenol', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
     ],
     'xenol-sanziman': [
-      {'name': 'Xenol Atf Dexron VI', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
-      {'name': 'Xenol Cvt Fluid', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları'},
+      {'name': 'Xenol Atf Dexron VI', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {'name': 'Xenol Cvt Fluid', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
     ],
     'xenol-hidrolik': [
-      {'name': 'Xenol Green Atf', 'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png', 'brand': 'Xenol', 'category': 'Hidrolik Sistem Yağları'},
+      {'name': 'Xenol Green Atf', 'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png', 'brand': 'Xenol', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
     ],
     'oilport-motor': [
-      {'name': 'Oilport 10W40', 'image': 'assets/images/oilport/motor/oilport-10w40-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
-      {'name': 'Oilport 20W50', 'image': 'assets/images/oilport/motor/oilport-20w50-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
-      {'name': 'Oilport 5W30', 'image': 'assets/images/oilport/motor/oilport-5w30-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları'},
+      {'name': 'Oilport 10W40', 'image': 'assets/images/oilport/motor/oilport-10w40-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Oilport 20W50', 'image': 'assets/images/oilport/motor/oilport-20w50-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {'name': 'Oilport 5W30', 'image': 'assets/images/oilport/motor/oilport-5w30-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
     ],
     'oilport-motorsiklet': [
-      {'name': 'Oilport 4T 10W40', 'image': 'assets/images/oilport/motorsiklet/oilport-4t-10w40-motorsiklet.png', 'brand': 'Oilport', 'category': 'Motorsiklet Yağları'},
+      {'name': 'Oilport 4T 10W40', 'image': 'assets/images/oilport/motorsiklet/oilport-4t-10w40-motorsiklet.png', 'brand': 'Oilport', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
     ],
     'oilport-hidrolik': [
-      {'name': 'Oilport ATF', 'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png', 'brand': 'Oilport', 'category': 'Hidrolik Sistem Yağları'},
+      {'name': 'Oilport ATF', 'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png', 'brand': 'Oilport', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
     ],
     'oilport-antifriz': [
-      {'name': 'Oilport Antifreeze', 'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png', 'brand': 'Oilport', 'category': 'Antifrizler'},
+      {'name': 'Oilport Antifreeze', 'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png', 'brand': 'Oilport', 'category': 'Antifrizler', 'description': 'Motor soğutma sistemi için uzun ömürlü antifriz. -40°C donma ve +150°C kaynama koruması. Korozyon ve çukurlaşma önleyici formül. Alüminyum ve demir blok motorlarda uyumluluk. Organik asit teknolojisi (OAT). Tüm mevsim motor koruması sağlar.'},
     ],
     'oilport-katki': [
-      {'name': 'Oilport Bıçkı Zincir Yağı', 'image': 'assets/images/oilport/sarf/oilport-zincir.png', 'brand': 'Oilport', 'category': 'Katkı Maddeleri'},
+      {'name': 'Oilport Bıçkı Zincir Yağı', 'image': 'assets/images/oilport/sarf/oilport-zincir.png', 'brand': 'Oilport', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
     ],
     'skynell-fren': [
-      {'name': 'Skynell DOT3', 'image': 'assets/images/skynell/fren/skynell-dot3-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları'},
-      {'name': 'Skynell DOT4', 'image': 'assets/images/skynell/fren/skynell-dot4-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları'},
-      {'name': 'Skynell Balata Temizleyici', 'image': 'assets/images/skynell/fren/skynell-balata.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları'},
+      {'name': 'Skynell DOT3', 'image': 'assets/images/skynell/fren/skynell-dot3-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları', 'description': 'Fren ve kavrama hidrolik sistemleri için güvenilir sıvı. DOT standartlarına uygun yüksek kaynama noktası. ABS ve ESP sistemleriyle tam uyumluluk. Nem absorpsiyonuna karşı dirençli. Güvenli fren performansı ve uzun değişim aralıkları sunar.'},
+      {'name': 'Skynell DOT4', 'image': 'assets/images/skynell/fren/skynell-dot4-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları', 'description': 'Fren ve kavrama hidrolik sistemleri için güvenilir sıvı. DOT standartlarına uygun yüksek kaynama noktası. ABS ve ESP sistemleriyle tam uyumluluk. Nem absorpsiyonuna karşı dirençli. Güvenli fren performansı ve uzun değişim aralıkları sunar.'},
+      {'name': 'Skynell Balata Temizleyici', 'image': 'assets/images/skynell/fren/skynell-balata.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları', 'description': 'Fren ve kavrama hidrolik sistemleri için güvenilir sıvı. DOT standartlarına uygun yüksek kaynama noktası. ABS ve ESP sistemleriyle tam uyumluluk. Nem absorpsiyonuna karşı dirençli. Güvenli fren performansı ve uzun değişim aralıkları sunar.'},
     ],
   };
 
@@ -7419,6 +7426,53 @@ child: Image.asset(
                                     ),
                                   ),
                                 ),
+                                // Ürün Açıklaması (Description)
+                                // DEBUG: Description var mı kontrol
+                                const SizedBox(height: 24),
+                                Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFF9FAFB),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Row(
+                                        children: [
+                                          Icon(
+                                            Icons.info_outline_rounded,
+                                            color: Color(0xFFD71920),
+                                            size: 20,
+                                          ),
+                                          SizedBox(width: 8),
+                                          Text(
+                                            'Ürün Açıklaması',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xFF374151),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        product['description'] ?? '⚠️ TEST: Description NULL - Yeni build çalışıyor!',
+                                        style: const TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xFF6B7280),
+                                          height: 1.6,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 const SizedBox(height: 24),
                                 // Hacim Seçenekleri
                                 if (_getAvailableVolumes(product) != null) ...[
@@ -7581,6 +7635,53 @@ child: Image.asset(
                                   color: Color(0xFFD71920),
                                   letterSpacing: 0.5,
                                 ),
+                              ),
+                            ),
+                            // Ürün Açıklaması (Description) - Desktop
+                            const SizedBox(height: 32),
+                            Container(
+                              padding: const EdgeInsets.all(24),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF9FAFB),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: const Color(0xFFE5E7EB),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.info_outline_rounded,
+                                        color: Color(0xFFD71920),
+                                        size: 24,
+                                      ),
+                                      SizedBox(width: 12),
+                                      Text(
+                                        'Ürün Açıklaması',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xFF374151),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    product['description'] ?? '⚠️ TEST: Description NULL - Yeni build çalışıyor!',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xFF6B7280),
+                                      height: 1.7,
+                                      letterSpacing: 0.2,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             const SizedBox(height: 32),
