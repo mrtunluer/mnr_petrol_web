@@ -4362,90 +4362,840 @@ class _ProductsPageState extends State<ProductsPage> {
   static final Map<String, List<Map<String, String>>> _products = {
     'borax-motor': [
       // Molygen Serisi (Premium)
-      {'name': 'Borax Full Synthetic Molygen Green 0W20', 'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Full Synthetic Molygen Green 0W30', 'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Full Synthetic Molygen Green 5W30', 'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Full Synthetic Molygen Green 10W40', 'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {
+        'name': 'Borax Full Synthetic Molygen Green 0W20',
+        'image': 'assets/images/borax/motor/borax-molygen-0w20-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Tam sentetik motor yağı. Düşük viskozitesi sayesinde motoru hızlı şekilde yağlar, sürtünmeyi ve aşınmayı azaltır. Yakıt verimliliğini artırır ve motor performansını optimize eder. Modern benzinli ve dizel motorlar için uygundur.        '''
+      },
+      {
+        'name': 'Borax Full Synthetic Molygen Green 0W30',
+        'image': 'assets/images/borax/motor/borax-molygen-0w30-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Tam sentetik motor yağı. Düşük viskozitesi sayesinde motoru hızlı şekilde yağlar, sürtünmeyi ve aşınmayı azaltır. Yakıt verimliliğini artırır ve motor performansını optimize eder. Modern benzinli ve dizel motorlar için uygundur.        '''
+      },
+      {
+        'name': 'Borax Full Synthetic Molygen Green 5W30',
+        'image': 'assets/images/borax/motor/borax-molygen-5w30-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Tam sentetik motor yağı. Düşük sıcaklıklarda hızlı akış sağlar, sürtünmeyi ve aşınmayı azaltır. Yakıt verimliliğini artırır ve motor performansını optimize eder. Modern benzinli ve dizel motorlar için uygundur.        '''
+      },
+      {
+        'name': 'Borax Full Synthetic Molygen Green 10W40',
+        'image': 'assets/images/borax/motor/borax-molygen-10w40-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Tam sentetik motor yağı. Orta viskozitesi sayesinde motoru yüksek sıcaklıklarda korur, sürtünmeyi ve aşınmayı azaltır. Motor performansını artırır ve modern benzinli ile dizel motorlar için uygundur.        '''
+      },
       // Diğer Motor Yağları
-      {'name': 'Borax Platinum Full Synthetic 10W40', 'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Platinium Full Synthetic DPF 5W30', 'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Platinium Full Synthetic 5W40', 'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Ultimate DX 15W40', 'image': 'assets/images/borax/motor/borax-15w40-bidon-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax Ultimate DX 20W50', 'image': 'assets/images/borax/motor/borax-20w50-agir-dizel-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Borax 20W50', 'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png', 'brand': 'Borax', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {
+        'name': 'Borax Platinum Full Synthetic 10W40',
+        'image': 'assets/images/borax/motor/borax-10w40-bidon-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Ürün Tanımı
+
+BORAX PLATINUM 10W 40 Geliştirilmiş formülü ile binek ve hafif ticari araçların yağlama gereksinimlerini karşılayabilen sentetik baz yağlar ve ileri katık teknolojisi ile üretilmiş üstün performanslı sentetik motor yağıdır. Sentetik teknolojisiyle geliştirilmiş özel formülasyonu sayesinde mineral yağlara göre daha üstün performans göstererek her türlü iklim ve yol koşulunda benzersiz koruma sağlar.
+
+Özellikleri ve Faydaları
+
+• Soğuk hava şartlarında ki mükemmel akışkanlık özelliği sayesinde ilk çalışmada mükemmel koruma ve yüksek motor gücü sağlar.
+
+• Aktif temizleme özelliği, depozit ve çamur oluşumunu kontrol altına alarak motorun temiz kalmasını sağlar.
+
+• Ağır şartlarda dahi yağın viskozitesini kontrol altında tutarak yağ filmi yırtılmasını önler.
+
+• Sentetik yapısı ve oksidasyona karşı yüksek direnci sayesinde daha uzun servis ömrü sunar.
+
+• Yüksek sıcaklıklarda yağın bozulması ve viskozite kaybına karşı üstün koruma sağlar.
+
+• Yeni nesil formülü sayesinde LPG ile çalışan tüm araçlarda aşırı ısınmanın yol açtığı harareti önleyerek ekstra yağlayıcılık sağlar.
+
+Kullanım Alanları
+
+Benzin, dizel ve LPG'li tüm binek otomobiller, kamyonet ve minibüsler, küçük ticari araçların motorlarında kullanılması tavsiye edilir.
+        '''
+      },
+      {
+        'name': 'Borax Platinium Full Synthetic DPF 5W30',
+        'image': 'assets/images/borax/motor/borax-dpf-5w30-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Ürün Tanımı
+Borax DPF 5W 30, Dizel Partikül Filtresi (DPF'ler) ve Benzin Katalitik Konvertörler (CAT'ler) ile tamamen uyumlu olan yeni nesil motorların ihtiyaç duyduğu performans gereksinimlerini karşılayan sentetik motor yağıdır. Dizel ve benzinli araçların egzoz gazı emisyon sistemlerinin ömrünü uzatmaya ve verimliliğini korumaya yardımcı olmak üzere tasarlanmıştır.
+
+Özellikleri ve Faydaları
+
+ - Üstün ısıl ve oksidasyon kararlılığı sayesinde araç üreticilerinin önerdiği en uzun yağ değişim aralığı süresince performansını korur.
+ - Geliştirilmiş sürtünme önleme özelliği sayesinde yakıt ekonomisi sağlar.
+ - Soğuk hava şartlarındaki mükemmel akıcılığı sayesinde ilk çalışma esnasında motor parçalarının hızlı yağlanmasını sağlayarak motoru aşınmaya karşı korur.
+ - Dizel partikül filtreleri içinde partikül birikiminin azalmasına ve benzinli araçlardaki katalik konvertörlerin yıpranmasını azaltmada yardımcı olur.
+ - Aktif temizleme özelliği sayesinde tortu ve çamur oluşumunu kontrol ederek motoru temiz tutar ve bakım maliyetlerini düşürür.
+
+Kullanım Alanları
+DPF (Dizel Partikül Filtresi) ve CAT (Benzin Katalitik Konvertör) gibi egzoz gazı emisyonlarını düşüren sistemlere sahip en son binek arabaları, SUV'lar ve hafif hizmet ticari araçlarda bulunan yüksek performanslı benzinli ve dizel motorlar başta olmak üzere her türlü modern araç motoru için tavsiye edilmektedir.
+        '''
+      },
+      {
+        'name': 'Borax Platinium Full Synthetic 5W40',
+        'image': 'assets/images/borax/motor/borax-5w40-bidon-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Ürün Tanımı
+BORAX 5W 40, Zorlu tüm sürüş koşullarında olağanüstü motor koruması ile birlikte uzun motor ömrü sağlayan yüksek performans elde etmek için geliştirilmiş sentetik motor yağıdır. Geniş yelpazedeki ve yaştaki araçlar için üstün teknoloji ürünü sentetik baz yağlara yeni nesil katıklar eklenerek tasarlanmıştır.. Bir sonraki yağ değişimine kadar konvansiyonel motor yağlarına göre daha fazla çalışarak maksimum seviyede motor performansı gösterir. 
+
+Özellikleri ve Faydaları
+
+- Üstün termal kararlılık ve oksidasyona karşı direnci sayesinde dayanıklı flim tabakası oluşturarak en uzun yağ değişim aralığı süresince performansını korur.
+- Düşük sıcaklıklardaki mükemmel akıcılığı sayesinde ilk çalışma esnasında motor parçalarının hızlı yağlanmasını sağlayarak motoru aşınmaya karşı korur ve motorun ömrünü uzatır.
+- Benzersiz akışkanlığı sürtünmeyi azaltır ve yakıt tüketimini ve egzos emisyonlarını düşürür.
+- Tüm sürüş koşullarında, motor devirlerinde ve sıcaklıklarında sıradan yağlara göre daha fazla koruma sağlar.
+- İçeriğindeki deterjan dispersan katıkları sayesinde motordaki kurumları depozitleri ve tortuları azaltarak daha pürüzsüz ve daha sessiz bir sürüş sağlar.
+
+Kullanım Alanları
+Katalitik konvertörlü yakıt enjeksiyonlu benzinli ve LPG motorlar ile turbo şarzlı ve doğrudan enjeksiyonlu dizel partikül filtresi (DPF) olmayan dizel motorlara sahip binek araçlar, SUV’lar, kamyonetler ve minibüslerin kullanımı uygundur.
+        '''
+      },
+      {
+        'name': 'Borax Ultimate DX 15W40',
+        'image': 'assets/images/borax/motor/borax-15w40-agir-dizel-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Ürün Tanımı
+BORAX ULTIMATE DX 15W 40, Çok amaçlı ağır hizmet dizel motorlar için geliştirilmiş parafinik esaslı baz yağlar ile günümüz teknolojisine uygun performans katıklarının özel birleşimiyle üretilmiş dizel motor yağıdır.
+
+Özellikleri ve Faydaları
+- Mükemmel flim tabakası sayesinde yüksek sıcaklıklarda dahi üstün koruma sağlayarak motorun ömrünü uzatır ve bakım maliyetlerini düşürür.
+- Oksidasyon,pas ve korozyon direnci yüksek olup motor aşınmalarına karşı  maksimum koruma sağlar.
+- Yüksek TBN değeri ile asit oluşumunu önler ve motor yağ kullanım süresini uzatarak ekonomi sağlar.
+- İçeriğindeki katık paketinin detejan-dispersan özellikleri tortu ve depozit oluşumunu önleyerek motorun temiz kalmasını sağlar.
+- Yüksek viskozite indeksi sayesinde dört mevsim optimum performans sunar.
+
+Kullanım Alanları
+Turbo şarjlı ve normal emişli dizel motorlara sahip otomobil, minibüs, kamyonet, dört zamanlı dizel motorlarda ve diğer iş makinelerin yağlanmasında güvenle kullanılır. API SJ performansının istendiği benzinli araçlarda da kullanılır.
+        '''
+      },
+      {
+        'name': 'Borax Ultimate DX 15W40',
+        'image': 'assets/images/borax/motor/borax-15w40-bidon-agir-dizel-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Ürün Tanımı
+BORAX ULTIMATE DX 15W 40, Çok amaçlı ağır hizmet dizel motorlar için geliştirilmiş parafinik esaslı baz yağlar ile günümüz teknolojisine uygun performans katıklarının özel birleşimiyle üretilmiş dizel motor yağıdır.
+
+Özellikleri ve Faydaları
+- Mükemmel flim tabakası sayesinde yüksek sıcaklıklarda dahi üstün koruma sağlayarak motorun ömrünü uzatır ve bakım maliyetlerini düşürür.
+- Oksidasyon,pas ve korozyon direnci yüksek olup motor aşınmalarına karşı  maksimum koruma sağlar.
+- Yüksek TBN değeri ile asit oluşumunu önler ve motor yağ kullanım süresini uzatarak ekonomi sağlar.
+- İçeriğindeki katık paketinin detejan-dispersan özellikleri tortu ve depozit oluşumunu önleyerek motorun temiz kalmasını sağlar.
+- Yüksek viskozite indeksi sayesinde dört mevsim optimum performans sunar.
+
+Kullanım Alanları
+Turbo şarjlı ve normal emişli dizel motorlara sahip otomobil, minibüs, kamyonet, dört zamanlı dizel motorlarda ve diğer iş makinelerin yağlanmasında güvenle kullanılır. API SJ performansının istendiği benzinli araçlarda da kullanılır.
+        '''
+      },
+      {
+        'name': 'Borax Ultimate DX 20W50',
+        'image': 'assets/images/borax/motor/borax-20w50-agir-dizel-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Ürün Tanımı
+BORAX ULTIMATE DX 20W 50, Çok amaçlı ağır hizmet dizel motorlar için geliştirilmiş parafinik esaslı baz yağlar ile günümüz teknolojisine uygun performans katıklarının özel birleşimiyle üretilmiş dizel motor yağıdır.
+
+Özellikleri ve Faydaları
+- Mükemmel flim tabakası sayesinde yüksek sıcaklıklarda dahi üstün koruma sağlayarak motorun ömrünü uzatır ve bakım maliyetlerini düşürür.
+- Oksidasyon,pas ve korozyon direnci yüksek olup motor aşınmalarına karşı  maksimum koruma sağlar.
+- Yüksek TBN değeri ile asit oluşumunu önler ve motor yağ kullanım süresini uzatarak ekonomi sağlar.
+- İçeriğindeki katık paketinin detejan-dispersan özellikleri tortu ve depozit oluşumunu önleyerek motorun temiz kalmasını sağlar.
+- Yüksek viskozite indeksi sayesinde dört mevsim optimum performans sunar.
+
+Kullanım Alanları
+Turbo şarjlı ve normal emişli dizel motorlara sahip otomobil, minibüs, kamyonet, dört zamanlı dizel motorlarda ve diğer iş makinelerin yağlanmasında güvenle kullanılır. API SJ performansının istendiği benzinli araçlarda da kullanılır.
+        '''
+      },
+      {
+        'name': 'Borax Ultimate GX 20W50',
+        'image': 'assets/images/borax/motor/borax-20w50-bidon-motor.png',
+        'brand': 'Borax',
+        'category': 'Motor Yağları',
+        'description': '''
+Ürün Tanımı
+BORAX ULTIMATE GX 20W 50 Benzin, Dizel ve LPG yakıt sistemi ile çalışan araç motorlarının her türlü iklim ve yol koşullarında daha iyi yağlama ve koruma için üstün nitelikli deterjan ve dispersan katıkları ile özel olarak formüle edilmiş dört mevsim motor yağıdır. Özellikle şehir içi trafiğinde yoğun olarak kullanılan araçların motorlarında etkin performans gösterir. 
+
+Özellikleri ve Faydaları
+- Yüksek sıcaklıklarda yağın bozulması ve viskozite kaybına karşı üstün koruma sağlar.
+- Üstün temizleme özelliği sayesinde, depozit ve çamur oluşumunu kontrol ederek motorun temiz kalmasını sağlar.
+- Zor çalışma şartlarında dahi oluşturduğu kararlı film mukavemeti koruyuculuğunu yitirmez.
+- Yüksek oksidasyon kararlılığı sayesinde bir sonraki yağ değişimine kadar özelliklerini korur.
+- Yüksek viskozite indeksi sayesinde, kilometresi yüksek yıpranmış motorlardaki sızıntıları ve eksiltmeleri azaltmaya yardımcı olur.
+- Yeni nesil formülü sayesinde LPG ile çalışan tüm araçlarda aşırı ısınmanın yol açtığı harareti önleyerek ekstra yağlayıcılık sağlar.
+
+Kullanım Alanları
+Benzinli, dizel ve LPG yakıt sistemi ile çalışan binek ve hafif ticari araçlarda kullanımı uygundur. Her türlü çalışma koşulunda dört mevsim kullanılır.
+        '''
+      },
     ],
     'borax-sanziman': [
-      {'name': 'Borax Ultimate EP Series 30', 'image': 'assets/images/borax/sanziman/borax-30-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Borax 75W80', 'image': 'assets/images/borax/sanziman/borax-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Borax Ultimate EP Series 75W90', 'image': 'assets/images/borax/sanziman/borax-75w90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Borax Ultimate EP Series 80/90', 'image': 'assets/images/borax/sanziman/borax-80-90-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Borax Ultimate EP Series 85W140', 'image': 'assets/images/borax/sanziman/borax-85w140-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Borax EP 75W80', 'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Borax Ultimate EP Series', 'image': 'assets/images/borax/sanziman/borax-sanziman.png', 'brand': 'Borax', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {
+        'name': 'Borax Ultimate EP Series 30',
+        'image': 'assets/images/borax/sanziman/borax-30-sanziman.png',
+        'brand': 'Borax',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.
+        '''
+      },
+      {
+        'name': 'Borax EP 75W80',
+        'image': 'assets/images/borax/sanziman/borax-75w80-sanziman.png',
+        'brand': 'Borax',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+ Yüksek termal kararlılığı, mükemmel kaydırma performansı ve düşük sıcaklık akışkanlığı özelliklerine sahip senkromeçli ve senkromeçli olmayan dişli kutuları ve diferansiyeller için geliştirilmiş üstün performanslı şanzıman yağlayıcısıdır. Özel formülü sayesinde gelişmiş EP performansı, yakıt verimliliği ve daha uzun yağ değişim aralığı sağlamak üzere tasarlanmıştır.
+
+Özellikleri ve Faydaları
+- Mükemmel aşırı basınç performansı sayesinde daha ağır yüke maruz kalan aks uygulamalarında iletim ömrü boyunca zorlu çalışma koşullarında aşınmaya ve korrozyona karşı koruma sağlar.
+- Olağanüstü termal ve oksidasyon kararlılığı yüksek çalışma sıcaklıklarında şanzımanın temizliğini sürdürerek kalıntı oluşumunu önler, şanzuman ve yağın ömrünü uzatır.
+- Kolay ve düzgün kaydırma ve çabuk başlatma ilkesi sayesinde sürtünmeleri minimuma indirerek senkromeç ömrünü uzatıp daha yumuşak vites değiştirme performansı sağlar.
+- İleri katık teknolojisinin geliştirdiği mükemmel EP özelliği en ağır mekanik ve ısıl yükler altında dahi sorunsuz çalışma sağlar.
+
+Kullanım Alanları
+API GL-4 performans seviyesinin gerekli olduğu binek, hafif ve ağır hizmet ticari araçların manuel şanzımanlarında kullanımı tavsiye edilir.        '''
+      },
+      {
+        'name': 'Borax Ultimate EP Series 75W90',
+        'image': 'assets/images/borax/sanziman/borax-75w90-sanziman.png',
+        'brand': 'Borax',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Ürün Tanımı
+Borax Gear Oil EP 75W 90, Yüksek termal kararlılığı, mükemmel kaydırma performansı ve düşük sıcaklık akışkanlığı özelliklerine sahip senkromeçli ve senkromeçli olmayan dişli kutuları ve diferansiyeller için geliştirilmiş üstün performanslı şanzıman yağlayıcısıdır. Özel formülü sayesinde gelişmiş EP performansı, yakıt verimliliği ve daha uzun yağ değişim aralığı sağlamak üzere tasarlanmıştır.
+
+Özellikleri ve Faydaları
+- Mükemmel aşırı basınç performansı sayesinde daha ağır yüke maruz kalan aks uygulamalarında iletim ömrü boyunca zorlu çalışma koşullarında aşınmaya ve korrozyona karşı koruma sağlar.
+- Olağanüstü termal ve oksidasyon kararlılığı yüksek çalışma sıcaklıklarında şanzımanın temizliğini sürdürerek kalıntı oluşumunu önler, şanzuman ve yağın ömrünü uzatır.
+- Kolay ve düzgün kaydırma ve çabuk başlatma ilkesi sayesinde sürtünmeleri minimuma indirerek senkromeç ömrünü uzatıp daha yumuşak vites değiştirme performansı sağlar.
+- İleri katık teknolojisinin geliştirdiği mükemmel EP özelliği en ağır mekanik ve ısıl yükler altında dahi sorunsuz çalışma sağlar.
+
+Kullanım Alanları
+API GL-4 performans seviyesinin gerekli olduğu binek, hafif ve ağır hizmet ticari araçların manuel şanzımanlarında kullanımı tavsiye edilir.        '''
+      },
+      {
+        'name': 'Borax Ultimate EP Series 80/90',
+        'image': 'assets/images/borax/sanziman/borax-80-90-sanziman.png',
+        'brand': 'Borax',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Ürün Tanımı
+Borax Gear Oil EP 80W 90, Yüksek kaliteli baz yağların ve son teknoloji kükürt-fosfor aşırı basınç katkı teknolojisi ile formüle edilmiş, dişli kutularında üstün performans ve genişletilmiş koruma sağlamak için tasarlanmış özel bir dişli yağıdır. Otomobil ve ticari araçların manuel şanzımanlarında kullanılmak üzere geliştirilmiştir.
+
+Özellikleri ve Faydaları
+- EP aşırı basınç özelliği sayesinde dişli yüzeyinde ince bir film tabakası oluşturarak diferansiyel ve şanzımanı aşınmaya karşı korur.
+- Yüksek ısıl ve oksidasyon kararlılığı tortu oluşumunun önüne geçerek mükemmel çalışma verimi sunar.
+- Üstün katkı teknolojili formülsyonu aşırı basınca (EP) dayanıklı, paslanma, oksitlenme ve köpüklenmeyi kontrol altında tutarak uzun servis ömrü sağlar.
+- Düşük sıcaklıklardaki mükemmel akıcılığı ile üstün pompalanabilirlik özelliğine sahiptir. 
+
+Kullanım Alanları
+Dişli yağı GL-4 standardı yağ gereksinimine duyulan, yüksek hız düşük tork, düşük hız yüksek tork şartlarında çalışan yolcu arabalarında, kamyonlarda ve inşaat ekipmanlarında da kullanılır.        '''
+      },
+      {
+        'name': 'Borax Ultimate EP Series 85W140',
+        'image': 'assets/images/borax/sanziman/borax-85w140-sanziman.png',
+        'brand': 'Borax',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Ürün Tanımı
+Borax Gear Oil EP 85W 140, Yüksek kaliteli baz yağların ve son teknoloji kükürt-fosfor aşırı basınç katkı teknolojisi ile formüle edilmiş, dişli kutularında üstün performans ve genişletilmiş koruma sağlamak için tasarlanmış özel bir dişli yağıdır. Otomobil ve ticari araçların manuel şanzımanlarında kullanılmak üzere geliştirilmiştir.
+
+Özellikleri ve Faydaları
+- EP aşırı basınç özelliği sayesinde dişli yüzeyinde ince bir film tabakası oluşturarak diferansiyel ve şanzımanı aşınmaya karşı korur.
+- Yüksek ısıl ve oksidasyon kararlılığı tortu oluşumunun önüne geçerek mükemmel çalışma verimi sunar.
+- Üstün katkı teknolojili formülsyonu aşırı basınca (EP) dayanıklı, paslanma, oksitlenme ve köpüklenmeyi kontrol altında tutarak uzun servis ömrü sağlar.
+- Düşük sıcaklıklardaki mükemmel akıcılığı ile üstün pompalanabilirlik özelliğine sahiptir. 
+
+Kullanım Alanları
+Dişli yağı GL-4 standardı yağ gereksinimine duyulan, yüksek hız düşük tork, düşük hız yüksek tork şartlarında çalışan yolcu arabalarında, kamyonlarda ve inşaat ekipmanlarında da kullanılır.
+
+        '''
+      },
+      {
+        'name': 'Borax EP 75W80',
+        'image': 'assets/images/borax/sanziman/borax-ep-75w80-sanziman.png',
+        'brand': 'Borax',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Ürün Tanımı
+Borax 75W 80, Yüksek termal kararlılığı, mükemmel kaydırma performansı ve düşük sıcaklık akışkanlığı özelliklerine sahip senkromeçli ve senkromeçli olmayan dişli kutuları ve diferansiyeller için geliştirilmiş üstün performanslı şanzıman yağlayıcısıdır. Özel formülü sayesinde gelişmiş EP performansı, yakıt verimliliği ve daha uzun yağ değişim aralığı sağlamak üzere tasarlanmıştır.
+
+Özellikleri ve Faydaları
+- Mükemmel aşırı basınç performansı sayesinde daha ağır yüke maruz kalan aks uygulamalarında iletim ömrü boyunca zorlu çalışma koşullarında aşınmaya ve korrozyona karşı koruma sağlar.
+- Olağanüstü termal ve oksidasyon kararlılığı yüksek çalışma sıcaklıklarında şanzımanın temizliğini sürdürerek kalıntı oluşumunu önler, şanzuman ve yağın ömrünü uzatır.
+- Kolay ve düzgün kaydırma ve çabuk başlatma ilkesi sayesinde sürtünmeleri minimuma indirerek senkromeç ömrünü uzatıp daha yumuşak vites değiştirme performansı sağlar.
+- İleri katık teknolojisinin geliştirdiği mükemmel EP özelliği en ağır mekanik ve ısıl yükler altında dahi sorunsuz çalışma sağlar.
+
+Kullanım Alanları
+API GL-4 performans seviyesinin gerekli olduğu binek, hafif ve ağır hizmet ticari araçların manuel şanzımanlarında kullanımı tavsiye edilir.        '''
+      },
+      {
+        'name': 'Borax Ultimate EP Series',
+        'image': 'assets/images/borax/sanziman/borax-sanziman.png',
+        'brand': 'Borax',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+        Yüksek performanslı şanzıman yağı. Metal yüzeyleri aşınmaya karşı korur, sürtünmeyi azaltır ve vites geçişlerini pürüzsüz hale getirir. Manuel ve endüstriyel şanzıman sistemleriyle uyumludur, uzun ömürlü performans sunar.
+        '''
+      },
     ],
     'borax-hidrolik': [
-      {'name': 'Borax Hydro Plus 68 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
-      {'name': 'Borax Hydro Plus 46 Hidrolik Sistem Yağı', 'image': 'assets/images/borax/hidrolik/borax-hidrolik.png', 'brand': 'Borax', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
+      {
+        'name': 'Borax Hydro Plus 68 Hidrolik Sistem Yağı',
+        'image': 'assets/images/borax/hidrolik/borax-hidrolik.png',
+        'brand': 'Borax',
+        'category': 'Hidrolik Sistem Yağları',
+        'description': '''
+Ürün Tanımı
+Borax Hydro Plus 68, Mineral esaslı baz yağlar ve oksidasyon, pas, aşınma ve köpük önleyici katıkların harmanlanması ile elde edilmiş, üstün nitelikli hidrolik sistem yağlarıdır. 
+
+Özellikleri ve Faydaları
+ - Oluşturduğu üstün flim tabakası ile sistemi aşınmalara karşı koruyarak korozyonu önler.
+ - Mükemmel yağlayıcılık özelliği ile üstün performans sağlar.
+ - İçerdikleri oksidasyon, aşınma, pas, korozyon, ve köpük önleyici katıkla sayesinde sistemi mükemmel korurlar ve bakım maliyetlerini azaltırlar.
+ - Ayrıca içerdiği köpük önleyici katık sayesinde köpürmelere bağlı oluşan kavitasyonu engeller ve dispersan özelliği ile de sistemi temiz tutar.
+ - Havadan ve sudan kolay ayrılabilme özelliğine sahiptir.
+
+Kullanım Alanları
+Tüm endüstriyel ve hareketli hidrolik sistemler için tavsiye edilir.        '''
+      },
+      {
+        'name': 'Borax Hydro Plus 46 Hidrolik Sistem Yağı',
+        'image': 'assets/images/borax/hidrolik/borax-hidrolik.png',
+        'brand': 'Borax',
+        'category': 'Hidrolik Sistem Yağları',
+        'description': '''
+Ürün Tanımı
+Borax Hydro Plus 46, Mineral esaslı baz yağlar ve oksidasyon, pas, aşınma ve köpük önleyici katıkların harmanlanması ile elde edilmiş, üstün nitelikli hidrolik sistem yağlarıdır. 
+
+Özellikleri ve Faydaları
+ - Oluşturduğu üstün flim tabakası ile sistemi aşınmalara karşı koruyarak korozyonu önler.
+ - Mükemmel yağlayıcılık özelliği ile üstün performans sağlar.
+ - İçerdikleri oksidasyon, aşınma, pas, korozyon, ve köpük önleyici katıkla sayesinde sistemi mükemmel korurlar ve bakım maliyetlerini azaltırlar.
+ - Ayrıca içerdiği köpük önleyici katık sayesinde köpürmelere bağlı oluşan kavitasyonu engeller ve dispersan özelliği ile de sistemi temiz tutar.
+ - Havadan ve sudan kolay ayrılabilme özelliğine sahiptir.
+
+Kullanım Alanları
+Tüm endüstriyel ve hareketli hidrolik sistemler için tavsiye edilir.        '''
+      },
     ],
     'brava-motorsiklet': [
-      {'name': 'Brava Extreme 9000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Brava Extreme 6000 4T 10W40', 'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Brava Extreme 6000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Brava Extreme 9000 4T 10W50', 'image': 'assets/images/brava/motorsiklet/brava-10w50-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Brava Extreme 6000 4T 15W50', 'image': 'assets/images/brava/motorsiklet/brava-15w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Brava Extreme 6000 4T 5W40', 'image': 'assets/images/brava/motorsiklet/brava-5w40-4t-semi-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Brava Extreme 9000 4T 5W50', 'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png', 'brand': 'Brava', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {
+        'name': 'Brava Extreme 9000 4T 10W40',
+        'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-motorsiklet.png',
+        'brand': 'Brava',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Brava Extreme 9000 4T 10W40 Tam Sentetik Motor Yağı – Üst Düzey Performans ve Dayanıklılık
+
+Brava Extreme 9000 4T 10W40, gelişmiş teknoloji ve üstün kaliteyi bir araya getirerek motosiklet motorlarınıza mükemmel koruma ve yüksek performans sunan tam sentetik motor yağlarından biridir. T1 nanoteknoloji katkıları ve birinci sınıf sentetik baz yağlarla formüle edilmiştir, böylece motorunuzun verimliliğini artırırken dayanıklılığını da maksimum seviyeye çıkarır.
+
+
+
+Ana Avantajlar:
+
+
+
+Yakıt Ekonomisi ve Aşınmaya Karşı Dayanıklılık: Brava Extreme 9000 4T, motor içindeki sürtünmeyi önemli ölçüde azaltarak yakıt tasarrufu sağlar. Aynı zamanda motor parçalarını aşınmaya karşı korur, böylece motor ömrünü uzatır ve ekonomik bir kullanım sunar.
+
+
+
+Soğuk Hava Performansı: Soğuk hava koşullarında bile motorun hızlı ve güvenli bir şekilde çalışmasını sağlayarak, ilk çalıştırmada oluşabilecek aşınma riskini minimize eder. Motorunuzu her türlü iklimde sorunsuz bir şekilde korur.
+
+
+
+Azaltılmış Yanma Kalıntıları: Yanma sırasında oluşan kalıntıları en aza indirerek motorun iç temizliğini korur. Bu özellik, motorun verimli ve düzenli çalışmasını sağlar, uzun süreli performans sunar.
+
+
+
+Uzun Ömürlü Emisyon Sistemi Koruması: Brava Extreme 9000 4T, emisyon sistemlerini koruyarak partikül filtreleri ve katalitik konvertörlerin ömrünü uzatır. Çevre dostu bir performans sunarak, emisyon verimliliğini artırır.
+
+
+
+Koruyucu Film Tabakası: Motorun iç yüzeylerinde dayanıklı bir koruyucu film tabakası oluşturarak, aşınma ve korozyona karşı güçlü bir direnç sağlar. Yoğun kullanımda dahi motorunuzu güvenilir bir şekilde korur.
+
+
+
+Mükemmel Temizleme ve Dayanıklılık: Kir ve tortuları motor içinde birikmeden temizler, motorun uzun vadeli performansını artırır. Güçlü aşınma ve korozyon direnci ile motorunuzu optimum durumda tutar.
+
+
+
+JASO MA2 / MB Uyumluluğu: Bu motor yağı, JASO MA2 ve MB standartlarıyla uyumludur ve motosiklet motorları için gereken üstün yağlama ve performans özelliklerini sağlar.
+
+
+
+Brava Extreme 9000 4T 10W40 Tam Sentetik Motor Yağı, motosiklet motorlarınıza maksimum koruma, verimlilik ve uzun ömür sunar. Motor yağı eksiltmesini en aza indirerek, her yolculukta en iyi performansı elde etmenizi sağlar. Üstün koruma, dayanıklılık ve verimlilik isteyen motosiklet sahipleri için ideal tercihtir.        '''
+      },
+      {
+        'name': 'Brava Extreme 6000 4T 10W40',
+        'image': 'assets/images/brava/motorsiklet/brava-10w40-4t-semi-motorsiklet.png',
+        'brand': 'Brava',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Dört zamanlı motosiklet motorları için özel olarak geliştirilmiş Brava Extreme 6000 4T 10W40, üstün performans, yüksek koruma ve dayanıklılık sunan yarı sentetik bir motor yağıdır. Hava, yağ ve su soğutmalı motorlarla uyumlu bu yağ, motorunuzun ömrünü uzatırken en zorlu sürüş koşullarında dahi maksimum verimlilik sağlar.
+
+Ürün Özellikleri ve Avantajları
+
+Yağ Eksiltme Sorununa Çözüm: Türkiye'nin yağ eksiltme problemine karşı özel olarak formüle edilmiş ilk motor yağıdır. Yağ seviyesini sabit tutarak motor güvenliğini artırır ve sürekli bakım ihtiyacını azaltır.
+Üstün Yağlama ve Koruma: Aşınmayı minimuma indirerek motor parçalarının uzun ömürlü olmasını sağlar. Yağın yüksek yağlama performansı, motorun sürtünme kaynaklı verim kayıplarını azaltır.
+Düşük Sıcaklıkta Kolay Çalışma: Soğuk hava koşullarında dahi motorun hızlı ve sorunsuz çalışmasını destekler. Özellikle kış aylarında motor aşınmasını engellemek için optimize edilmiştir.
+Zorlu Koşullara Dayanıklılık: Şehir içi sık dur-kalk trafiği, uzun mesafe yolculuklar ve aşırı sıcaklık gibi zorlayıcı koşullarda dahi motoru korur ve güvenilir performans sağlar.
+Yüksek Isı Dayanımı: Motorun yüksek sıcaklıklarda stabil ve verimli çalışmasını destekleyen formülü ile aşırı ısınma riskini minimize eder.
+4 Mevsim Kullanım Avantajı: Yaz ve kış fark etmeksizin dört mevsim üstün koruma ve performans sunar.
+Teknik Standartlar ve Sertifikalar
+
+Viskozite Sınıfı: 10W40 – Hava koşullarına bağlı olmaksızın ideal yağ akışkanlığını sağlar.
+Standartlara Uyumluluk: API SM+, JASO MA2 ve JASO MB sertifikalarına uygunluğu ile dört zamanlı motorların ihtiyaçlarına eksiksiz cevap verir.
+Paketleme Seçenekleri
+
+1,5 Litre
+4 Litre
+1 Litre x 20 Adet (Koli)
+4 Litre x 4 Adet (Koli)
+Brava Extreme 6000 4T 10W40, motosiklet motorunuzun performansını en üst seviyeye çıkarmak ve uzun ömürlü bir kullanım sağlamak için ideal bir çözümdür. Zorlu sürüş koşullarında bile motorunuzu korur, performansını artırır ve güvenilir sürüş deneyimleri sunar.        '''
+      },
+      {
+        'name': 'Brava Extreme 6000 4T 10W50',
+        'image': 'assets/images/brava/motorsiklet/brava-10w50-4t-semi-motorsiklet.png',
+        'brand': 'Brava',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Brava Extreme 6000 10W50 4T Yarı Sentetik Motosiklet Motor Yağı - Yüksek Kaliteli Yarı Sentetik Yağlarla 4 Mevsim Performansı
+
+
+
+Brava Extreme 6000 10W50 4T, dört mevsim boyunca maksimum koruma ve performans sağlayan, yüksek kaliteli yarı sentetik motor yağıdır. Türkiye’de yağ eksiltme sorununa karşı özel olarak geliştirilmiş ilk ve tek ürün olma özelliği ile öne çıkar. Hava, yağ ve su soğutmalı motosiklet motorları için ideal bir çözüm sunan Brava Extreme 6000, motosiklet motorunun ömrünü uzatmak ve güvenliğini sağlamak için formüle edilmiştir.
+
+
+Ürün Avantajları ve Temel Özellikler:
+Maksimum Koruma ve Yağlama: Aşınmayı minimumda, yağlamayı maksimumda tutarak, motorun tüm hareketli parçalarını en iyi şekilde korur. Bu özellik, dört zamanlı motosiklet motorları için ideal bir yağlama ve uzun ömür sağlar.
+Soğuk Hava Performansı: Düşük sıcaklıklarda bile hızlı ve güvenli motor çalıştırma sağlar. Soğuk havalarda motorun zorlanmasını önleyerek, motorun ilk çalıştırma sırasında güvenilir bir yağlama sağlar.
+Arıza Riskini Azaltır: Yağ kaynaklı arızaların oluşma ihtimalini en aza indirir, motorun sorunsuz çalışmasını destekler. Uzun yolculuklarda ve şehir içi trafikte motorun dayanıklılığını artırarak bakım maliyetlerini düşürür.
+Zorlu Koşullarda Üstün Koruma: Ağır sürüş koşullarında dahi motoru etkili bir şekilde korur, karter ve diğer önemli motor bileşenlerinin aşınmasını önler. Yüksek hızda veya uzun süreli sürüşlerde dahi yağ performansını sürdürerek motorun verimliliğini korur.
+Karter ve Motor Koruma: Yüksek sıcaklıklarda dahi direnç gösteren formülü ile karter ve motoru aşırı ısınmaya karşı korur. Bu özellik, uzun ömürlü motor performansı için kritik öneme sahiptir.
+4 Mevsim Kullanım: Yaz ve kış ayları dahil, her türlü hava koşulunda güvenle kullanılabilir. Sıcak yaz günlerinden soğuk kış aylarına kadar, her mevsimde stabil bir performans sağlar.        '''
+      },
+      {
+        'name': 'Brava Extreme 9000 4T 10W50',
+        'image': 'assets/images/brava/motorsiklet/brava-10w50-motorsiklet.png',
+        'brand': 'Brava',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Brava Extreme 9000 4T 10W50 Motor Yağı - Yüksek Performanslı Tam Sentetik
+
+
+
+Brava Extreme Serisi motor yağları, en ileri teknolojiye sahip tam sentetik 'Yüksek Düzey' motor yağlarından oluşur. T1nanotech katıkları ve birinci sınıf sentetik baz yağlar, motorunuzun performansını en üst düzeye çıkarmak için bir araya getirilmiştir.
+
+
+
+Ana Avantajlar:
+
+Yakıt Ekonomisi ve Aşınmaya Karşı Direnç: Özel formülasyon sayesinde yakıt tasarrufu sağlanırken motorunuzun aşınmaya karşı direnci artar.
+Soğuk Hava Performansı: Brava Extreme 9000 4T 10W50, soğuk hava koşullarında bile hızlı ve güvenilir bir şekilde motorunuzu çalıştırmanızı sağlar.
+Azaltılmış Yanma Kalıntısı: Az yanma kalıntısı oluşumu, motorunuzun temiz ve uzun ömürlü kalmasına yardımcı olur.
+Uzun Ömürlü Filtreler ve Katalitik Konvertörler: Bu motor yağı sayesinde partikül filtreleri ve katalitik konvertörler daha uzun süre dayanır, emisyon sistemleri daha verimli bir şekilde çalışır.
+Koruyucu Film Tabakası: Motorun yüzeylerini koruyucu bir film tabakası ile kaplayarak aşınma ve korozyona karşı üst düzeyde koruma sağlar.
+Mükemmel Temizleme ve Dayanıklılık: Mükemmel temizlik yetenekleri ve güçlü aşınma ve korozyon direnci, motorunuzun performansını artırır.
+MA2 / MB uyumludur.
+
+
+Brava Extreme 9000 4T 10W50 Motor Yağı, motosikletinizin performansını en üst düzeye çıkarmak için özel olarak formüle edilmiştir. Motor yağı eksiltimini azaltarak, motorunuzun daha uzun ömürlü ve güvenilir olmasına katkı sağlar.        '''
+      },
+      {
+        'name': 'Brava Extreme 6000 4T 15W50',
+        'image': 'assets/images/brava/motorsiklet/brava-15w50-4t-motorsiklet.png',
+        'brand': 'Brava',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Brava Extreme 6000 4T 15W50 Yarı Sentetik Motosiklet Motor Yağı
+
+Brava Extreme 6000, motosiklet motor yağı olarak dört zamanlı motorlar için özel formüle edilmiş, yüksek performanslı bir yarı sentetik motor yağıdır. Özellikle hava, yağ ve su soğutmalı motosiklet motorlarının uzun ömürlü, güvenilir ve verimli çalışmasını sağlar.
+
+
+Ürün Avantajları ve Özellikleri:
+Türkiye'nin Yağ Eksiltmesine Karşı İlk Motor Yağı: Türkiye’de motor yağı eksiltme sorununu önlemek için özel olarak geliştirilmiş tek ürün.
+Maksimum Koruma ve Yağlama: Aşınmayı minimize eder, motoru koruyarak sürüş ömrünü uzatır. Yoğun şehir içi trafiğinde veya uzun yolculuklarda bile motorunuz için ideal yağlama sağlar.
+Soğuk Hava Performansı: Soğuk hava koşullarında bile motorun hızlı ve güvenli çalışmasını sağlayarak, motor başlangıcında oluşabilecek potansiyel sorunları engeller.
+Motor Arızası Riskini Azaltır: Yağ kaynaklı arızaların önüne geçerek, motorunuzu güvenli ve dayanıklı kılar.
+Zorlu Sürüş Şartlarına Karşı Dayanıklılık: Ağır sürüş koşullarında dahi motoru ve karteri etkin bir şekilde korur, motor ve yağ değişim sıklığını azaltır.
+Yüksek Sıcaklık Dayanımı: Yüksek sıcaklıklarda dahi üstün performans göstererek motorun yanma verimliliğini artırır, aşırı ısınma riskini düşürür.
+4 Mevsim Kullanım: Hem yaz hem kış aylarında üstün koruma ve verimli kullanım sunarak, her mevsimde yüksek performans sağlar.
+
+
+Teknik Özellikler ve Onaylar:
+Viskozite Sınıfı: 15W50 – soğuk ve sıcak hava koşullarında ideal akışkanlık sağlar.
+Onaylar: API SM+, JASO MA2 ve JASO MB standartlarına uygundur, bu da motosikletler için gereken sürtünme ve kayma özelliklerini sağlar.
+
+        '''
+      },
+      {
+        'name': 'Brava Extreme 6000 4T 5W40',
+        'image': 'assets/images/brava/motorsiklet/brava-5w40-4t-semi-motorsiklet.png',
+        'brand': 'Brava',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Brava Extreme 6000 4T 5W40 – Yağ Eksiltmeye Son!
+
+Her mevsimde üstün performans ve maksimum motor koruması sunan Brava Extreme 6000, Türkiye’de yağ eksiltme sorununa karşı özel olarak geliştirilen ilk ve tek motor yağıdır. Günlük kullanımdan zorlu sürüş koşullarına kadar motorunuzun güvenilir çalışmasını sağlar.
+
+Ürün Avantajları:
+
+✅ Yağ Eksiltmeye Son! Özel formülüyle uzun yolculuklarda ve yoğun trafikte yağ seviyesini korur, motor ömrünü uzatır.
+✅ 4 Mevsim Üstün Performans Kışın soğuk hava performansı, yazın yüksek sıcaklık dayanıklılığı ile her koşulda sorunsuz kullanım.
+✅ Maksimum Motor Koruma Tüm hareketli parçaları aşınmaya karşı korur, yağlama performansını artırır.
+✅ Zorlu Koşullarda Güçlü Koruma Yüksek hızda ve uzun süreli sürüşlerde motoru korur, karter ve motor bileşenlerinin aşınmasını engeller.
+✅ API SM+ ve JASO MA2/MB Uyumlu Dört zamanlı motorlar için ideal yağlama kalitesi sağlar.
+Teknik Özellikler:
+
+📌 Viskozite Sınıfı: 5W40 – Düşük ve yüksek sıcaklıklarda optimum akışkanlık.
+📌 Uyumluluk: Hava, yağ ve su soğutmalı motosiklet motorları ile uyumlu.
+Motorunuzu her koşulda koruyun, performansınızı zirveye taşıyın! 🚀
+        '''
+      },
+      {
+        'name': 'Brava Extreme 9000 4T 5W50',
+        'image': 'assets/images/brava/motorsiklet/brava-5w50-4t-motorsiklet.png',
+        'brand': 'Brava',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Brava Extreme 9000 4T 5W50 Motor Yağı
+
+
+
+Brava Extreme Serisi, ileri teknolojilerle geliştirilmiş çok yönlü sentetik 'Yüksek Düzey' motor yağları arasında yer almaktadır. T1 nanotech katıkları ve birinci sınıf sentetik baz yağlar kullanılarak üretilmiştir.
+
+
+
+Bu yüksek performanslı motor yağı, aşağıdaki avantajları sunar:
+
+Yakıt Ekonomisi ve Aşınmaya Karşı Etkili Direnç: Özel formülasyon sayesinde yakıt ekonomisi artar ve motorunuz aşınmaya karşı daha dayanıklı hale gelir.
+Soğukta Hızlı Başlangıç: Brava Extreme 9000 5W50, soğuk hava koşullarında dahi hızlı ve sorunsuz bir şekilde motorunuzu çalıştırır.
+Azaltılmış Yanma Kalıntısı Oluşumu: Motorunuzda az yanma kalıntısı oluşumu, temiz ve uzun ömürlü bir motor kullanımı sağlar.
+Partikül Filtrelerinin ve Katalitik Konvertörlerin Uzun Hizmet Ömrü: Bu motor yağı sayesinde partikül filtreleri ve katalitik konvertörlerin ömrü uzar, emisyon sistemi daha verimli çalışır.
+Koruyucu Film Tabakası: Motorunuzdaki yüzeylere koruyucu bir film tabakası oluşturarak aşınma ve korozyona karşı etkili bir koruma sağlar.
+Mükemmel Temizleme Yeteneği: Motor içinde biriken kir ve tortuları etkin bir şekilde temizler, motorunuzun daha sağlıklı çalışmasını sağlar.
+MA2 / MB uyumludur.
+
+
+Brava Extreme 9000 4T 5W50 Motor Yağı, motosikletinizin performansını ve dayanıklılığını artırmak için tasarlanmıştır. Motor yağı azaltımını minimuma indirerek, motorunuzun uzun ömürlü olmasına katkı sağlar.        '''
+      },
     ],
     'brava-katki': [
-      {'name': 'Brava Zincir Temizleyici', 'image': 'assets/images/brava/katki/brava-chain-cleaner.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
-      {'name': 'Brava Katkı', 'image': 'assets/images/brava/katki/brava-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
-      {'name': 'Brava Nano Complex', 'image': 'assets/images/brava/katki/brava-nano-katki.png', 'brand': 'Brava', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
+      {
+        'name': 'Brava Zincir Temizleyici',
+        'image': 'assets/images/brava/katki/brava-chain-cleaner.png',
+        'brand': 'Brava',
+        'category': 'Katkı Maddeleri',
+        'description': '''
+Brava C 910 Zincir Temizleyici – Zincir Temizleme Spreyi, her tür motosiklet zincirinin temizliği için özel olarak üretilmiştir.
+
+Zincir, aralarındaki halkalara zarar vermez.
+
+Zincir baklaları arasında gömülü olan tüm kiri (kum, kir, yağ, gres vb.) etkili bir şekilde temizler.        '''
+      },
+      {
+        'name': 'Brava Katkı A931',
+        'image': 'assets/images/brava/katki/brava-katki.png',
+        'brand': 'Brava',
+        'category': 'Katkı Maddeleri',
+        'description': '''
+Motosikletinizin kalbi olan motorunuzu koruyarak performansını en üst düzeye çıkarmak ister misiniz? Brava Lupro Max A931 Motorsiklet Yağ Katkısı, motorunuzun ömrünü uzatırken, sürüş keyfinizi artıracak özel bir formüldür.
+
+
+Neden Lupro Max A931?
+
+Motorunuzun en büyük düşmanı olan aşınmayı önleyen Lupro Max A931, yüksek basınca dayanıklı özel bir formül ile motorunuzun iç yüzeylerinde güçlü bir koruma tabakası oluşturur. Bu sayede:
+
+Daha Uzun Motor Ömrü: Motorunuzun ömrünü uzatarak bakım maliyetlerinizi düşürür.
+Daha Az Yağ Tüketimi: Yağ eksilmesini önleyerek sık sık yağ değişimi yapma derdinden sizi kurtarır.
+Daha Yüksek Performans: Motorunuzun gücünü ve hızlanmasını artırarak daha heyecanlı bir sürüş deneyimi sunar.
+Daha Sessiz Çalışma: Motor gürültüsünü azaltarak daha konforlu bir sürüş sağlar.
+Her Türlü Motosiklet İçin Uygun: Düşük veya yüksek cc'li tüm motosikletlerde güvenle kullanılabilir.
+Nasıl Çalışır?
+
+Lupro Max A931, motor yağınıza eklendiğinde, motorunuzun iç yüzeylerinde ultra ince bir koruyucu tabaka oluşturur. Bu tabaka, metal parçalar arasındaki sürtünmeyi azaltarak aşınmayı önler ve motorunuzun ömrünü uzatır. Aynı zamanda, yağın motor içinde daha iyi dağılmasını sağlayarak yağlama performansını artırır.
+
+
+Kimler Kullanmalı?
+
+Motosikletinin ömrünü uzatmak isteyen herkes
+Daha yüksek performans arayan motosiklet tutkunları
+Yakıt tüketimini azaltmak isteyenler
+Motorunu daha uzun süre sessiz ve sorunsuz çalıştırmak isteyenler
+Ürünün Faydaları:
+
+Motoru Korur: Motorunuzun ömrünü uzatarak bakım maliyetlerinizi düşürür.
+Performansı Artırır: Motorunuzun gücünü ve hızlanmasını artırır.
+Yakıt Tasarrufu Sağlar: Yağ tüketimini azaltarak yakıt tasarrufu yapmanızı sağlar.
+Sessiz Çalışma: Motor gürültüsünü azaltarak daha konforlu bir sürüş sunar.
+Kolay Kullanım: Motor yağınıza eklemek kadar basittir.
+
+
+Brava Lupro Max A931 Motorsiklet Yağ Katkısı, motosikletinizin performansını artırırken, ömrünü uzatan ve bakım maliyetlerinizi düşüren özel bir formüldür. Eğer siz de motorunuzu en iyi şekilde korumak ve sürüş keyfinizi artırmak istiyorsanız, Lupro Max A931 tam size göre!        '''
+      },
+      {
+        'name': 'Brava Nano Complex',
+        'image': 'assets/images/brava/katki/brava-nano-katki.png',
+        'brand': 'Brava',
+        'category': 'Katkı Maddeleri',
+        'description': '''
+A980 Nano Complex Özel Motor Yağı Katkısı
+
+Araçlarınızın kalbi olan motorun uzun ömürlü ve verimli çalışması, hem performans hem de ekonomi açısından büyük önem taşır. Brava A980 Nano Complex, nanoteknolojinin gücünü kullanarak motorunuza özel bir koruma kalkanı oluşturur. Bu sayede motorunuzun ömrünü uzatırken, performansını artırır ve yakıt tüketimini azaltır.
+
+
+Ürünün Özellikleri:
+
+
+Nanoteknoloji Gücü: Nanoboyutlu partiküller sayesinde motorun iç yüzeylerine derinlemesine nüfuz eder ve tam bir koruma sağlar.
+Aşınma Koruması: Motorun hareketli parçalarını aşınmaya karşı koruyarak ömrünü uzatır.
+Yağ Kaybını Azaltma: Yağ sızdırmazlık özelliklerini güçlendirerek yağ tüketimini azaltır.
+Yakıt Tasarrufu: Motorun verimliliğini artırarak yakıt tüketimini düşürür.
+Performans Artışı: Motorun tepki süresini hızlandırır ve güç çıkışını artırır.
+Sessiz Çalışma: Motor gürültüsünü azaltarak daha konforlu bir sürüş sağlar.
+Nasıl Çalışır?
+
+Brava A980 Nano Complex, motor yağıyla karıştırıldığında, motorun iç yüzeylerinde ultra ince bir seramik kaplama oluşturur. Bu kaplama, metal yüzeyler arasındaki sürtünmeyi azaltarak aşınmayı önler ve motorun ömrünü uzatır. Aynı zamanda, yağın motor içinde daha iyi dağılmasını sağlayarak yağlama performansını artırır.
+
+
+Neden Brava A980 Nano Complex?
+
+Uzun Ömürlü Motor: Motorunuzun ömrünü uzatarak bakım maliyetlerinizi azaltır.
+Daha Düşük Yakıt Tüketimi: Cebinizi korur ve çevreye duyarlı bir sürüş sağlar.
+Artırılmış Performans: Daha güçlü ve daha tepkisel bir motor deneyimi sunar.
+Sessiz ve Konforlu Sürüş: Motor gürültüsünü azaltarak sürüş konforunu artırır.
+Kolay Kullanım: Motor yağınıza eklemek kadar basittir.
+Kullanım Alanları:
+
+Tüm benzinli ve dizel motorlarda kullanıma uygundur. Yeni veya eski tüm araçlarda kullanılabilir.        '''
+      },
     ],
     'japanoil-motor': [
-      {'name': 'Japan Oil Molytech Sn+ Plus Tam Sentetik 5W30', 'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png', 'brand': 'Japan Oil', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'}
+      {
+        'name': 'Japan Oil Molytech Sn+ Plus Tam Sentetik 5W30',
+        'image': 'assets/images/japanoil/motor/japanoil-bipower-molytech-5w30.png',
+        'brand': 'Japan Oil',
+        'category': 'Motor Yağları',
+        'description': '''
+Japan Oil Molytech SN Plus Tam Sentetik 5W30
+
+Geliştirilmiş sentetik teknolojisi ve MOLYTECH Katkısı ile sağladığı üstünlükler ;
+MOLYTECH katkı kombinasyonu ile ilk andan itibaren etkin yağlama, koruma ve gücü hissettirir
+Uzun aralıklarla yapılan yağ değişimlerinde motorun korunmasını sağlar.
+Düşük sıcaklıklarda çalıştırma sonrası anında yağlama ve üstün motor temizliği sağlar.
+Motordaki aşınmayı engelleyici ve sürtünme kayıplarını önemli ölçüde azaltıcı etki gösterir.
+Tüm iklim koşullarında optimum yağ basıncı , yüksek kayma performansı gösterir.
+Yüksek kilometreli motorlarda iyileştirici ve performans sağlayıcı etki gösterir.
+Diğer motor yağları ile karıştırılabilir ancak tam performans için tek başına kullanılmalıdır.
+
+BU ÜSTÜN ÖZELLİKLERİ İLE YAKIT TASARRUFU , MOTOR İÇİN UZUN VE PERFORMANSLI BİR KULLANIM SUNAR.
+
+Benzinli , Dizel ve DPF Filtreli araçlara Uygundur.        '''
+      },
     ],
     'japanoil-motorsiklet': [
-      {'name': 'Japan Oil 4T 10W-40 SN MA2 Red', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-10w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Japan Oıl 4T 15W-50 SM-MA 2 Purple', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-15w50-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
-      {'name': 'Japan Oil 4T 20W40 SE-MA 2 Grey', 'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png', 'brand': 'Japan Oil', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {
+        'name': 'Japan Oil 4T 10W-40 SN MA2 Red',
+        'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-10w40-motorsiklet.png',
+        'brand': 'Japan Oil',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Yüksek performanslı dört zamanlı motosiklet motor yağı. Motoru aşınmaya ve yüksek sıcaklıklara karşı korur, sürtünmeyi azaltır ve yağ banyolu debriyaj sistemiyle uyumludur. Hem şehir içi hem uzun yol sürüşleri için güvenilir performans sağlar.
+        '''
+      },
+      {
+        'name': 'Japan Oıl 4T 15W-50 SM-MA 2 Purple',
+        'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-15w50-motorsiklet.png',
+        'brand': 'Japan Oil',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Geniş viskoziteli dört zamanlı motosiklet motor yağı. Yüksek sıcaklıklarda güçlü koruma sağlar, sürtünmeyi azaltır ve yağ banyolu debriyaj sistemleriyle uyumludur. Uzun yol ve sportif sürüşler için yüksek performans sunar.        '''
+      },
+      {
+        'name': 'Japan Oil 4T 20W40 SE-MA 2 Grey',
+        'image': 'assets/images/japanoil/motorsiklet/japanoil-bipower-20w40-motorsiklet.png',
+        'brand': 'Japan Oil',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Orta viskoziteli dört zamanlı motosiklet motor yağı. Motoru aşınmaya ve yüksek sıcaklıklara karşı korur, sürtünmeyi azaltır ve debriyaj sistemiyle uyumludur. Şehir içi ve normal sürüş koşulları için idealdir.      '''
+      },
     ],
     'japanoil-sanziman': [
-      {'name': 'Japan Oil Otomatik Şanzıman Cvt Fluid-Ns-3', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Japan Oil Otomatik Şanzıman Atf-Cvt-Fe', 'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanziman.png', 'brand': 'Japan Oil', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {
+        'name': 'Japan Oil Otomatik Şanzıman Cvt Fluid-Ns-3',
+        'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-ns3-sanziman.png',
+        'brand': 'Japan Oil',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Nissan NS‑3 standardına uygun yüksek performanslı CVT yağı. Vites geçişlerini akıcı hale getirir, sürtünmeyi azaltır ve şanzıman kayış/zincir sistemlerini aşınmaya karşı korur. Özellikle NS‑3 onaylı CVT şanzımanlar için idealdir.     '''
+      },
+      {
+        'name': 'Japan Oil Otomatik Şanzıman Atf-Cvt-Fe',
+        'image': 'assets/images/japanoil/sanziman/japanoil-bipower-cvt-sanziman.png',
+        'brand': 'Japan Oil',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Yakıt verimli CVT ve otomatik şanzıman sistemleri için yüksek performanslı ATF yağı. Vites geçişlerini pürüzsüz hale getirir, sürtünmeyi azaltır ve şanzıman parçalarını aşınmaya karşı korur. Modern CVT ve otomatik şanzımanlarla uyumludur.      '''
+      },
     ],
     'xenol-motor': [
-      {'name': 'Xenol Ceramix Blue 10W40 SN/CF', 'image': 'assets/images/xenol/motor/xenol-10w40.png', 'brand': 'Xenol', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Xenol Ceramix Blue 5W30 SN/CF', 'image': 'assets/images/xenol/motor/xenol-5w30-motor.png', 'brand': 'Xenol', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {
+        'name': 'Xenol Ceramix Blue 10W40 SN/CF',
+        'image': 'assets/images/xenol/motor/xenol-10w40.png',
+        'brand': 'Xenol',
+        'category': 'Motor Yağları',
+        'description': '''
+Yüksek kaliteli baz yağları ile ileri teknoloji katkı maddelerinin harmanlanması sonucu normal emişli ve turbo şarjlı motorların yağlama ihtiyacını karşılamak için üretilen sentetik motor yağıdır. Benzinli, hafif dizel ve LPG’li araçların yağlama gereksinimlerini karşılamak için geliştirilmiş motor yağıdır.        '''
+      },
+      {
+        'name': 'Xenol Ceramix Blue 5W30 SN/CF',
+        'image': 'assets/images/xenol/motor/xenol-5w30-motor.png',
+        'brand': 'Xenol',
+        'category': 'Motor Yağları',
+        'description': '''
+Tam sentetik motor yağı. Motoru aşınmaya ve yüksek sıcaklıklara karşı korur, sürtünmeyi azaltır ve yakıt verimliliğini artırır. Benzinli ve dizel motorlarla uyumludur, uzun ömürlü ve yüksek performans sağlar.        '''
+      },
     ],
     'xenol-sanziman': [
-      {'name': 'Xenol Atf Dexron VI', 'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
-      {'name': 'Xenol Cvt Fluid', 'image': 'assets/images/xenol/sanziman/xenol-cvt-sanziman.png', 'brand': 'Xenol', 'category': 'Şanzıman ve Dişli Yağları', 'description': 'Şanzıman ve diferansiyel sistemleri için profesyonel çözüm. EP (Extreme Pressure) katkılar ile aşırı basınç koruması. Hipoid dişlilerde mükemmel performans. Sessiz çalışma ve düzgün vites değişimi. API GL-4/GL-5 standartlarında.'},
+      {
+        'name': 'Xenol Atf Dexron VI',
+        'image': 'assets/images/xenol/sanziman/xenol-atf-dexron-sanziman.png',
+        'brand': 'Xenol',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Otomatik şanzımanlar için Dexron VI standardına uygun yüksek performanslı ATF yağı. Vites geçişlerini pürüzsüz hale getirir, sürtünmeyi azaltır ve şanzıman bileşenlerini aşınmaya karşı korur. Modern binek ve hafif ticari araç şanzımanlarıyla uyumludur.        '''
+      },
+      {
+        'name': 'Xenol Cvt Fluid',
+        'image': 'assets/images/xenol/sanziman/xenol-cvt-sanziman.png',
+        'brand': 'Xenol',
+        'category': 'Şanzıman ve Dişli Yağları',
+        'description': '''
+Sürekli değişken şanzıman (CVT) sistemleri için özel geliştirilmiş yüksek performanslı yağ. Vites geçişlerini pürüzsüz hale getirir, sürtünmeyi azaltır ve şanzıman parçalarını aşınmaya karşı korur. Modern CVT sistemleriyle uyumludur ve uzun ömürlü performans sağlar.        '''
+      },
     ],
     'xenol-hidrolik': [
-      {'name': 'Xenol Green Atf', 'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png', 'brand': 'Xenol', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
+      {
+        'name': 'Xenol Green Atf',
+        'image': 'assets/images/xenol/direksiyon/xenol-green-atf-direksiyon.png',
+        'brand': 'Xenol',
+        'category': 'Hidrolik Sistem Yağları',
+        'description': '''
+Hidrolik direksiyon sistemleri için yüksek performanslı ATF yağı. Direksiyon tepkisini iyileştirir, aşınmayı ve köpürmeyi azaltır, metal ve kauçuk parçaları korur. Binek ve SUV araçlarla uyumludur.        '''
+      },
     ],
     'oilport-motor': [
-      {'name': 'Oilport 10W40', 'image': 'assets/images/oilport/motor/oilport-10w40-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Oilport 20W50', 'image': 'assets/images/oilport/motor/oilport-20w50-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
-      {'name': 'Oilport 5W30', 'image': 'assets/images/oilport/motor/oilport-5w30-motor.png', 'brand': 'Oilport', 'category': 'Motor Yağları', 'description': 'Üstün motor koruması sağlayan yüksek performanslı motor yağı. Gelişmiş katkı maddeleri ile aşınmayı azaltır, motor ömrünü uzatır. API ve ACEA standartlarına uygun. Benzinli ve dizel motorlarda mükemmel performans. Yakıt ekonomisi ve temizlik sağlar.'},
+      {
+        'name': 'Oilport 10W40',
+        'image': 'assets/images/oilport/motor/oilport-10w40-motor.png',
+        'brand': 'Oilport',
+        'category': 'Motor Yağları',
+        'description': '''
+Orta viskoziteli motor yağı. Motoru aşınmaya ve yüksek sıcaklıklara karşı korur, sürtünmeyi azaltır ve motor performansını destekler. Benzinli ve dizel motorlar için uygundur.        '''
+      },
+      {
+        'name': 'Oilport 20W50',
+        'image': 'assets/images/oilport/motor/oilport-20w50-motor.png',
+        'brand': 'Oilport',
+        'category': 'Motor Yağları',
+        'description': '''
+Yüksek viskoziteli motor yağı. Motoru aşınmaya ve yüksek sıcaklıklara karşı korur, sürtünmeyi azaltır ve motor performansını destekler. Özellikle eski ve yüksek kilometreli motorlar için idealdir.        '''
+      },
+      {
+        'name': 'Oilport 5W30',
+        'image': 'assets/images/oilport/motor/oilport-5w30-motor.png',
+        'brand': 'Oilport',
+        'category': 'Motor Yağları',
+        'description': '''
+Yüksek performanslı motor yağı. Motoru aşınmaya ve ısınmaya karşı korur, sürtünmeyi azaltır ve yakıt verimliliğini destekler. Modern benzinli ve dizel motorlarla uyumludur.        '''
+      },
     ],
     'oilport-motorsiklet': [
-      {'name': 'Oilport 4T 10W40', 'image': 'assets/images/oilport/motorsiklet/oilport-4t-10w40-motorsiklet.png', 'brand': 'Oilport', 'category': 'Motorsiklet Yağları', 'description': '4 zamanlı motorsikletler için özel formül. JASO MA/MA2 onaylı ıslak kavrama uyumluluğu. Motor, şanzıman ve debriyaj koruması bir arada. Yüksek devirde üstün performans. Sorunsuz vites geçişi ve uzun ömürlü koruma sağlar.'},
+      {
+        'name': 'Oilport 4T 10W40',
+        'image': 'assets/images/oilport/motorsiklet/oilport-4t-10w40-motorsiklet.png',
+        'brand': 'Oilport',
+        'category': 'Motorsiklet Yağları',
+        'description': '''
+Yüksek performanslı 4 zamanlı motosiklet motor yağı. Motoru aşınmaya karşı korur, sürtünmeyi azaltır ve zincir ile debriyaj sistemiyle uyumludur. Uzun ömürlü ve yüksek sıcaklık dayanımlı.        '''
+      },
     ],
     'oilport-hidrolik': [
-      {'name': 'Oilport ATF', 'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png', 'brand': 'Oilport', 'category': 'Hidrolik Sistem Yağları', 'description': 'Hidrolik sistemler için yüksek performanslı yağ. Mükemmel aşınma koruması ve oksidasyona direnç. Köpük önleyici katkılar. Geniş sıcaklık aralığında kararlı çalışma. İş makineleri, vinçler ve endüstriyel uygulamalarda güvenilir performans.'},
+      {
+        'name': 'Oilport ATF',
+        'image': 'assets/images/oilport/direksiyon/oilport-atf-direksiyon.png',
+        'brand': 'Oilport',
+        'category': 'Hidrolik Sistem Yağları',
+        'description': '''
+Hidrolik direksiyon sistemleri için özel ATF yağı. Aşınmayı önler, direksiyon tepkisini iyileştirir ve metal ile kauçuk parçaları korur. Tüm binek ve SUV araçlarla uyumludur.        '''
+      },
     ],
     'oilport-antifriz': [
-      {'name': 'Oilport Antifreeze', 'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png', 'brand': 'Oilport', 'category': 'Antifrizler', 'description': 'Motor soğutma sistemi için uzun ömürlü antifriz. -40°C donma ve +150°C kaynama koruması. Korozyon ve çukurlaşma önleyici formül. Alüminyum ve demir blok motorlarda uyumluluk. Organik asit teknolojisi (OAT). Tüm mevsim motor koruması sağlar.'},
+      {
+        'name': 'Oilport Antifreeze',
+        'image': 'assets/images/oilport/antifriz/oilport-bidon-antifreeze.png',
+        'brand': 'Oilport',
+        'category': 'Antifrizler',
+        'description': '''
+Oilport Antifreeze, motor soğutma sistemlerinde yıl boyunca üstün koruma sağlamak üzere geliştirilmiş yüksek kaliteli bir antifrizdir. Özel formülü sayesinde motoru donmaya, kaynamaya ve korozyona karşı korur. Su pompası, radyatör, hortumlar ve metal yüzeylerde oluşabilecek paslanma ve kireçlenmeyi önleyerek soğutma sisteminin verimli çalışmasına katkı sağlar. Dört mevsim kullanıma uygun olan Oilport Antifreeze, uzun ömürlü yapısı ve modern araçların soğutma sistemleriyle uyumluluğu sayesinde güvenilir bir performans sunar.        '''
+      },
     ],
     'oilport-katki': [
-      {'name': 'Oilport Bıçkı Zincir Yağı', 'image': 'assets/images/oilport/sarf/oilport-zincir.png', 'brand': 'Oilport', 'category': 'Katkı Maddeleri', 'description': 'Motor ve sistem performansını artıran özel katkı maddesi. Sürtünmeyi azaltır, temizlik sağlar. Aşınma ve oksidasyon önleyici özellikler. Motor gürültüsünü azaltır, yakıt tasarrufu sağlar. Kolay uygulama ve hızlı etki. Tüm motor tiplerinde kullanılabilir.'},
+      {
+        'name': 'Oilport Bıçkı Zincir Yağı',
+        'image': 'assets/images/oilport/sarf/oilport-zincir.png',
+        'brand': 'Oilport',
+        'category': 'Katkı Maddeleri',
+        'description': '''
+Oilport Bıçkı Zincir Yağı, motorlu testere zincirlerinin yüksek hızda çalışırken sürtünmeye karşı korunmasını sağlamak için özel olarak formüle edilmiştir. Yüksek yapışma özelliği sayesinde zincir üzerinde kalıcılık sağlar ve sıçrama kaybını minimuma indirir. Aşınma ve ısınmayı azaltarak zincirin daha uzun ömürlü olmasına katkı sunar. Ağaç kesimi, budama ve ormancılık uygulamalarında güvenilir performans sunar.        '''
+      },
     ],
     'skynell-fren': [
-      {'name': 'Skynell DOT3', 'image': 'assets/images/skynell/fren/skynell-dot3-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları', 'description': 'Fren ve kavrama hidrolik sistemleri için güvenilir sıvı. DOT standartlarına uygun yüksek kaynama noktası. ABS ve ESP sistemleriyle tam uyumluluk. Nem absorpsiyonuna karşı dirençli. Güvenli fren performansı ve uzun değişim aralıkları sunar.'},
-      {'name': 'Skynell DOT4', 'image': 'assets/images/skynell/fren/skynell-dot4-fren.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları', 'description': 'Fren ve kavrama hidrolik sistemleri için güvenilir sıvı. DOT standartlarına uygun yüksek kaynama noktası. ABS ve ESP sistemleriyle tam uyumluluk. Nem absorpsiyonuna karşı dirençli. Güvenli fren performansı ve uzun değişim aralıkları sunar.'},
-      {'name': 'Skynell Balata Temizleyici', 'image': 'assets/images/skynell/fren/skynell-balata.png', 'brand': 'Skynell', 'category': 'Fren Hidrolik Sıvıları', 'description': 'Fren ve kavrama hidrolik sistemleri için güvenilir sıvı. DOT standartlarına uygun yüksek kaynama noktası. ABS ve ESP sistemleriyle tam uyumluluk. Nem absorpsiyonuna karşı dirençli. Güvenli fren performansı ve uzun değişim aralıkları sunar.'},
+      {
+        'name': 'Skynell DOT3',
+        'image': 'assets/images/skynell/fren/skynell-dot3-fren.png',
+        'brand': 'Skynell',
+        'category': 'Fren Hidrolik Sıvıları',
+        'description': '''
+Skynell DOT 3 Fren Hidrolik Yağı, hidrolik fren ve debriyaj sistemlerinde güvenilir performans sunmak için geliştirilmiştir. Yüksek kaynama noktası sayesinde fren pedalının tepkisini iyileştirir ve buhar kilidi riskini azaltır. Metal yüzeylere karşı korozyon koruması sağlar ve kauçuk contalarla uyumlu çalışır. Günlük binek araçlar için uygun, istikrarlı ve güvenli fren performansı sunar.        '''
+      },
+      {
+        'name': 'Skynell DOT4',
+        'image': 'assets/images/skynell/fren/skynell-dot4-fren.png',
+        'brand': 'Skynell',
+        'category': 'Fren Hidrolik Sıvıları',
+        'description': '''
+Skynell DOT 4 Fren Hidrolik Yağı, yüksek performanslı fren sistemleri için geliştirilmiş ileri seviye bir fren sıvısıdır. DOT 3’e göre daha yüksek kuru ve ıslak kaynama noktası sunarak yoğun kullanımda bile fren gücünün stabil kalmasını sağlar. ABS, ESP ve modern fren sistemleriyle uyumlu çalışır. Korozyon ve oksidasyon direnci yüksek olup, güvenli frenleme performansı için uzun süreli dayanıklılık sunar.        '''
+      },
+      {
+        'name': 'Skynell Balata Temizleyici',
+        'image': 'assets/images/skynell/fren/skynell-balata.png',
+        'brand': 'Skynell',
+        'category': 'Fren Hidrolik Sıvıları',
+        'description': '''
+Skynell Balata Temizleyici, fren ve debriyaj sistemlerinde biriken yağ, kir, toz ve balata artıklarını hızlı ve etkili bir şekilde temizlemek için geliştirilmiştir. Güçlü çözücü formülü sayesinde fren diskleri, kampanalar, balata yüzeyleri ve metal parçalar üzerindeki kalıntıları kolayca çözer ve yüzeyleri kısa sürede kurutarak iz bırakmaz. Fren performansını olumsuz etkileyen kirlenmeleri giderir, gıcırtı oluşumunu azaltır ve sistemin optimum şekilde çalışmasına katkı sağlar. Otomobil, motosiklet, ticari araç ve endüstriyel uygulamalarda güvenle kullanılabilir.        '''
+      },
     ],
   };
 
