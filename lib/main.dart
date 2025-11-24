@@ -137,8 +137,6 @@ class _HomePageState extends State<HomePage> {
   bool _showLeftArrow = false;
   bool _showRightArrow = true;
 
-  String? _lastScrollTo;
-  
   @override
   void initState() {
     super.initState();
@@ -165,25 +163,27 @@ class _HomePageState extends State<HomePage> {
       final uri = GoRouterState.of(context).uri;
       final scrollTo = uri.queryParameters['scrollTo'];
       
-      // Sadece scrollTo değişmişse scroll yap (gereksiz scroll'ları önle)
-      if (scrollTo != null && scrollTo != _lastScrollTo) {
-        _lastScrollTo = scrollTo;
-        
+      // scrollTo parametresi varsa scroll yap
+      if (scrollTo != null) {
         // ÖNEMLİ: URL'i HEMEN temizle (scroll öncesi), 
         // böylece browser history'de temiz URL olacak
         _cleanScrollParameter();
         
       if (scrollTo == 'contact') {
-        Future.delayed(const Duration(milliseconds: 400), () {
+          // Önceki scroll'u iptal et ve yeni scroll'u başlat
+          Future.delayed(const Duration(milliseconds: 100), () {
+            if (mounted) {
           _scrollToContact();
+            }
         });
       } else if (scrollTo == 'brands') {
-        Future.delayed(const Duration(milliseconds: 400), () {
+          // Önceki scroll'u iptal et ve yeni scroll'u başlat
+          Future.delayed(const Duration(milliseconds: 100), () {
+            if (mounted) {
           _scrollToBrands();
+            }
         });
         }
-      } else if (scrollTo == null && _lastScrollTo != null) {
-        _lastScrollTo = null;
       }
       
       // İlk yüklemede ok görünürlüğünü kontrol et
@@ -199,7 +199,6 @@ class _HomePageState extends State<HomePage> {
     // Hash routing (#/) veya normal routing'e göre düzelt
     final cleanUrl = html.window.location.hash.isNotEmpty ? '/#/' : '/';
     html.window.history.replaceState(null, '', cleanUrl);
-    _lastScrollTo = null;
   }
   
   void _updateArrowVisibility() {
@@ -242,22 +241,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollToContact() {
+    if (!mounted) return;
+    
     final context = _contactKey.currentContext;
     if (context != null) {
+      // Önce mevcut scroll'u durdur
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(_scrollController.offset);
+      }
+      
+      // Sonra yeni scroll'u başlat
       Scrollable.ensureVisible(
         context,
-        duration: const Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
     }
   }
 
   void _scrollToBrands() {
+    if (!mounted) return;
+    
     final context = _brandsKey.currentContext;
     if (context != null) {
+      // Önce mevcut scroll'u durdur
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(_scrollController.offset);
+      }
+      
+      // Sonra yeni scroll'u başlat
       Scrollable.ensureVisible(
         context,
-        duration: const Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
         alignment: 0.1, // Biraz yukarıdan göster (ekranın %10'undan başla)
       );
@@ -302,6 +317,16 @@ $message
     
     // Form state'ini resetle
     _formKey.currentState!.reset();
+    
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('✓ E-posta uygulamanız açılacaktır.'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
   }
 
   @override
@@ -345,8 +370,12 @@ $message
               // Footer
               SliverToBoxAdapter(
                 child: ModernFooter(
-                  onBrandsScroll: _scrollToBrands,
-                  onContactScroll: _scrollToContact,
+                  onContactTap: () {
+                    _scrollToContact();
+                  },
+                  onBrandsTap: () {
+                    _scrollToBrands();
+                  },
                 ),
               ),
             ],
@@ -430,6 +459,10 @@ $message
                     iconSize: 28,
                     color: const Color(0xFF111827),
                     onPressed: () {
+                      // Önce scroll animasyonunu durdur
+                      if (_scrollController.hasClients) {
+                        _scrollController.jumpTo(_scrollController.offset);
+                      }
                       _showMobileMenu(context);
                     },
                   ),
@@ -523,8 +556,14 @@ $message
     showGlobalMobileMenu(
       context,
       currentPage: 'home',
-      onContactTap: _scrollToContact,
-      onBrandsTap: _scrollToBrands,
+      onContactTap: () {
+        // Ana sayfadayız, direkt scroll yap
+        _scrollToContact();
+      },
+      onBrandsTap: () {
+        // Ana sayfadayız, direkt scroll yap
+        _scrollToBrands();
+      },
     );
   }
 
@@ -579,7 +618,7 @@ $message
         } else if (title == 'Ana Sayfa') {
           context.go('/');
         } else if (title == 'İletişim') {
-          // Query parameter ile scroll yap (Ana sayfada olsak da olmasak da çalışır)
+          // Ana sayfadaysak direkt scroll
             _scrollToContact();
         }
       },
@@ -3159,7 +3198,8 @@ class AboutPage extends StatelessWidget {
         },
         onHeaderTap: () {
           // Ana sayfaya git ve markalar bölümüne scroll yap
-          context.go('/?scrollTo=brands');
+          // Timestamp ekle ki her tıklamada farklı URL olsun
+          context.go('/?scrollTo=brands&_t=${DateTime.now().millisecondsSinceEpoch}');
         },
       );
     }
@@ -3174,7 +3214,8 @@ class AboutPage extends StatelessWidget {
           context.go('/hakkimizda');
         } else if (title == 'İletişim') {
           // Ana sayfaya git ve iletişim alanına scroll yap
-          context.go('/?scrollTo=contact');
+          // Timestamp ekle ki her tıklamada farklı URL olsun
+          context.go('/?scrollTo=contact&_t=${DateTime.now().millisecondsSinceEpoch}');
         }
       },
     );
@@ -3387,13 +3428,18 @@ class AboutPage extends StatelessWidget {
   }
 
   Widget _buildAboutPageFooter(BuildContext context) {
-    // Ana sayfadaki modern footer'ı kullan
+    // Ana sayfadaki modern footer'ı kullan (callback yok, timestamp ile navigate eder)
     return const ModernFooter();
   }
 }
 
 // Global Mobile Menu Widget (Tüm sayfalarda tutarlı hamburger menü)
-void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallback? onContactTap, VoidCallback? onBrandsTap}) {
+void showGlobalMobileMenu(
+  BuildContext context, {
+  String? currentPage,
+  VoidCallback? onContactTap,
+  VoidCallback? onBrandsTap,
+}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -3420,7 +3466,12 @@ void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallba
             'Ana Sayfa',
             Icons.home_outlined,
             () {
+              if (!context.mounted) return;
+              // Önce navigator'ı kapat
+              if (Navigator.canPop(context)) {
               Navigator.pop(context);
+              }
+              // Hemen ardından navigate et (context hala geçerli)
               context.go('/');
             },
             isActive: currentPage == 'home',
@@ -3430,7 +3481,12 @@ void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallba
             'Ürünler',
             Icons.inventory_2_outlined,
             () {
+              if (!context.mounted) return;
+              // Önce navigator'ı kapat
+              if (Navigator.canPop(context)) {
               Navigator.pop(context);
+              }
+              // Hemen ardından navigate et (context hala geçerli)
               context.go('/urunler');
             },
             isActive: currentPage == 'products',
@@ -3440,15 +3496,17 @@ void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallba
             'Markalar',
             Icons.business_outlined,
             () {
+              if (!context.mounted) return;
+              // Önce navigator'ı kapat
+              if (Navigator.canPop(context)) {
               Navigator.pop(context);
-              if (currentPage == 'home' && onBrandsTap != null) {
-                // Ana sayfadayız, direkt scroll yap
-                Future.delayed(const Duration(milliseconds: 300), () {
+              }
+              // Eğer custom callback varsa (ana sayfadayız), onu kullan
+              if (onBrandsTap != null) {
                   onBrandsTap();
-                });
               } else {
-                // Başka sayfadayız, ana sayfaya git ve scroll yap
-                context.go('/?scrollTo=brands');
+                // Yoksa normal navigate yap (timestamp ekle)
+                context.go('/?scrollTo=brands&_t=${DateTime.now().millisecondsSinceEpoch}');
               }
             },
             isActive: false,
@@ -3458,7 +3516,12 @@ void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallba
             'Hakkımızda',
             Icons.info_outlined,
             () {
+              if (!context.mounted) return;
+              // Önce navigator'ı kapat
+              if (Navigator.canPop(context)) {
               Navigator.pop(context);
+              }
+              // Hemen ardından navigate et (context hala geçerli)
               context.go('/hakkimizda');
             },
             isActive: currentPage == 'about',
@@ -3468,15 +3531,17 @@ void showGlobalMobileMenu(BuildContext context, {String? currentPage, VoidCallba
             'İletişim',
             Icons.mail_outlined,
             () {
+              if (!context.mounted) return;
+              // Önce navigator'ı kapat
+              if (Navigator.canPop(context)) {
               Navigator.pop(context);
-              if (currentPage == 'home' && onContactTap != null) {
-                // Ana sayfadayız, direkt scroll yap
-                Future.delayed(const Duration(milliseconds: 300), () {
+              }
+              // Eğer custom callback varsa (ana sayfadayız), onu kullan
+              if (onContactTap != null) {
                   onContactTap();
-                });
               } else {
-                // Başka sayfadayız, ana sayfaya git ve scroll yap
-                context.go('/?scrollTo=contact');
+                // Yoksa normal navigate yap (timestamp ekle)
+                context.go('/?scrollTo=contact&_t=${DateTime.now().millisecondsSinceEpoch}');
               }
             },
             isActive: currentPage == 'contact',
@@ -3492,7 +3557,7 @@ Widget _buildGlobalMobileMenuItem(
   BuildContext context,
   String title,
   IconData icon,
-  VoidCallback onTap, {
+  Function() onTap, {
   bool isActive = false,
 }) {
   return InkWell(
@@ -3802,13 +3867,13 @@ class _FeaturedProductCardState extends State<_FeaturedProductCard> {
 
 // Modern Footer Widget (Tüm sayfalarda kullanılır)
 class ModernFooter extends StatelessWidget {
-  final VoidCallback? onBrandsScroll;
-  final VoidCallback? onContactScroll;
+  final VoidCallback? onContactTap;
+  final VoidCallback? onBrandsTap;
   
   const ModernFooter({
     super.key,
-    this.onBrandsScroll,
-    this.onContactScroll,
+    this.onContactTap,
+    this.onBrandsTap,
   });
 
   @override
@@ -4115,18 +4180,20 @@ class ModernFooter extends StatelessWidget {
           } else if (text == 'Ana Sayfa') {
             context.go('/');
           } else if (text == 'İletişim') {
-            if (onContactScroll != null) {
-              // Ana sayfadaysak direkt scroll yap
-              onContactScroll!();
+            // Eğer custom callback varsa (ana sayfadayız), onu kullan
+            if (onContactTap != null) {
+              onContactTap!();
             } else {
-            context.go('/?scrollTo=contact');
+              // Yoksa normal navigate yap (timestamp ekle)
+              context.go('/?scrollTo=contact&_t=${DateTime.now().millisecondsSinceEpoch}');
             }
           } else if (text == 'Markalar') {
-            if (onBrandsScroll != null) {
-              // Ana sayfadaysak direkt scroll yap
-              onBrandsScroll!();
+            // Eğer custom callback varsa (ana sayfadayız), onu kullan
+            if (onBrandsTap != null) {
+              onBrandsTap!();
             } else {
-              context.go('/?scrollTo=brands');
+              // Yoksa normal navigate yap (timestamp ekle)
+              context.go('/?scrollTo=brands&_t=${DateTime.now().millisecondsSinceEpoch}');
             }
           } else if (text == 'Ürünler') {
             context.go('/urunler');
@@ -4168,18 +4235,20 @@ class ModernFooter extends StatelessWidget {
             } else if (text == 'Ürünler') {
               context.go('/urunler');
             } else if (text == 'Markalar') {
-              if (onBrandsScroll != null) {
-                // Ana sayfadaysak direkt scroll yap
-                onBrandsScroll!();
+              // Eğer custom callback varsa (ana sayfadayız), onu kullan
+              if (onBrandsTap != null) {
+                onBrandsTap!();
               } else {
-                context.go('/?scrollTo=brands');
+                // Yoksa normal navigate yap (timestamp ekle)
+                context.go('/?scrollTo=brands&_t=${DateTime.now().millisecondsSinceEpoch}');
               }
             } else if (text == 'İletişim') {
-              if (onContactScroll != null) {
-                // Ana sayfadaysak direkt scroll yap
-                onContactScroll!();
+              // Eğer custom callback varsa (ana sayfadayız), onu kullan
+              if (onContactTap != null) {
+                onContactTap!();
               } else {
-              context.go('/?scrollTo=contact');
+                // Yoksa normal navigate yap (timestamp ekle)
+                context.go('/?scrollTo=contact&_t=${DateTime.now().millisecondsSinceEpoch}');
               }
             }
           },
@@ -5604,6 +5673,11 @@ Skynell Balata Temizleyici, fren ve debriyaj sistemlerinde biriken yağ, kir, to
           });
           _updateUrl();
         },
+        onHeaderTap: () {
+          // Ana sayfaya git ve markalar bölümüne scroll yap
+          // Timestamp ekle ki her tıklamada farklı URL olsun
+          context.go('/?scrollTo=brands&_t=${DateTime.now().millisecondsSinceEpoch}');
+        },
       );
     }
     
@@ -5616,7 +5690,8 @@ Skynell Balata Temizleyici, fren ve debriyaj sistemlerinde biriken yağ, kir, to
         } else if (title == 'Hakkımızda') {
           context.go('/hakkimizda');
         } else if (title == 'İletişim') {
-          context.go('/?scrollTo=contact');
+          // Timestamp ekle ki her tıklamada farklı URL olsun
+          context.go('/?scrollTo=contact&_t=${DateTime.now().millisecondsSinceEpoch}');
         }
       },
     );
@@ -8823,6 +8898,11 @@ class _SharedHeader extends StatelessWidget {
         onBrandSelected: (brandName) {
           context.go('/urunler?marka=${brandName.toLowerCase().replaceAll(' ', '')}');
         },
+        onHeaderTap: () {
+          // Ana sayfaya git ve markalar bölümüne scroll yap
+          // Timestamp ekle ki her tıklamada farklı URL olsun
+          context.go('/?scrollTo=brands&_t=${DateTime.now().millisecondsSinceEpoch}');
+        },
       );
     }
     
@@ -8835,7 +8915,8 @@ class _SharedHeader extends StatelessWidget {
         } else if (title == 'Hakkımızda') {
           context.go('/hakkimizda');
         } else if (title == 'İletişim') {
-          context.go('/?scrollTo=contact');
+          // Timestamp ekle ki her tıklamada farklı URL olsun
+          context.go('/?scrollTo=contact&_t=${DateTime.now().millisecondsSinceEpoch}');
         }
       },
     );
