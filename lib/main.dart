@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
+import 'dart:async';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const MNRPetrolApp());
@@ -136,6 +139,9 @@ class _HomePageState extends State<HomePage> {
   bool _isScrolled = false;
   bool _showLeftArrow = false;
   bool _showRightArrow = true;
+  
+  // Timer'ları track et (race condition önleme)
+  Timer? _scrollTimer;
 
   @override
   void initState() {
@@ -145,6 +151,12 @@ class _HomePageState extends State<HomePage> {
         setState(() => _isScrolled = true);
       } else if (_scrollController.offset <= 102 && _isScrolled) {
         setState(() => _isScrolled = false);
+      }
+      
+      // Manuel scroll yapıldığında pending timer'ı iptal et
+      // (Kullanıcı yukarı/aşağı kaydırdığında otomatik scroll'u durdur)
+      if (_scrollTimer != null && _scrollTimer!.isActive) {
+        _scrollTimer?.cancel();
       }
     });
     
@@ -169,16 +181,19 @@ class _HomePageState extends State<HomePage> {
         // böylece browser history'de temiz URL olacak
         _cleanScrollParameter();
         
+        // Önceki scroll timer'ını iptal et (race condition önleme)
+        _scrollTimer?.cancel();
+        
       if (scrollTo == 'contact') {
-          // Önceki scroll'u iptal et ve yeni scroll'u başlat
-          Future.delayed(const Duration(milliseconds: 100), () {
+          // Yeni timer oluştur ve track et
+          _scrollTimer = Timer(const Duration(milliseconds: 100), () {
             if (mounted) {
           _scrollToContact();
             }
         });
       } else if (scrollTo == 'brands') {
-          // Önceki scroll'u iptal et ve yeni scroll'u başlat
-          Future.delayed(const Duration(milliseconds: 100), () {
+          // Yeni timer oluştur ve track et
+          _scrollTimer = Timer(const Duration(milliseconds: 100), () {
             if (mounted) {
           _scrollToBrands();
             }
@@ -230,6 +245,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
+    _scrollTimer?.cancel(); // Pending timer'ı iptal et
     _scrollController.dispose();
     _featuredScrollController.dispose();
     _nameController.dispose();
@@ -279,8 +295,19 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _sendEmail() {
+  Future<void> _sendEmail() async {
     if (!_formKey.currentState!.validate()) {
+      // Validation hatası - Kullanıcıya bildir
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('⚠ Lütfen tüm zorunlu alanları doldurun.'),
+          backgroundColor: Colors.orange,
+          duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating, // Modern floating görünüm
+          margin: const EdgeInsets.all(16), // Kenarlardan boşluk
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      );
       return;
     }
     
@@ -290,25 +317,68 @@ class _HomePageState extends State<HomePage> {
     final subject = _subjectController.text;
     final message = _messageController.text;
     
-    final emailBody = '''
-İsim: $name
-E-posta: ${email.isNotEmpty ? email : '-'}
-Telefon: ${phone.isNotEmpty ? phone : '-'}
-
-Mesaj:
-$message
-    ''';
-    
-    final emailUri = Uri(
-      scheme: 'mailto',
-      path: 'ugurunluer@gmail.com',
-      query: 'subject=$subject&body=${Uri.encodeComponent(emailBody)}',
+    // Loading göster
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFD71920)),
+        ),
+      ),
     );
     
-    // Web için window.open kullanılacak
-    html.window.open(emailUri.toString(), '_blank');
-    
-    // Formu temizle
+    try {
+      // FormSubmit.co'ya gönder (15 saniye timeout)
+      final response = await http.post(
+        Uri.parse('https://formsubmit.co/ugurunluer@gmail.com'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({
+          'name': name,
+          'email': email, // Email validation'dan geçti, kesinlikle dolu
+          'phone': phone.isNotEmpty ? phone : 'Belirtilmedi',
+          'subject': subject,
+          'message': message,
+          '_subject': 'MNR Petrol - İletişim Formu: $subject',
+          '_template': 'table',
+          '_captcha': 'false',
+        }),
+      ).timeout(
+        const Duration(seconds: 15),
+        onTimeout: () {
+          throw Exception('Bağlantı zaman aşımına uğradı. İnternet bağlantınızı kontrol edin.');
+        },
+      );
+      
+      // Loading kapat
+      if (mounted) Navigator.pop(context);
+      
+      // Response'u parse et (JSON olmayabilir, try-catch ile handle et)
+      dynamic responseData;
+      try {
+        responseData = json.decode(response.body);
+      } catch (_) {
+        responseData = null;
+      }
+      
+      if (response.statusCode == 200) {
+        // Başarılı
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('✓ Mesajınız başarıyla gönderildi!'),
+              backgroundColor: Colors.green,
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating, // Modern floating görünüm
+              margin: const EdgeInsets.all(16), // Kenarlardan boşluk
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+          );
+          
+          // Formu temizle (sadece widget mounted ise)
     _nameController.clear();
     _emailController.clear();
     _phoneController.clear();
@@ -316,16 +386,67 @@ $message
     _messageController.clear();
     
     // Form state'ini resetle
-    _formKey.currentState!.reset();
-    
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('✓ E-posta uygulamanız açılacaktır.'),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 3),
-        ),
-      );
+          _formKey.currentState?.reset();
+        }
+      } else if (response.statusCode == 422 && responseData['message'] != null) {
+        // FormSubmit.co validation hatası (örn: ilk kullanımda email confirmation gerekir)
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('⚠ ${responseData['message']}'),
+              backgroundColor: Colors.orange,
+              duration: const Duration(seconds: 5),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+          );
+        }
+      } else {
+        // Diğer hatalar
+        if (mounted) {
+          // Console'a detaylı hata logla
+          print('FormSubmit.co Error: ${response.statusCode} - ${response.body}');
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('✗ Mesaj gönderilemedi. Lütfen tekrar deneyin.'),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating, // Modern floating görünüm
+              margin: const EdgeInsets.all(16), // Kenarlardan boşluk
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      // Hata durumunda loading kapat
+      if (mounted) {
+        Navigator.pop(context);
+        
+        // Console'a detaylı hata logla
+        print('Form submission error: $e');
+        
+        // Kullanıcıya anlaşılır mesaj göster
+        String errorMessage = '✗ Bir hata oluştu. Lütfen tekrar deneyin.';
+        if (e.toString().contains('Bağlantı zaman aşımına')) {
+          errorMessage = '✗ Bağlantı zaman aşımına uğradı. İnternet bağlantınızı kontrol edin.';
+        } else if (e.toString().contains('SocketException') || e.toString().contains('Failed host lookup')) {
+          errorMessage = '✗ İnternet bağlantısı yok. Lütfen bağlantınızı kontrol edin.';
+        }
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+            behavior: SnackBarBehavior.floating, // Modern floating görünüm
+            margin: const EdgeInsets.all(16), // Kenarlardan boşluk
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        );
+      }
     }
   }
 
@@ -335,6 +456,7 @@ $message
     final isMobile = screenWidth < 768;
     
     return Scaffold(
+      resizeToAvoidBottomInset: true, // Keyboard açılınca form kayar
       body: Stack(
         children: [
           CustomScrollView(
@@ -553,16 +675,29 @@ $message
   }
 
   void _showMobileMenu(BuildContext context) {
+    // Hamburger menü açıldığında pending scroll timer'ını iptal et
+    _scrollTimer?.cancel();
+    
     showGlobalMobileMenu(
       context,
       currentPage: 'home',
       onContactTap: () {
-        // Ana sayfadayız, direkt scroll yap
-        _scrollToContact();
+        // Ana sayfadayız, modal zaten showGlobalMobileMenu içinde kapatılıyor
+        // Timer'ı track et (race condition önleme)
+        _scrollTimer = Timer(const Duration(milliseconds: 300), () {
+          if (mounted) {
+            _scrollToContact();
+          }
+        });
       },
       onBrandsTap: () {
-        // Ana sayfadayız, direkt scroll yap
-        _scrollToBrands();
+        // Ana sayfadayız, modal zaten showGlobalMobileMenu içinde kapatılıyor
+        // Timer'ı track et (race condition önleme)
+        _scrollTimer = Timer(const Duration(milliseconds: 300), () {
+          if (mounted) {
+            _scrollToBrands();
+          }
+        });
       },
     );
   }
@@ -2521,8 +2656,10 @@ extension _HomePageWidgets on _HomePageState {
                                   if (value == null || value.isEmpty) {
                                     return 'Zorunlu alan';
                                   }
-                                  if (!value.contains('@')) {
-                                    return 'Geçersiz e-posta';
+                                  // Düzgün email regex validation
+                                  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return 'Geçersiz e-posta adresi';
                                   }
                                   return null;
                                 },
