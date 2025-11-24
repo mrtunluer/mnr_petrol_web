@@ -1504,14 +1504,12 @@ extension _HomePageWidgets on _HomePageState {
           ),
           // Content
           Positioned.fill(
-            child: SingleChildScrollView(
+            child: Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 900),
-              padding: EdgeInsets.only(
-                top: isMobile ? 80 : (isTablet ? 110 : 140),
-                bottom: isMobile ? 80 : (isTablet ? 110 : 140),
-                left: isMobile ? 20 : (isTablet ? 30 : 40),
-                right: isMobile ? 20 : (isTablet ? 30 : 40),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
+                  vertical: isMobile ? 40 : (isTablet ? 50 : 60),
               ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -3069,6 +3067,75 @@ extension _HomePageWidgets on _HomePageState {
     );
   }
 
+  Widget _buildTopInfoBar() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 8 : 10,
+        horizontal: isMobile ? 16 : 40,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F2937),
+        border: Border(
+          bottom: BorderSide(
+            color: const Color(0xFFD71920).withOpacity(0.3),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Telefon
+              Icon(
+                Icons.phone_outlined,
+                size: isMobile ? 14 : 16,
+                color: const Color(0xFFD71920),
+              ),
+              SizedBox(width: isMobile ? 6 : 8),
+              Text(
+                '+90 532 562 71 23',
+                style: TextStyle(
+                  fontSize: isMobile ? 11 : 13,
+                  color: const Color(0xFFE5E7EB),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              if (!isMobile) ...[
+                const SizedBox(width: 30),
+                Container(
+                  width: 1,
+                  height: 16,
+                  color: Colors.white.withOpacity(0.2),
+                ),
+                const SizedBox(width: 30),
+                // Adres
+                const Icon(
+                  Icons.location_on_outlined,
+                  size: 16,
+                  color: Color(0xFFD71920),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  'Uncalı Mh., Konyaaltı / Antalya',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFFE5E7EB),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 // Hakkımızda Sayfası
@@ -5834,6 +5901,76 @@ Skynell Balata Temizleyici, fren ve debriyaj sistemlerinde biriken yağ, kir, to
     );
   }
 
+  Widget _buildTopInfoBar() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 8 : 10,
+        horizontal: isMobile ? 16 : 40,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F2937),
+        border: Border(
+          bottom: BorderSide(
+            color: const Color(0xFFD71920).withOpacity(0.3),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Telefon
+              Icon(
+                Icons.phone_outlined,
+                size: isMobile ? 14 : 16,
+                color: const Color(0xFFD71920),
+              ),
+              SizedBox(width: isMobile ? 6 : 8),
+              Text(
+                '+90 532 562 71 23',
+                style: TextStyle(
+                  fontSize: isMobile ? 11 : 13,
+                  color: const Color(0xFFE5E7EB),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              if (!isMobile) ...[
+                const SizedBox(width: 30),
+                Container(
+                  width: 1,
+                  height: 16,
+                  color: Colors.white.withOpacity(0.2),
+                ),
+                const SizedBox(width: 30),
+                // Adres
+                const Icon(
+                  Icons.location_on_outlined,
+                  size: 16,
+                  color: Color(0xFFD71920),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  'Uncalı Mh., Konyaaltı / Antalya',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFFE5E7EB),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildContent(BuildContext context, List<Map<String, String>> products) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
@@ -7938,6 +8075,76 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         .replaceAll('ö', 'o')
         .replaceAll('ç', 'c');
     return '$brandNorm-$nameNorm';
+  }
+
+  Widget _buildTopInfoBar() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 8 : 10,
+        horizontal: isMobile ? 16 : 40,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F2937),
+        border: Border(
+          bottom: BorderSide(
+            color: const Color(0xFFD71920).withOpacity(0.3),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Telefon
+              Icon(
+                Icons.phone_outlined,
+                size: isMobile ? 14 : 16,
+                color: const Color(0xFFD71920),
+              ),
+              SizedBox(width: isMobile ? 6 : 8),
+              Text(
+                '+90 532 562 71 23',
+                style: TextStyle(
+                  fontSize: isMobile ? 11 : 13,
+                  color: const Color(0xFFE5E7EB),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              if (!isMobile) ...[
+                const SizedBox(width: 30),
+                Container(
+                  width: 1,
+                  height: 16,
+                  color: Colors.white.withOpacity(0.2),
+                ),
+                const SizedBox(width: 30),
+                // Adres
+                const Icon(
+                  Icons.location_on_outlined,
+                  size: 16,
+                  color: Color(0xFFD71920),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  'Uncalı Mh., Konyaaltı / Antalya',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFFE5E7EB),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   // Hacim seçeneği gösterilmeli mi ve hangi hacimler kontrol et
