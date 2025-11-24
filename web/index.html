@@ -148,23 +148,6 @@
   </script>
 </head>
 <body>
-  <!-- Force Service Worker Update -->
-  <script>
-    // Service Worker'ı unregister et (cache sorununu çöz)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for(let registration of registrations) {
-          registration.unregister().then(function(success) {
-            console.log('Service Worker unregistered successfully');
-            // Sayfayı yenile
-            if (success) {
-              window.location.reload(true);
-            }
-          });
-        }
-      });
-    }
-  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

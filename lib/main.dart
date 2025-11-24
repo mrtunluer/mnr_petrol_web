@@ -173,14 +173,14 @@ class _HomePageState extends State<HomePage> {
         // böylece browser history'de temiz URL olacak
         _cleanScrollParameter();
         
-        if (scrollTo == 'contact') {
-          Future.delayed(const Duration(milliseconds: 400), () {
-            _scrollToContact();
-          });
-        } else if (scrollTo == 'brands') {
-          Future.delayed(const Duration(milliseconds: 400), () {
-            _scrollToBrands();
-          });
+      if (scrollTo == 'contact') {
+        Future.delayed(const Duration(milliseconds: 400), () {
+          _scrollToContact();
+        });
+      } else if (scrollTo == 'brands') {
+        Future.delayed(const Duration(milliseconds: 400), () {
+          _scrollToBrands();
+        });
         }
       } else if (scrollTo == null && _lastScrollTo != null) {
         _lastScrollTo = null;
@@ -580,7 +580,7 @@ $message
           context.go('/');
         } else if (title == 'İletişim') {
           // Query parameter ile scroll yap (Ana sayfada olsak da olmasak da çalışır)
-          _scrollToContact();
+            _scrollToContact();
         }
       },
     );
@@ -1331,18 +1331,18 @@ extension _HomePageWidgets on _HomePageState {
           // Content
           Positioned.fill(
             child: SingleChildScrollView(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 900),
-                padding: EdgeInsets.only(
-                  top: isMobile ? 80 : (isTablet ? 110 : 140),
-                  bottom: isMobile ? 80 : (isTablet ? 110 : 140),
-                  left: isMobile ? 20 : (isTablet ? 30 : 40),
-                  right: isMobile ? 20 : (isTablet ? 30 : 40),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 900),
+              padding: EdgeInsets.only(
+                top: isMobile ? 80 : (isTablet ? 110 : 140),
+                bottom: isMobile ? 80 : (isTablet ? 110 : 140),
+                left: isMobile ? 20 : (isTablet ? 30 : 40),
+                right: isMobile ? 20 : (isTablet ? 30 : 40),
+              ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
-                  children: [
+                children: [
                   // Badge
                   Container(
                     padding: EdgeInsets.symmetric(
@@ -1503,32 +1503,32 @@ extension _HomePageWidgets on _HomePageState {
                     ),
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _buildStatCard('15+', 'Yıllık Tecrübe', isMobile),
-                          Container(
-                            height: isMobile ? 40 : 50,
-                            width: 1,
-                            margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
-                            color: Colors.white.withOpacity(0.3),
-                          ),
-                          _buildStatCard('1000+', 'Mutlu Müşteri', isMobile),
-                          Container(
-                            height: isMobile ? 40 : 50,
-                            width: 1,
-                            margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
-                            color: Colors.white.withOpacity(0.3),
-                          ),
-                          _buildStatCard('5', 'Premium Marka', isMobile),
-                        ],
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildStatCard('15+', 'Yıllık Tecrübe', isMobile),
+                        Container(
+                          height: isMobile ? 40 : 50,
+                          width: 1,
+                          margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
+                          color: Colors.white.withOpacity(0.3),
+                        ),
+                        _buildStatCard('1000+', 'Mutlu Müşteri', isMobile),
+                        Container(
+                          height: isMobile ? 40 : 50,
+                          width: 1,
+                          margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : (isTablet ? 28 : 40)),
+                          color: Colors.white.withOpacity(0.3),
+                        ),
+                        _buildStatCard('5', 'Premium Marka', isMobile),
+                      ],
                       ),
                     ),
                   ),
                 ],
               ),
+              ),
             ),
-          ),
           ),
         ],
       ),
@@ -2010,28 +2010,28 @@ extension _HomePageWidgets on _HomePageState {
                           }
                         }
                       },
-                      child: ListView.builder(
-                        controller: _featuredScrollController,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
-                        ),
-                        itemCount: featuredProducts.length,
-                        itemBuilder: (context, index) {
-                          final product = featuredProducts[index];
-                          return Container(
-                            width: isMobile ? 180 : (isTablet ? 240 : 280),
-                            margin: EdgeInsets.only(
-                              right: index < featuredProducts.length - 1 
-                                  ? (isMobile ? 16 : 24) 
-                                  : 0,
-                            ),
-                            child: _FeaturedProductCard(
-                              product: product,
-                              isMobile: isMobile,
-                            ),
-                          );
-                        },
+                    child: ListView.builder(
+                      controller: _featuredScrollController,
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 20 : (isTablet ? 30 : 40),
+                      ),
+                      itemCount: featuredProducts.length,
+                      itemBuilder: (context, index) {
+                        final product = featuredProducts[index];
+                        return Container(
+                          width: isMobile ? 180 : (isTablet ? 240 : 280),
+                          margin: EdgeInsets.only(
+                            right: index < featuredProducts.length - 1 
+                                ? (isMobile ? 16 : 24) 
+                                : 0,
+                          ),
+                          child: _FeaturedProductCard(
+                            product: product,
+                            isMobile: isMobile,
+                          ),
+                        );
+                      },
                       ),
                     ),
                   ),
@@ -7946,30 +7946,30 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                         // Görsel (Mobil - Üstte) - Modern & Büyük
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              barrierColor: Colors.black.withOpacity(0.9),
-                              builder: (context) => _FullImageDialog(imagePath: product['image']!),
-                            );
-                          },
-                          child: Container(
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                barrierColor: Colors.black.withOpacity(0.9),
+                                builder: (context) => _FullImageDialog(imagePath: product['image']!),
+                              );
+                            },
+                            child: Container(
                             height: 420, // 300 → 420 (daha büyük)
-                            decoration: BoxDecoration(
+                              decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                colors: [
+                                  colors: [
                                   const Color(0xFFF8F9FA),
                                   Colors.white,
                                   const Color(0xFFF8F9FA).withOpacity(0.3),
-                                ],
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16),
-                              ),
+                                  ],
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(16),
+                                  topRight: Radius.circular(16),
+                                ),
                               // Modern shadow ekle
                               boxShadow: [
                                 BoxShadow(
@@ -7978,18 +7978,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   offset: const Offset(0, 10),
                                 ),
                               ],
-                            ),
-                            child: Stack(
-                              children: [
+                              ),
+                              child: Stack(
+                                children: [
                                 // Dekoratif pattern (background)
                                 Positioned.fill(
                                   child: CustomPaint(
                                     painter: _ProductBackgroundPainter(),
                                   ),
                                 ),
-                                // Görsel
-                                Center(
-                            child: Padding(
+                                  // Görsel
+                                  Center(
+                              child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 40,
@@ -8055,14 +8055,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   },
                                 ),
                               ),
-                          ), // Center kapanışı
+                            ), // Center kapanışı
                           // Modern Zoom İkonu (Sağ alt köşe) - Yeni tasarım
-                          Positioned(
+                            Positioned(
                             bottom: 20,
                             right: 20,
-                            child: Container(
+                              child: Container(
                               padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
+                                decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
@@ -8072,23 +8072,23 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   ],
                                 ),
                                 borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  BoxShadow(
+                                  boxShadow: [
+                                    BoxShadow(
                                     color: const Color(0xFFD71920).withOpacity(0.4),
                                     blurRadius: 16,
                                     offset: const Offset(0, 6),
                                     spreadRadius: 0,
-                                  ),
-                                ],
-                              ),
-                              child: const Icon(
+                                    ),
+                                  ],
+                                ),
+                                child: const Icon(
                                 Icons.zoom_in_rounded,
                                 size: 28,
                                 color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
-                        ], // Stack children kapanışı
+                          ], // Stack children kapanışı
                         ), // Stack kapanışı
                       ), // Container kapanışı
                     ), // GestureDetector kapanışı
@@ -8106,8 +8106,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: const Color(0xFFE5E7EB), width: 2),
                                   ),
-child: Image.asset(
-                                  'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
+                                  child: Image.asset(
+                                    'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.contain,
@@ -8173,54 +8173,6 @@ child: Image.asset(
                                     ),
                                   ),
                                 ),
-                                // Ürün Açıklaması (Description)
-                                // DEBUG: Description var mı kontrol
-                                const SizedBox(height: 24),
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFF9FAFB),
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: const Color(0xFFE5E7EB),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Row(
-                                        children: [
-                                          Icon(
-                                            Icons.info_outline_rounded,
-                                            color: Color(0xFFD71920),
-                                            size: 20,
-                                          ),
-                                          SizedBox(width: 8),
-                                          Text(
-                                            'Ürün Açıklaması',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xFF374151),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 12),
-                                      Text(
-                                        product['description'] ?? '⚠️ TEST: Description NULL - Yeni build çalışıyor!',
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xFF6B7280),
-                                          height: 1.6,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 24),
                                 // Hacim Seçenekleri
                                 if (_getAvailableVolumes(product) != null) ...[
                                   _buildVolumeSelector(isMobile, _getAvailableVolumes(product)!),
@@ -8316,8 +8268,8 @@ child: Image.asset(
                                   ),
                                 ],
                               ),
-child: Image.asset(
-                                  'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
+                              child: Image.asset(
+                                'assets/images/logos/${product['brand']!.toLowerCase().replaceAll(' ', '')}.png',
                                 width: 60,
                                 height: 60,
                                 fit: BoxFit.contain,
@@ -8384,54 +8336,6 @@ child: Image.asset(
                                 ),
                               ),
                             ),
-                            // Ürün Açıklaması (Description) - Desktop
-                            const SizedBox(height: 32),
-                            Container(
-                              padding: const EdgeInsets.all(24),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF9FAFB),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: const Color(0xFFE5E7EB),
-                                  width: 1,
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.info_outline_rounded,
-                                        color: Color(0xFFD71920),
-                                        size: 24,
-                                      ),
-                                      SizedBox(width: 12),
-                                      Text(
-                                        'Ürün Açıklaması',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color(0xFF374151),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    product['description'] ?? '⚠️ TEST: Description NULL - Yeni build çalışıyor!',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xFF6B7280),
-                                      height: 1.7,
-                                      letterSpacing: 0.2,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 32),
                             // Hacim Seçenekleri
                             if (_getAvailableVolumes(product) != null) ...[
                               _buildVolumeSelector(isMobile, _getAvailableVolumes(product)!),
@@ -8472,6 +8376,79 @@ child: Image.asset(
                           ],
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+              // Ürün Açıklaması (Tam Genişlik - Altında) - Hem Mobil Hem Desktop
+              SizedBox(height: isMobile ? 24 : 32),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      const Color(0xFFFAFAFA),
+                      Colors.white,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
+                  border: Border.all(
+                    color: const Color(0xFFE5E7EB),
+                    width: 1,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 15,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Başlık
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 16 : 24,
+                        vertical: isMobile ? 16 : 20,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFFD71920).withOpacity(0.05),
+                            const Color(0xFFD71920).withOpacity(0.02),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(isMobile ? 16 : 20),
+                          topRight: Radius.circular(isMobile ? 16 : 20),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.description_outlined,
+                            color: const Color(0xFFD71920),
+                            size: isMobile ? 22 : 26,
+                          ),
+                          SizedBox(width: isMobile ? 10 : 12),
+                          Text(
+                            'Ürün Açıklaması',
+                            style: TextStyle(
+                              fontSize: isMobile ? 16 : 18,
+                              fontWeight: FontWeight.w800,
+                              color: const Color(0xFF111827),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // İçerik
+                    Padding(
+                      padding: EdgeInsets.all(isMobile ? 20 : 28),
+                      child: _buildStyledDescription(product['description'] ?? 'Açıklama bulunamadı.', isMobile),
                     ),
                   ],
                 ),
@@ -8528,6 +8505,123 @@ child: Image.asset(
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildStyledDescription(String description, bool isMobile) {
+    final lines = description.split('\n');
+    final List<Widget> widgets = [];
+
+    for (var line in lines) {
+      final trimmedLine = line.trim();
+      
+      // Boş satır
+      if (trimmedLine.isEmpty) {
+        widgets.add(SizedBox(height: isMobile ? 14 : 12));
+        continue;
+      }
+      
+      // Başlık mı kontrol et (Ürün Tanımı, Özellikleri, Kullanım Alanları, vb.)
+      final isHeading = !trimmedLine.startsWith('•') && 
+                        !trimmedLine.startsWith('-') &&
+                        (trimmedLine.contains('Tanım') || 
+                         trimmedLine.contains('Özellik') || 
+                         trimmedLine.contains('Fayda') ||
+                         trimmedLine.contains('Kullanım') ||
+                         trimmedLine.contains('Alan') ||
+                         trimmedLine.length < 50 && !trimmedLine.contains('.'));
+      
+      // Bullet point mı
+      final isBullet = trimmedLine.startsWith('•') || trimmedLine.startsWith('-');
+      
+      if (isHeading && trimmedLine.length < 100) {
+        // Başlık
+        widgets.add(
+          Padding(
+            padding: EdgeInsets.only(top: isMobile ? 18 : 16, bottom: isMobile ? 10 : 8),
+            child: Row(
+              children: [
+                Container(
+                  width: isMobile ? 4 : 4,
+                  height: isMobile ? 22 : 20,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD71920),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                SizedBox(width: isMobile ? 12 : 10),
+                Expanded(
+                  child: Text(
+                    trimmedLine,
+                    style: TextStyle(
+                      fontSize: isMobile ? 16 : 15,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xFF111827),
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      } else if (isBullet) {
+        // Bullet point
+        final cleanText = trimmedLine.replaceFirst(RegExp(r'^[•\-]\s*'), '');
+        widgets.add(
+          Padding(
+            padding: EdgeInsets.only(left: isMobile ? 10 : 8, bottom: isMobile ? 12 : 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: isMobile ? 9 : 8),
+                  width: isMobile ? 7 : 6,
+                  height: isMobile ? 7 : 6,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFD71920),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                SizedBox(width: isMobile ? 14 : 12),
+                Expanded(
+                  child: Text(
+                    cleanText,
+                    style: TextStyle(
+                      fontSize: isMobile ? 15.5 : 14,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF4B5563),
+                      height: 1.7,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      } else {
+        // Normal metin
+        widgets.add(
+          Padding(
+            padding: EdgeInsets.only(bottom: isMobile ? 14 : 12),
+            child: Text(
+              trimmedLine,
+              style: TextStyle(
+                fontSize: isMobile ? 15.5 : 14,
+                fontWeight: FontWeight.w400,
+                color: const Color(0xFF4B5563),
+                height: 1.8,
+                letterSpacing: 0.1,
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: widgets,
     );
   }
 
