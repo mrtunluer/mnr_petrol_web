@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-brand: #d71920;
+  --color-brand-dark: #a91219;
+  --color-brand-light: #fef2f2;
+  --color-accent: #eab308;
+
+  /* Neutrals — slate-driven for a more editorial feel */
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-ink-muted: #64748b;
+  --color-ink-subtle: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-border-soft: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8fafc;
+  --color-surface-elev: #fafafa;
+  --color-night: #0b1220;
+  --color-night-soft: #111827;
+
+  /* Typography */
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* Layout */
+  --container-content: 1240px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04),
+    0 4px 16px rgba(15, 23, 42, 0.06);
+  --shadow-card-hover: 0 4px 8px rgba(15, 23, 42, 0.05),
+    0 16px 40px rgba(15, 23, 42, 0.12);
+  --shadow-brand: 0 10px 30px rgba(215, 25, 32, 0.25);
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "ss02", "cv11";
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
+  }
+}
+
+@utility container-page {
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  max-width: var(--container-content);
+}
+
+@layer components {
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--color-brand);
+  }
+  .kicker::before {
+    content: "";
+    width: 2.25rem;
+    height: 1px;
+    background: currentColor;
+  }
+}

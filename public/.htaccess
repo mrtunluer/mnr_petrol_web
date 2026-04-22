@@ -1,0 +1,96 @@
+# MNR Petrol — Static export .htaccess (Hostinger / GoDaddy uyumlu)
+
+# ---------- Default document ----------
+DirectoryIndex index.html
+
+# ---------- Force HTTPS ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTP → HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+  # www → naked (istemiyorsan yorum satırı yap)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+
+  # trailingSlash: true ile Next.js her route'u /path/index.html olarak üretir
+  # tarayıcı /urunler?marka=borax isterse Apache otomatik /urunler/index.html döner
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.+?)/?$ /$1/ [L,R=301]
+
+  # SPA-style fallback (404 yerine 404/index.html)
+  ErrorDocument 404 /404/index.html
+</IfModule>
+
+# ---------- Compression ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/x-javascript application/json application/xml text/xml image/svg+xml application/rss+xml application/atom+xml font/woff font/woff2 application/vnd.ms-fontobject
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml font/woff2
+</IfModule>
+
+# ---------- Caching ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML: always revalidate
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # Images: long cache (hashed by Next where possible, 30 days for unhashed)
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Fonts
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+
+  # CSS/JS
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/json "access plus 0 seconds"
+  ExpiresByType text/xml "access plus 1 hour"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Next.js'in hash'li asset'leri immutable
+  <FilesMatch "^.+\.(js|css|woff2?|webp|avif|png|jpg|jpeg|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # HTML'ler her seferinde revalidate
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # Güvenlik başlıkları
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ---------- Block sensitive files ----------
+<FilesMatch "(^\.|package\.json|package-lock\.json|tsconfig\.json|next\.config|\.env|\.git)">
+  Require all denied
+</FilesMatch>
+
+# ---------- MIME types ----------
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+</IfModule>

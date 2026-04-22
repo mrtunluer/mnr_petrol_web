@@ -43,3 +43,21 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+.vercel/
+next-env.d.ts
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Misc tooling
+.eslintcache
+*.tsbuildinfo
