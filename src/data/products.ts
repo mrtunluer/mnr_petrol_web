@@ -544,3 +544,4 @@ export const productsByCategory = (categorySlug: string): Product[] =>
 
 export const featuredProducts = (): Product[] =>
   products.filter((p) => p.featured);
+

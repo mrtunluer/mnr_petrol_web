@@ -8,9 +8,14 @@ type Status =
   | { kind: "ok"; message: string }
   | { kind: "error"; message: string };
 
-export default function ContactForm() {
+type Props = {
+  tone?: "light" | "dark";
+};
+
+export default function ContactForm({ tone = "light" }: Props) {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [isPending, startTransition] = useTransition();
+  const isDark = tone === "dark";
 
   async function onSubmit(formData: FormData): Promise<void> {
     setStatus({ kind: "idle" });
@@ -95,6 +100,10 @@ export default function ContactForm() {
     }
   }
 
+  const fieldClass = isDark
+    ? "field-input-dark"
+    : "field-input-light";
+
   return (
     <form
       onSubmit={(e) => {
@@ -119,55 +128,59 @@ export default function ContactForm() {
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Ad Soyad" required>
+        <Field label="Ad Soyad" required tone={tone}>
           <input
             name="name"
             required
             autoComplete="name"
-            className="field-input"
+            className={fieldClass}
           />
         </Field>
-        <Field label="E-posta" required>
+        <Field label="E-posta" required tone={tone}>
           <input
             name="email"
             type="email"
             required
             autoComplete="email"
-            className="field-input"
+            className={fieldClass}
           />
         </Field>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Telefon">
+        <Field label="Telefon" tone={tone}>
           <input
             name="phone"
             type="tel"
             autoComplete="tel"
-            className="field-input"
+            className={fieldClass}
           />
         </Field>
-        <Field label="Konu">
-          <input name="subject" className="field-input" />
+        <Field label="Konu" tone={tone}>
+          <input name="subject" className={fieldClass} />
         </Field>
       </div>
 
-      <Field label="Mesajınız" required>
+      <Field label="Mesajınız" required tone={tone}>
         <textarea
           name="message"
           required
           rows={5}
-          className="field-input resize-y"
+          className={`${fieldClass} resize-y`}
         />
       </Field>
 
       {status.kind !== "idle" && (
         <div
           role={status.kind === "error" ? "alert" : "status"}
-          className={`rounded-lg border p-3 text-sm ${
+          className={`border p-3 text-sm ${
             status.kind === "ok"
-              ? "border-green-200 bg-green-50 text-green-800"
-              : "border-red-200 bg-red-50 text-red-800"
+              ? isDark
+                ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                : "border-green-200 bg-green-50 text-green-800"
+              : isDark
+                ? "border-red-500/40 bg-red-500/10 text-red-200"
+                : "border-red-200 bg-red-50 text-red-800"
           }`}
         >
           {status.message}
@@ -177,27 +190,60 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-[var(--color-brand)]/30 transition-all hover:bg-[var(--color-brand-dark)] disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center gap-2 bg-[var(--color-brand)] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isPending ? "Gönderiliyor..." : "Mesajı Gönder"}
+        {!isPending && (
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        )}
       </button>
 
       <style>{`
-        .field-input {
+        .field-input-light,
+        .field-input-dark {
           display: block;
           width: 100%;
-          border-radius: 0.625rem;
-          border: 1px solid var(--color-border);
-          background: #fff;
           padding: 0.75rem 1rem;
           font-size: 0.9375rem;
-          color: var(--color-ink);
           outline: none;
-          transition: border-color .15s, box-shadow .15s;
+          transition: border-color .15s, background-color .15s, box-shadow .15s;
+          border-width: 1px;
+          border-style: solid;
         }
-        .field-input:focus {
+        .field-input-light {
+          background: #fff;
+          color: var(--color-ink);
+          border-color: var(--color-border);
+        }
+        .field-input-light:focus {
           border-color: var(--color-brand);
-          box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.15);
+          box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.12);
+        }
+        .field-input-dark {
+          background: rgba(255, 255, 255, 0.04);
+          color: #fff;
+          border-color: rgba(255, 255, 255, 0.12);
+        }
+        .field-input-dark::placeholder {
+          color: rgba(255, 255, 255, 0.35);
+        }
+        .field-input-dark:focus {
+          border-color: var(--color-brand);
+          background: rgba(255, 255, 255, 0.06);
+          box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.2);
         }
       `}</style>
     </form>
@@ -207,15 +253,22 @@ export default function ContactForm() {
 function Field({
   label,
   required,
+  tone,
   children,
 }: {
   label: string;
   required?: boolean;
+  tone: "light" | "dark";
   children: React.ReactNode;
 }) {
+  const isDark = tone === "dark";
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-soft)]">
+      <span
+        className={`mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] ${
+          isDark ? "text-white/60" : "text-[var(--color-ink-soft)]"
+        }`}
+      >
         {label}
         {required && <span className="text-[var(--color-brand)]"> *</span>}
       </span>

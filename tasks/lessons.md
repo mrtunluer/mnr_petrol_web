@@ -36,6 +36,14 @@
   Why: filling gaps from imagination beats the user's trust; a wrong address on a commercial site causes lost leads.
   How to apply: before adding any displayed business data (email, phone, tax no., trade registry), grep the source codebase for where/how it's actually rendered. If it's not rendered anywhere, it's not public. Ask before fabricating.
 
+- **"Source code has it" ≠ "it's real business data".** I repeated the same mistake three times: email, product volumes (1/4/5 L), and certifications/trust badges. The Flutter codebase was built by a developer who hardcoded assumptions; those don't become facts by living in a `.dart` file. Volumes were guessed (no SKU data), "7/24 destek" contradicted the actual `Pzt–Cmt 09:00–18:00` working hours, ISO/API/ACEA certifications belong to *manufacturers* not distributors.
+  Why: a distributor showing manufacturer certifications misleads regulators and buyers. "7/24" on a website that lists 9-hour workdays is a direct lie.
+  How to apply: for any trust claim (certifications, guarantees, SKU specifics, support levels, awards, customer counts): ask "does the business actually have this?" before rendering. If it contradicts another signal on the same page (working hours, company size, role in supply chain), it's a lie. Remove it, don't stylize it.
+
+- **Know the role in the supply chain.** MNR Petrol is a *distributor*, not a lubricant manufacturer. Distributors don't hold ISO 9001 / API / ACEA — their suppliers do. A distributor site should claim *what it does* (warehousing, sales, technical guidance) and never borrow credentials from upstream.
+  Why: misrepresenting supply-chain position is both legally sensitive (certification fraud) and commercially obvious to any informed buyer.
+  How to apply: when designing "trust" sections, first clarify whether the client is the producer, processor, distributor, or reseller — each has a different claim surface.
+
 - **Shared hosting forbids API routes.** Hostinger/GoDaddy shared plans are pure Apache — no Node. If the user commits to those, flip `output: 'export'` first thing and route the contact form to a 3rd-party endpoint (FormSubmit.co, Formspree, Web3Forms). Don't leave `/api/contact` half-working.
   Why: deploy day isn't the time to discover Next.js API routes don't exist on the target.
   How to apply: ask deploy target first if it isn't specified; if "shared hosting" or Hostinger Premium/Deluxe/Economy is mentioned, static export is the only path.

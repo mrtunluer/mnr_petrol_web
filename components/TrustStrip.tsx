@@ -1,57 +1,75 @@
 type Item = {
+  num: string;
+  label: string;
   title: string;
   body: string;
-  icon: "authentic" | "delivery" | "expert" | "dealer";
 };
 
 const items: readonly Item[] = [
   {
-    title: "Orijinal Ürün",
-    body: "Yetkili distribütör garantisi",
-    icon: "authentic",
+    num: "01",
+    label: "Tecrübe",
+    title: "Sektörde 15+ yıl",
+    body: "Akdeniz bölgesinde otomotiv ve endüstriyel sektörlerin madeni yağ ihtiyacında güvenilir çözüm ortağı.",
   },
   {
-    title: "Hızlı Teslimat",
-    body: "Geniş stok, zamanında sevkiyat",
-    icon: "delivery",
+    num: "02",
+    label: "Yetki",
+    title: "6 Premium marka",
+    body: "Borax, Japan Oil, Xenol, Oilport, Brava ve Skynell markalarının resmi distribütörlüğü.",
   },
   {
-    title: "Uzman Kadro",
-    body: "15+ yıllık teknik destek",
-    icon: "expert",
+    num: "03",
+    label: "Tedarik",
+    title: "B2B & filo çözümleri",
+    body: "Servisler, oto sanayiler, lojistik ve endüstriyel tesisler için özel fiyatlandırma ve sevkiyat.",
   },
   {
-    title: "Yetkili Bayilik",
-    body: "Borax, Oilport, Xenol ve daha fazlası",
-    icon: "dealer",
+    num: "04",
+    label: "Destek",
+    title: "Teknik danışmanlık",
+    body: "Araç ve ekipmanınız için uygun viskozite, spesifikasyon ve kullanım önerileri.",
   },
 ] as const;
 
 export default function TrustStrip() {
   return (
-    <section className="relative z-10 -mt-10 bg-transparent">
+    <section className="border-y border-[var(--color-border)] bg-white">
       <div className="container-page">
-        <ul className="grid overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_-15px_rgba(15,23,42,0.2)] ring-1 ring-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((it, i) => (
+        <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] py-8 md:flex-row md:items-center">
+          <div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
+              Kurumsal Kapasite
+            </div>
+            <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-2xl">
+              Profesyonel madeni yağ tedariğinin dört temeli
+            </h2>
+          </div>
+          <div className="text-sm text-[var(--color-ink-muted)]">
+            {site_year()} itibariyle
+          </div>
+        </div>
+
+        <ul className="grid grid-cols-1 divide-y divide-[var(--color-border)] md:grid-cols-4 md:divide-x md:divide-y-0">
+          {items.map((it) => (
             <li
-              key={it.title}
-              className={`flex items-center gap-4 p-5 lg:p-6 ${
-                i < items.length - 1
-                  ? "border-b border-[var(--color-border)] sm:[&:nth-child(2n+1)]:border-r sm:[&:nth-child(odd)]:border-r sm:nth-child(odd):border-r lg:border-b-0 lg:[&:not(:last-child)]:border-r"
-                  : ""
-              }`}
+              key={it.num}
+              className="group flex flex-col gap-3 px-0 py-7 md:px-6 md:first:pl-0 md:last:pr-0"
             >
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--color-brand-light)] text-[var(--color-brand)]">
-                <Icon kind={it.icon} />
-              </span>
-              <div className="min-w-0">
-                <div className="text-sm font-bold text-[var(--color-ink)]">
-                  {it.title}
-                </div>
-                <div className="mt-0.5 text-xs text-[var(--color-ink-muted)]">
-                  {it.body}
-                </div>
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono text-xs font-medium text-[var(--color-ink-subtle)]">
+                  — {it.num}
+                </span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--color-ink-muted)]">
+                  {it.label}
+                </span>
               </div>
+              <div className="text-lg font-semibold leading-snug text-[var(--color-ink)]">
+                {it.title}
+              </div>
+              <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
+                {it.body}
+              </p>
             </li>
           ))}
         </ul>
@@ -60,49 +78,6 @@ export default function TrustStrip() {
   );
 }
 
-function Icon({ kind }: { kind: Item["icon"] }) {
-  const common = {
-    width: 22,
-    height: 22,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 2,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
-  };
-  if (kind === "authentic") {
-    return (
-      <svg {...common}>
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <polyline points="9 12 11 14 15 10" />
-      </svg>
-    );
-  }
-  if (kind === "delivery") {
-    return (
-      <svg {...common}>
-        <rect x="1" y="3" width="15" height="13" />
-        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-        <circle cx="5.5" cy="18.5" r="2.5" />
-        <circle cx="18.5" cy="18.5" r="2.5" />
-      </svg>
-    );
-  }
-  if (kind === "expert") {
-    return (
-      <svg {...common}>
-        <circle cx="12" cy="8" r="4" />
-        <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
-      </svg>
-    );
-  }
-  return (
-    <svg {...common}>
-      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <path d="M16 10a4 4 0 0 1-8 0" />
-    </svg>
-  );
+function site_year(): string {
+  return String(new Date().getFullYear());
 }

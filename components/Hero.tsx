@@ -33,20 +33,19 @@ export default function Hero() {
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link
             href="/urunler"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider shadow-[var(--shadow-brand)] transition-all hover:shadow-[0_15px_40px_rgba(215,25,32,0.4)]"
+            className="group inline-flex items-center gap-2 bg-[var(--color-brand)] px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)]"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-            <span className="relative">Ürünlerimizi Keşfedin</span>
+            Ürünlerimizi Keşfedin
             <svg
-              width="18"
-              height="18"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="relative transition-transform group-hover:translate-x-1"
+              className="transition-transform group-hover:translate-x-1"
               aria-hidden="true"
             >
               <line x1="5" y1="12" x2="19" y2="12" />
@@ -55,21 +54,8 @@ export default function Hero() {
           </Link>
           <Link
             href="#iletisim"
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:border-white/60 hover:bg-white/10"
+            className="inline-flex items-center gap-2 border border-white/30 bg-transparent px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:border-white hover:bg-white/10"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
             İletişime Geç
           </Link>
         </div>
@@ -79,9 +65,7 @@ export default function Hero() {
           <Divider />
           <Stat value="1000+" label="Mutlu Müşteri" />
           <Divider />
-          <Stat value="5" label="Premium Marka" />
-          <Divider />
-          <Stat value="7/24" label="Destek" />
+          <Stat value="6" label="Premium Marka" />
         </dl>
       </div>
     </section>

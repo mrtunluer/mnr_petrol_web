@@ -15,30 +15,41 @@ export const metadata: Metadata = buildMetadata({
 
 export default function UrunlerPage() {
   return (
-    <section className="bg-[var(--color-surface-alt)] py-12">
+    <section className="bg-[var(--color-surface-alt)] py-16">
       <div className="container-page">
-        <header className="mb-8">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-[var(--color-brand)]" />
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--color-brand)]">
+        <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
+          <div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
               Katalog
-            </span>
+            </div>
+            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-5xl">
+              Ürünlerimiz
+            </h1>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--color-ink-soft)]">
+              Altı premium markanın resmi distribütörü olarak, otomotiv ve
+              endüstriyel uygulamaların tümüne yönelik geniş ürün portföyü.
+            </p>
           </div>
-          <h1 className="mt-3 text-4xl font-bold text-[var(--color-ink)] sm:text-5xl">
-            Ürünlerimiz
-          </h1>
-          <p className="mt-3 text-[var(--color-ink-soft)]">
-            {products.length} ürün — marka ve kategoriye göre filtreleyin.
-          </p>
-        </header>
+          <div className="text-sm text-[var(--color-ink-muted)]">
+            <span className="font-mono text-xs text-[var(--color-ink-subtle)]">
+              —{" "}
+            </span>
+            <span className="font-semibold text-[var(--color-ink)]">
+              {products.length}
+            </span>{" "}
+            ürün listelendi
+          </div>
+        </div>
 
-        <Suspense fallback={<div className="py-20 text-center">Yükleniyor…</div>}>
-          <UrunlerClient
-            products={[...products]}
-            brands={[...brands]}
-            categories={[...categories]}
-          />
-        </Suspense>
+        <div className="mt-10">
+          <Suspense fallback={<div className="py-20 text-center">Yükleniyor…</div>}>
+            <UrunlerClient
+              products={[...products]}
+              brands={[...brands]}
+              categories={[...categories]}
+            />
+          </Suspense>
+        </div>
       </div>
     </section>
   );

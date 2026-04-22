@@ -57,20 +57,22 @@ export default function NewsletterForm() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-posta adresiniz"
             aria-label="E-posta adresi"
-            className="h-12 w-full rounded-full border border-white/15 bg-white/5 pl-11 pr-4 text-sm text-white placeholder:text-white/40 focus:border-[var(--color-brand)] focus:bg-white/10 focus:outline-none"
+            className="h-12 w-full border border-white/15 bg-white/5 pl-11 pr-4 text-sm text-white placeholder:text-white/35 focus:border-[var(--color-brand)] focus:bg-white/10 focus:outline-none"
             required
           />
         </div>
         <button
           type="submit"
           disabled={isPending}
-          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-6 text-sm font-bold uppercase tracking-wider text-white shadow-[var(--shadow-brand)] transition-all hover:bg-[var(--color-brand-dark)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex h-12 items-center justify-center gap-2 bg-[var(--color-brand)] px-6 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? "Gönderiliyor…" : "Abone Ol"}
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
-          </svg>
+          {!isPending && (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          )}
         </button>
       </div>
       {status !== "idle" && (

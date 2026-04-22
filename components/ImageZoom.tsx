@@ -39,7 +39,7 @@ export default function ImageZoom({ src, alt }: Props) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Resmi büyüt"
-        className="group relative block aspect-square w-full overflow-hidden rounded-2xl bg-white ring-1 ring-[var(--color-border)] transition-shadow hover:shadow-xl"
+        className="group relative block aspect-square w-full overflow-hidden border border-[var(--color-border)] bg-white transition-colors hover:border-[var(--color-ink)]"
       >
         <Image
           src={src}
@@ -47,10 +47,11 @@ export default function ImageZoom({ src, alt }: Props) {
           fill
           sizes="(max-width: 1024px) 100vw, 600px"
           priority
-          className="object-contain p-6 transition-transform duration-300 ease-out group-hover:scale-[1.04]"
+          className="object-contain p-8 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
-        <span className="pointer-events-none absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[var(--color-ink)] shadow-md opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <span className="pointer-events-none absolute right-4 top-4 inline-flex items-center gap-1.5 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-ink)] opacity-0 ring-1 ring-[var(--color-border)] transition-opacity duration-200 group-hover:opacity-100">
           <ZoomIcon />
+          Büyüt
         </span>
       </button>
 
@@ -69,14 +70,15 @@ export default function ImageZoom({ src, alt }: Props) {
                 type="button"
                 aria-label="Kapat"
                 onClick={close}
-                className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white shadow-lg shadow-black/40 transition-colors hover:bg-white/20"
+                className="absolute right-6 top-6 inline-flex items-center gap-2 border border-white/40 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-[var(--color-ink)]"
               >
+                Kapat
                 <XIcon />
               </button>
               <div
                 onClick={(e) => e.stopPropagation()}
-                className={`relative max-h-[85vh] w-full max-w-5xl overflow-hidden rounded-xl bg-white p-4 shadow-2xl transition-all duration-300 sm:rounded-2xl sm:p-6 ${
-                  animateIn ? "scale-100 opacity-100" : "scale-90 opacity-0"
+                className={`relative max-h-[85vh] w-full max-w-5xl overflow-hidden bg-white p-4 transition-all duration-300 sm:p-6 ${
+                  animateIn ? "scale-100 opacity-100" : "scale-95 opacity-0"
                 }`}
                 style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
               >

@@ -3,7 +3,6 @@ import TrustStrip from "@/components/TrustStrip";
 import CategoriesGrid from "@/components/CategoriesGrid";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import BrandsShowcase from "@/components/BrandsShowcase";
-import CertificationsBar from "@/components/CertificationsBar";
 import ContactSection from "@/components/ContactSection";
 
 export default function HomePage() {
@@ -14,7 +13,6 @@ export default function HomePage() {
       <CategoriesGrid />
       <FeaturedProducts />
       <BrandsShowcase />
-      <CertificationsBar />
       <ContactSection />
     </>
   );

@@ -84,7 +84,7 @@ function ArrowButton({
       aria-label={isLeft ? "Önceki ürünler" : "Sonraki ürünler"}
       onClick={onClick}
       disabled={disabled}
-      className={`absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[var(--color-ink)] shadow-lg ring-1 ring-[var(--color-border)] transition-all hover:bg-[var(--color-brand)] hover:text-white disabled:pointer-events-none disabled:opacity-0 md:flex ${
+      className={`absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center border border-[var(--color-ink)] bg-white text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)] hover:text-white disabled:pointer-events-none disabled:opacity-0 md:flex ${
         isLeft ? "-left-4" : "-right-4"
       }`}
     >

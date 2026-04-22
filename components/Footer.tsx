@@ -9,18 +9,18 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 bg-[var(--color-night)] text-white">
+    <footer className="bg-[var(--color-night)] text-white">
       {/* Newsletter band */}
-      <div className="border-b border-white/10">
-        <div className="container-page grid gap-8 py-12 md:grid-cols-[1.1fr_1fr] md:items-center">
+      <div className="border-y border-white/10">
+        <div className="container-page grid gap-8 py-10 md:grid-cols-[1.1fr_1fr] md:items-center">
           <div>
             <div className="kicker text-white/80">Bülten</div>
             <h3 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
-              Ürün ve kampanyalardan ilk siz haberdar olun
+              Bayilik fırsatları ve yeni ürünlerden haberdar olun
             </h3>
             <p className="mt-2 max-w-lg text-sm text-white/60">
-              Yeni ürünler, bayilik fırsatları ve kampanyalar hakkında güncel
-              kalmak için bültene katılın. Spam göndermiyoruz.
+              Portföyümüze katılan yeni ürünler, B2B bayilik fırsatları ve
+              sektör duyurularını e-posta ile iletelim.
             </p>
           </div>
           <NewsletterForm />
@@ -51,29 +51,10 @@ export default function Footer() {
             </span>
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/65">
-            15 yılı aşkın tecrübesiyle Türkiye'nin önde gelen madeni yağ
-            tedarikçisi. Motor yağları, antifriz, fren hidrolik ve endüstriyel
-            ürünlerde yetkili bayilik.
+            2008'den bu yana Akdeniz bölgesinde otomotiv ve endüstriyel
+            sektörlerin madeni yağ tedariğinde güvenilir çözüm ortağı.
           </p>
 
-          <div className="mt-6 flex items-center gap-3">
-            <SocialLink href="#" label="LinkedIn">
-              <LinkedInIcon />
-            </SocialLink>
-            <SocialLink href="#" label="Instagram">
-              <InstagramIcon />
-            </SocialLink>
-            <SocialLink href="#" label="Facebook">
-              <FacebookIcon />
-            </SocialLink>
-            <SocialLink
-              href={`https://wa.me/${site.phone.replace(/[^0-9]/g, "")}`}
-              label="WhatsApp"
-              external
-            >
-              <WhatsAppIcon />
-            </SocialLink>
-          </div>
         </div>
 
         <div className="md:col-span-2">
@@ -84,9 +65,6 @@ export default function Footer() {
             <FooterLink href="/hakkimizda">Hakkımızda</FooterLink>
             <FooterLink href="/urunler">Ürünlerimiz</FooterLink>
             <FooterLink href="/#iletisim">İletişim</FooterLink>
-            <FooterLink href="https://yukunolsun.com" external>
-              yukunolsun.com
-            </FooterLink>
           </ul>
         </div>
 
@@ -129,23 +107,13 @@ export default function Footer() {
                 {site.address.district} / {site.address.city}
               </span>
             </ContactRow>
-            <ContactRow icon={<WhatsAppIconSmall />}>
-              <a
-                href={`https://wa.me/${site.phone.replace(/[^0-9]/g, "")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-white transition-colors hover:text-[var(--color-brand)]"
-              >
-                WhatsApp Hattı
-              </a>
-            </ContactRow>
           </address>
         </div>
       </div>
 
       {/* Brand strip */}
       <div className="border-y border-white/10">
-        <div className="container-page flex flex-wrap items-center justify-center gap-x-10 gap-y-5 py-6">
+        <div className="container-page flex flex-wrap items-center justify-center gap-4 py-6">
           <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">
             Yetkili Bayilik
           </span>
@@ -153,16 +121,18 @@ export default function Footer() {
             <Link
               key={b.slug}
               href={`/urunler?marka=${b.slug}`}
-              className="group relative h-7 w-20 opacity-50 transition-opacity hover:opacity-100"
+              className="group flex h-10 w-24 items-center justify-center rounded bg-white/95 px-3 transition-all hover:bg-white hover:shadow-md"
               aria-label={b.name}
             >
-              <Image
-                src={b.logo}
-                alt={b.name}
-                fill
-                sizes="80px"
-                className="object-contain brightness-0 invert transition-all group-hover:brightness-100 group-hover:invert-0"
-              />
+              <div className="relative h-full w-full">
+                <Image
+                  src={b.logo}
+                  alt={b.name}
+                  fill
+                  sizes="96px"
+                  className="object-contain"
+                />
+              </div>
             </Link>
           ))}
         </div>
@@ -251,30 +221,6 @@ function ContactRow({
   );
 }
 
-function SocialLink({
-  href,
-  label,
-  external,
-  children,
-}: {
-  href: string;
-  label: string;
-  external?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/70 ring-1 ring-white/10 transition-all hover:-translate-y-0.5 hover:bg-[var(--color-brand)] hover:text-white hover:ring-[var(--color-brand)]"
-    >
-      {children}
-    </a>
-  );
-}
-
 function PhoneIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -292,44 +238,3 @@ function PinIcon() {
   );
 }
 
-function LinkedInIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.44a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.01H3.56V9h3.56v11.45z" />
-    </svg>
-  );
-}
-
-function InstagramIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="2" y="2" width="20" height="20" rx="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
-
-function FacebookIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M22 12a10 10 0 1 0-11.56 9.87v-6.98H8v-2.89h2.44V9.84c0-2.41 1.44-3.75 3.63-3.75 1.05 0 2.16.19 2.16.19v2.37h-1.22c-1.2 0-1.57.74-1.57 1.5v1.8h2.68l-.43 2.89h-2.25v6.98A10 10 0 0 0 22 12z" />
-    </svg>
-  );
-}
-
-function WhatsAppIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.47 14.38c-.3-.15-1.77-.87-2.05-.97-.27-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.47.13-.62.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.62-.92-2.22-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35zM12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.41 1.26 4.85L2 22l5.35-1.23A9.95 9.95 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" />
-    </svg>
-  );
-}
-
-function WhatsAppIconSmall() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.47 14.38c-.3-.15-1.77-.87-2.05-.97-.27-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.47.13-.62.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.62-.92-2.22-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35zM12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.41 1.26 4.85L2 22l5.35-1.23A9.95 9.95 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" />
-    </svg>
-  );
-}
