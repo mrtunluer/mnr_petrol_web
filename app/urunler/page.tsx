@@ -42,7 +42,15 @@ export default function UrunlerPage() {
         </div>
 
         <div className="mt-10">
-          <Suspense fallback={<div className="py-20 text-center">Yükleniyor…</div>}>
+          <Suspense
+            fallback={
+              <div className="py-20 text-center">
+                <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
+                  — Yükleniyor
+                </div>
+              </div>
+            }
+          >
             <UrunlerClient
               products={[...products]}
               brands={[...brands]}

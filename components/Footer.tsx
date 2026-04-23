@@ -140,30 +140,8 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div>
-        <div className="container-page flex flex-col items-center justify-between gap-3 py-5 text-[11px] text-white/50 md:flex-row">
-          <div>
-            © {year} {site.legalName} — Tüm hakları saklıdır.
-          </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link
-              href="/hakkimizda"
-              className="transition-colors hover:text-white"
-            >
-              Gizlilik Politikası
-            </Link>
-            <Link
-              href="/hakkimizda"
-              className="transition-colors hover:text-white"
-            >
-              Kullanım Koşulları
-            </Link>
-            <Link
-              href="/hakkimizda"
-              className="transition-colors hover:text-white"
-            >
-              KVKK
-            </Link>
-          </div>
+        <div className="container-page py-5 text-center text-[11px] text-white/50">
+          © {year} {site.legalName} — Tüm hakları saklıdır.
         </div>
       </div>
     </footer>

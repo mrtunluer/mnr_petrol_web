@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TopInfoBar from "@/components/TopInfoBar";
+import CookieBanner from "@/components/CookieBanner";
 import {
   buildMetadata,
   localBusinessJsonLd,
@@ -14,7 +15,7 @@ import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "700", "900"],
+  weight: ["400", "500", "600", "700", "900"],
   display: "swap",
   variable: "--font-roboto",
 });
@@ -53,6 +54,7 @@ export default function RootLayout({
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
+        <CookieBanner />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -5,7 +5,7 @@ export default function TopInfoBar() {
   const fullAddress = `${site.address.street}, ${site.address.district} / ${site.address.city}`;
 
   return (
-    <div className="hidden bg-[var(--color-ink)] text-white md:block">
+    <div className="hidden bg-[#1e293b] text-white md:block">
       <div className="container-page flex h-9 items-center justify-between text-xs">
         <div className="flex items-center gap-5">
           <a

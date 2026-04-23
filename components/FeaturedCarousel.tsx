@@ -24,7 +24,7 @@ export default function FeaturedCarousel({ products }: Props) {
     updateArrows();
     el.addEventListener("scroll", updateArrows, { passive: true });
     const onResize = (): void => updateArrows();
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
     return () => {
       el.removeEventListener("scroll", updateArrows);
       window.removeEventListener("resize", onResize);
