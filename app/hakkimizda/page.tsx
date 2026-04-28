@@ -52,28 +52,28 @@ export default function HakkimizdaPage() {
               {site.tagline}
             </p>
 
-            <dl className="mt-10 grid grid-cols-3 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] py-5">
-              <div className="px-4 first:pl-0">
-                <dt className="font-mono text-xs text-[var(--color-ink-subtle)]">
+            <dl className="mt-10 grid grid-cols-3 gap-4 border-y border-[var(--color-border)] py-5 sm:gap-0 sm:divide-x sm:divide-[var(--color-border)]">
+              <div className="sm:px-4 sm:first:pl-0">
+                <dt className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
                   — Kuruluş
                 </dt>
-                <dd className="mt-1 text-2xl font-semibold text-[var(--color-ink)]">
+                <dd className="mt-1 text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
                   2008
                 </dd>
               </div>
-              <div className="px-4">
-                <dt className="font-mono text-xs text-[var(--color-ink-subtle)]">
+              <div className="sm:px-4">
+                <dt className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
                   — Bölge
                 </dt>
-                <dd className="mt-1 text-2xl font-semibold text-[var(--color-ink)]">
+                <dd className="mt-1 text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
                   Akdeniz
                 </dd>
               </div>
-              <div className="px-4 last:pr-0">
-                <dt className="font-mono text-xs text-[var(--color-ink-subtle)]">
+              <div className="sm:px-4 sm:last:pr-0">
+                <dt className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
                   — Marka
                 </dt>
-                <dd className="mt-1 text-2xl font-semibold text-[var(--color-ink)]">
+                <dd className="mt-1 text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
                   6
                 </dd>
               </div>

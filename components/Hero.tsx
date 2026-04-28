@@ -25,9 +25,9 @@ export default function Hero() {
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl md:text-2xl">
           Yüksek Performanslı Motor Yağları ve Endüstriyel Ürünler
         </p>
-        <p className="mt-3 max-w-xl text-sm text-white/60">
-          15+ yıllık tecrübe ile 6 premium markanın yetkili bayiliği —
-          Borax, Oilport, Xenol, Brava, Japan Oil, Skynell
+        <p className="mt-3 max-w-xl px-4 text-sm leading-relaxed text-white/60 sm:px-0">
+          Borax, Oilport, Xenol, Brava, Japan Oil ve Skynell markalarının
+          yetkili bayiliği.
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
