@@ -84,7 +84,7 @@ export default function Navbar() {
           aria-label="Menüyü aç"
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((o) => !o)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded md:hidden"
         >
           <svg
             width="22"

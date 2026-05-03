@@ -60,6 +60,37 @@ export default async function UrunDetayPage({ params }: Props) {
     },
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Ana Sayfa",
+        item: site.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Ürünler",
+        item: `${site.url}/urunler`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.brandName,
+        item: `${site.url}/urunler?marka=${product.brand}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: product.name,
+        item: `${site.url}/urun/${product.id}`,
+      },
+    ],
+  };
+
   return (
     <>
       <section className="bg-white py-10">
@@ -187,6 +218,10 @@ export default async function UrunDetayPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Sticky mobile CTA bar */}

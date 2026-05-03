@@ -31,7 +31,7 @@ export function buildMetadata({
       description,
       siteName: site.name,
       locale: site.locale,
-      images: [{ url: image }],
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
@@ -40,21 +40,31 @@ export function buildMetadata({
       images: [image],
     },
     robots: { index: true, follow: true },
+    verification: {
+      google: site.verification.google || undefined,
+      yandex: site.verification.yandex || undefined,
+      other: site.verification.bing
+        ? { "msvalidate.01": [site.verification.bing] }
+        : undefined,
+    },
   };
 }
 
 export const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: site.name,
+  name: site.legalName,
+  alternateName: site.name,
   url: site.url,
-  logo: `${site.url}/logo.png`,
+  logo: `${site.url}/logo.webp`,
   description: site.description,
+  foundingDate: "2008",
   address: {
     "@type": "PostalAddress",
     streetAddress: site.address.street,
     addressLocality: site.address.district,
     addressRegion: site.address.city,
+    postalCode: site.address.postalCode,
     addressCountry: site.address.country,
   },
   contactPoint: {
@@ -79,23 +89,51 @@ export const websiteJsonLd = {
 
 export const localBusinessJsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "AutomotiveBusiness",
+  "@id": `${site.url}#localbusiness`,
   name: site.name,
-  image: `${site.url}/logo.png`,
+  legalName: site.legalName,
+  image: `${site.url}/logo.webp`,
   url: site.url,
   telephone: site.phone,
+  description: site.description,
   address: {
     "@type": "PostalAddress",
     streetAddress: site.address.street,
     addressLocality: site.address.district,
     addressRegion: site.address.city,
-    addressCountry: site.address.country,
+    postalCode: site.address.postalCode,
+    addressCountry: {
+      "@type": "Country",
+      name: site.address.countryName,
+      identifier: site.address.country,
+    },
   },
   geo: {
     "@type": "GeoCoordinates",
     latitude: site.address.lat,
     longitude: site.address.lng,
   },
+  hasMap: site.mapUrl,
+  areaServed: site.serviceArea.map((name) => ({
+    "@type": "Place",
+    name,
+  })),
   priceRange: "$$",
-  openingHours: site.hours,
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      opens: "09:00",
+      closes: "18:00",
+    },
+  ],
+  sameAs: [site.url],
 };

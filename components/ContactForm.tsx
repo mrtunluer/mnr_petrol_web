@@ -217,7 +217,7 @@ export default function ContactForm({ tone = "light" }: Props) {
           display: block;
           width: 100%;
           padding: 0.75rem 1rem;
-          font-size: 0.9375rem;
+          font-size: 1rem;
           outline: none;
           transition: border-color .15s, background-color .15s, box-shadow .15s;
           border-width: 1px;

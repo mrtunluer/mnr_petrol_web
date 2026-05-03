@@ -81,6 +81,26 @@ export default function UrunlerClient({
     };
   }, [filtersOpen]);
 
+  // Filter değiştiğinde document.title'ı güncelle (SEO + tab başlığı)
+  useEffect(() => {
+    const brandName = selectedBrand
+      ? brands.find((b) => b.slug === selectedBrand)?.name
+      : null;
+    const categoryName = selectedCategory
+      ? categoryLabel(selectedCategory)
+      : null;
+
+    let title = "Ürünler";
+    if (brandName && categoryName) {
+      title = `${brandName} ${categoryName}`;
+    } else if (brandName) {
+      title = `${brandName} Ürünleri`;
+    } else if (categoryName) {
+      title = categoryName;
+    }
+    document.title = `${title} | MNR Petrol`;
+  }, [selectedBrand, selectedCategory, brands]);
+
   const activeFilter = selectedBrand || selectedCategory;
   const activeCount =
     (selectedBrand ? 1 : 0) + (selectedCategory ? 1 : 0);

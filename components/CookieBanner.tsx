@@ -34,7 +34,7 @@ export default function CookieBanner() {
     <div
       role="dialog"
       aria-label="Çerez kullanım bildirimi"
-      className="fixed inset-x-4 bottom-[calc(env(safe-area-inset-bottom)+5rem)] z-[60] animate-[slideUp_0.35s_cubic-bezier(0.16,1,0.3,1)_forwards] lg:inset-auto lg:bottom-6 lg:right-6 lg:max-w-md"
+      className="fixed inset-x-4 bottom-[calc(env(safe-area-inset-bottom)+5rem)] z-30 animate-[slideUp_0.35s_cubic-bezier(0.16,1,0.3,1)_forwards] lg:inset-auto lg:bottom-6 lg:right-6 lg:max-w-md"
     >
       <div className="border border-[var(--color-ink)] bg-white shadow-[0_20px_50px_-10px_rgba(15,23,42,0.3)]">
         <div className="border-b border-[var(--color-border)] px-6 pt-5 pb-4">

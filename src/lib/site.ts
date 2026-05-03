@@ -27,9 +27,20 @@ export const site = {
     street: "Uncalı Mh. Şehit Teğmen Abdulkadir Güler Cad. Bilgi Sitesi",
     district: "Konyaaltı",
     city: "Antalya",
+    region: "TR-07",
+    postalCode: "07070",
     country: "TR",
+    countryName: "Türkiye",
     lat: 36.8629,
     lng: 30.6556,
+  },
+  serviceArea: ["Antalya", "Burdur", "Isparta", "Akdeniz Bölgesi"] as const,
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=Uncal%C4%B1+%C5%9Eehit+Te%C4%9Fmen+Abdulkadir+G%C3%BCler+Caddesi+Bilgi+Sitesi+Konyaalt%C4%B1+Antalya",
+  // Search Console verification — deploy sonrası gerçek değerleri buraya
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION ?? "",
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION ?? "",
+    bing: process.env.NEXT_PUBLIC_BING_VERIFICATION ?? "",
   },
   brand: {
     red: "#D71920",

@@ -42,6 +42,22 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://formsubmit.co" />
         <link rel="dns-prefetch" href="https://formsubmit.co" />
+
+        {/* Geo targeting (legacy but indexed by some engines) */}
+        <meta name="geo.region" content={site.address.region} />
+        <meta name="geo.placename" content={site.address.city} />
+        <meta
+          name="geo.position"
+          content={`${site.address.lat};${site.address.lng}`}
+        />
+        <meta
+          name="ICBM"
+          content={`${site.address.lat}, ${site.address.lng}`}
+        />
+
+        {/* Language hints */}
+        <link rel="alternate" hrefLang="tr-TR" href={site.url} />
+        <link rel="alternate" hrefLang="x-default" href={site.url} />
       </head>
       <body>
         <a

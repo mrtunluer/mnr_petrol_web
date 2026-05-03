@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { site } from "@/src/lib/site";
 import { brands } from "@/src/data/brands";
 import { categories } from "@/src/data/categories";
+import { products } from "@/src/data/products";
 
 export const dynamic = "force-static";
 
@@ -29,5 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...brandRoutes];
+  const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
+    url: `${base}/urun/${p.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...productRoutes];
 }
