@@ -1,5 +1,26 @@
 # Deploy Rehberi — MNR Petrol
 
+## ⚙️ Adım 0 — Environment Setup (opsiyonel)
+
+Form gönderimleri varsayılan olarak **`ugurunluer@gmail.com`** adresine gider. Bu adresi değiştirmek istersen `.env.production` oluştur:
+
+```env
+# Form alıcı adresi — değiştirme istemiyorsan boş bırak (default ugurunluer@gmail.com)
+NEXT_PUBLIC_FORM_EMAIL=ugurunluer@gmail.com
+
+# Search Console verification (ilk deploy sonrası eklenir)
+NEXT_PUBLIC_GOOGLE_VERIFICATION=
+NEXT_PUBLIC_YANDEX_VERIFICATION=
+NEXT_PUBLIC_BING_VERIFICATION=
+```
+
+Bu değişkenler `next build` sırasında HTML'e gömülür.
+
+> Verification kodları deploy SONRASI Search Console'lardan alınır → `.env.production` güncellenir → tekrar build + upload.
+
+---
+
+
 Next.js 15 App Router projesi **statik HTML olarak export ediliyor** (`output: 'export'`). Üretilen `out/` klasörü herhangi bir shared hosting (Hostinger / GoDaddy) üzerinde native PHP gibi çalışır. Node.js, API, database gerekmez.
 
 ---

@@ -57,6 +57,7 @@ export default function NewsletterForm() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-posta adresiniz"
             aria-label="E-posta adresi"
+            maxLength={150}
             className="h-12 w-full border border-white/15 bg-white/5 pl-11 pr-4 text-sm text-white placeholder:text-white/35 focus:border-[var(--color-brand)] focus:bg-white/10 focus:outline-none"
             required
           />

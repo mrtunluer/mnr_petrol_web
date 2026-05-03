@@ -40,6 +40,19 @@ export default function ContactForm({ tone = "light" }: Props) {
       });
       return;
     }
+    if (
+      payload.name.length > 100 ||
+      payload.email.length > 150 ||
+      payload.phone.length > 30 ||
+      payload.subject.length > 200 ||
+      payload.message.length > 5000
+    ) {
+      setStatus({
+        kind: "error",
+        message: "⚠ Bir veya daha fazla alan çok uzun.",
+      });
+      return;
+    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
       setStatus({
         kind: "error",
@@ -132,6 +145,7 @@ export default function ContactForm({ tone = "light" }: Props) {
           <input
             name="name"
             required
+            maxLength={100}
             autoComplete="name"
             className={fieldClass}
           />
@@ -141,6 +155,7 @@ export default function ContactForm({ tone = "light" }: Props) {
             name="email"
             type="email"
             required
+            maxLength={150}
             autoComplete="email"
             className={fieldClass}
           />
@@ -152,12 +167,13 @@ export default function ContactForm({ tone = "light" }: Props) {
           <input
             name="phone"
             type="tel"
+            maxLength={30}
             autoComplete="tel"
             className={fieldClass}
           />
         </Field>
         <Field label="Konu" tone={tone}>
-          <input name="subject" className={fieldClass} />
+          <input name="subject" maxLength={200} className={fieldClass} />
         </Field>
       </div>
 
@@ -166,6 +182,7 @@ export default function ContactForm({ tone = "light" }: Props) {
           name="message"
           required
           rows={5}
+          maxLength={5000}
           className={`${fieldClass} resize-y`}
         />
       </Field>
