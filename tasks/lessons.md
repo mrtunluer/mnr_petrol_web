@@ -49,3 +49,19 @@
   How to apply: ask deploy target first if it isn't specified; if "shared hosting" or Hostinger Premium/Deluxe/Economy is mentioned, static export is the only path.
 
 - **The harness's cwd persists across Bash calls.** After `cd /out` for a server test, a later `npx next build` fails with "Couldn't find any `pages` or `app` directory" because it runs from `out/`. Always `cd $PROJECT_ROOT` at the top of multi-step scripts, or use `pushd`/`popd`.
+
+## React / DOM event behavior
+
+- **`onMouseEnter` fires on iOS/Android tap before `click`.** Mobile browsers simulate mouse events on touch — adding both `onMouseEnter` (sets state true) and `onClick` (toggles state) creates double-fire: tap → enter sets true → click toggles to false. Net result: feature appears not to work on touch.
+  Why: the bug is invisible during desktop testing; it only surfaces when someone actually taps on a phone/iPad.
+  How to apply: when a component handles both hover (mouse) and click (touch/keyboard), filter mouse events with `e.pointerType === "mouse"` via Pointer Events API. `onPointerEnter` / `onPointerLeave` give that property; `onMouseEnter` does not.
+
+- **Tailwind v4's `hover:` is NOT auto-wrapped in `@media (hover: hover)` in every config.** The compiled CSS in this project shows `group-hover:foo:is(:where(.group):hover *)` as raw `:hover`, which means iOS Safari's sticky `:hover` (set on first tap) DOES activate hover styles. Don't assume the v3.4 behavior of "hover only on mouse-capable devices" carries over uniformly.
+  Why: a fix relying on "Tailwind hides `hover:` on touch" can be silently broken when the project doesn't have that media wrap.
+  How to apply: when in doubt, grep the compiled CSS (`grep -oE "group-hover[^,{]*" .next/static/css/*.css`) to confirm the actual selectors. Don't trust framework default assumptions across versions.
+
+## Z-index audits when adding fixed/absolute overlays
+
+- **Before adding a fixed-positioned overlay, grep for existing `z-` and `fixed inset-` usages across the codebase.** A new backdrop/drawer at `z-40` may collide with sticky CTAs (product detail bottom bars, cookie banners, sticky filters) that are also `z-40` or below. Same-z conflicts: source order wins, which is rarely the order you actually want.
+  Why: visual conflict is invisible in single-page testing — needs to be caught by inspecting overlapping components site-wide.
+  How to apply: when introducing a global modal/drawer, run `grep -rn "z-\[?[0-9]*\]?\|fixed inset" components app` and verify the new overlay's z-index is correctly stacked relative to every existing fixed element. Check at least: cookie banners, product CTAs, image zoomers, sticky filters.
