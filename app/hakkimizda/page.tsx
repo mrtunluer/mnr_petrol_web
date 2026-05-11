@@ -69,7 +69,7 @@ export default function HakkimizdaPage() {
         </div>
 
         <div className="container-page mt-16">
-          <dl className="grid grid-cols-2 gap-6 border-y border-[var(--color-border)] py-8 sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-[var(--color-border)]">
+          <dl className="grid grid-cols-2 gap-x-4 gap-y-6 border-y border-[var(--color-border)] py-8 sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-[var(--color-border)]">
             {stats.map((s, i) => (
               <div
                 key={s.label}
@@ -342,7 +342,7 @@ function VenturesCard({
       </div>
 
       <div>
-        <h3 className="text-3xl font-semibold tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-brand)]">
+        <h3 className="text-2xl font-semibold tracking-tight text-[var(--color-ink)] transition-colors hyphens-auto group-hover:text-[var(--color-brand)] sm:text-3xl">
           {title}
         </h3>
         <div className="mt-1 font-mono text-xs text-[var(--color-ink-muted)]">

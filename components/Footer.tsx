@@ -113,28 +113,31 @@ export default function Footer() {
 
       {/* Brand strip */}
       <div className="border-y border-white/10">
-        <div className="container-page flex flex-wrap items-center justify-center gap-4 py-6">
+        <div className="container-page flex flex-col items-center gap-4 py-6 sm:flex-row sm:flex-wrap sm:justify-center">
           <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">
             Tedarik Markalarımız
           </span>
-          {brands.map((b) => (
-            <Link
-              key={b.slug}
-              href={`/urunler?marka=${b.slug}`}
-              className="group flex h-10 w-24 items-center justify-center rounded bg-white/95 px-3 transition-all hover:bg-white hover:shadow-md"
-              aria-label={b.name}
-            >
-              <div className="relative h-full w-full">
-                <Image
-                  src={b.logo}
-                  alt={b.name}
-                  fill
-                  sizes="96px"
-                  className="object-contain"
-                />
-              </div>
-            </Link>
-          ))}
+          <ul className="grid w-full grid-cols-3 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:gap-4">
+            {brands.map((b) => (
+              <li key={b.slug} className="flex">
+                <Link
+                  href={`/urunler?marka=${b.slug}`}
+                  className="group flex h-10 w-full items-center justify-center rounded bg-white/95 px-3 transition-all hover:bg-white hover:shadow-md sm:w-24"
+                  aria-label={b.name}
+                >
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={b.logo}
+                      alt={b.name}
+                      fill
+                      sizes="(min-width: 640px) 96px, 30vw"
+                      className="object-contain"
+                    />
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

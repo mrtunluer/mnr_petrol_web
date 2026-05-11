@@ -149,7 +149,7 @@ export default function UrunlerClient({
           <button
             type="button"
             onClick={() => setFiltersOpen(true)}
-            className="flex flex-1 items-center justify-between border border-[var(--color-ink)] bg-white px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-ink)]"
+            className="flex min-h-[48px] flex-1 items-center justify-between border border-[var(--color-ink)] bg-white px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-ink)] transition-colors active:bg-[var(--color-surface-alt)]"
             aria-label="Filtreleri aç"
           >
             <span className="flex items-center gap-2">

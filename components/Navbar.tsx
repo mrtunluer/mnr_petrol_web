@@ -42,10 +42,15 @@ export default function Navbar() {
     if (!mobileOpen) return;
 
     const body = document.body;
-    const previousOverflow = body.style.overflow;
-    const previousOverscroll = body.style.overscrollBehavior;
+    const html = document.documentElement;
+    const scrollY = window.scrollY;
+    const previousBodyOverflow = body.style.overflow;
+    const previousBodyOverscroll = body.style.overscrollBehavior;
+    const previousHtmlOverflow = html.style.overflow;
+
     body.style.overflow = "hidden";
     body.style.overscrollBehavior = "contain";
+    html.style.overflow = "hidden";
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMobileOpen(false);
@@ -53,8 +58,10 @@ export default function Navbar() {
     document.addEventListener("keydown", onKey);
 
     return () => {
-      body.style.overflow = previousOverflow;
-      body.style.overscrollBehavior = previousOverscroll;
+      body.style.overflow = previousBodyOverflow;
+      body.style.overscrollBehavior = previousBodyOverscroll;
+      html.style.overflow = previousHtmlOverflow;
+      window.scrollTo(0, scrollY);
       document.removeEventListener("keydown", onKey);
     };
   }, [mobileOpen]);
@@ -82,7 +89,7 @@ export default function Navbar() {
       <header
         className={`sticky top-0 z-50 bg-white transition-shadow ${
           scrolled ? "shadow-md" : "shadow-sm"
-        }`}
+        } ${mobileOpen ? "!fixed inset-x-0" : ""}`}
       >
         <div className="container-page flex h-16 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
@@ -173,14 +180,8 @@ export default function Navbar() {
         aria-label="Mobil menü"
         aria-hidden={!mobileOpen}
         inert={!mobileOpen}
-        style={{
-          transform: mobileOpen ? "translateY(0)" : "translateY(-100%)",
-        }}
-        className={`fixed inset-x-0 top-16 z-[45] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[var(--color-border)] bg-white shadow-xl transition-all duration-200 motion-reduce:transition-none lg:hidden ${
-          mobileOpen
-            ? "visible opacity-100"
-            : "pointer-events-none invisible opacity-0"
-        }`}
+        hidden={!mobileOpen}
+        className="fixed inset-x-0 top-16 z-[45] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[var(--color-border)] bg-white shadow-xl lg:hidden"
       >
         <div
           className="container-page flex flex-col py-2"

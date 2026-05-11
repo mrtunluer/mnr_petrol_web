@@ -28,18 +28,18 @@ export default function ProductCard({
           className="object-contain p-6 transition-transform duration-500 ease-out group-hover:scale-[1.05]"
         />
         {product.featured && (
-          <span className="absolute left-3 top-3 inline-flex items-center rounded-sm bg-[var(--color-ink)] px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-white">
+          <span className="absolute left-3 top-3 inline-flex items-center rounded-sm bg-[var(--color-ink)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white">
             Öne Çıkan
           </span>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
         <div className="flex items-center gap-2.5">
           <span className="font-mono text-[11px] font-medium text-[var(--color-ink-subtle)]">
             —
           </span>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-ink-muted)]">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-ink-muted)]">
             {product.brandName}
           </span>
         </div>

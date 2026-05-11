@@ -233,12 +233,17 @@ export default function ContactForm({ tone = "light" }: Props) {
         .field-input-dark {
           display: block;
           width: 100%;
-          padding: 0.75rem 1rem;
+          padding: 0.875rem 1rem;
           font-size: 1rem;
+          min-height: 48px;
           outline: none;
           transition: border-color .15s, background-color .15s, box-shadow .15s;
           border-width: 1px;
           border-style: solid;
+        }
+        textarea.field-input-light,
+        textarea.field-input-dark {
+          min-height: 120px;
         }
         .field-input-light {
           background: #fff;

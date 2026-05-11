@@ -34,33 +34,34 @@ export default function CookieBanner() {
     <div
       role="dialog"
       aria-label="Çerez kullanım bildirimi"
-      className="fixed inset-x-4 bottom-[calc(env(safe-area-inset-bottom)+5rem)] z-30 animate-[slideUp_0.35s_cubic-bezier(0.16,1,0.3,1)_forwards] lg:inset-auto lg:bottom-6 lg:right-6 lg:max-w-md"
+      className="fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-30 animate-[slideUp_0.35s_cubic-bezier(0.16,1,0.3,1)_forwards] lg:inset-auto lg:bottom-6 lg:right-6 lg:max-w-md"
     >
       <div className="border border-[var(--color-ink)] bg-white shadow-[0_20px_50px_-10px_rgba(15,23,42,0.3)]">
-        <div className="border-b border-[var(--color-border)] px-6 pt-5 pb-4">
+        <div className="border-b border-[var(--color-border)] px-4 pt-4 pb-3 lg:px-6 lg:pt-5 lg:pb-4">
           <div className="flex items-center gap-3">
             <CookieIcon />
             <div>
-              <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
+              <div className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
                 — Çerezler
               </div>
-              <div className="mt-0.5 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-ink)]">
+              <div className="mt-0.5 text-[13px] font-semibold uppercase tracking-[0.16em] text-[var(--color-ink)] lg:text-sm lg:tracking-[0.18em]">
                 Çerez kullanımı
               </div>
             </div>
           </div>
         </div>
-        <div className="px-6 py-5">
-          <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
+        <div className="px-4 py-4 lg:px-6 lg:py-5">
+          <p className="text-[13px] leading-relaxed text-[var(--color-ink-soft)] lg:text-sm">
             Bu site, deneyiminizi iyileştirmek için temel teknik çerezler
-            kullanır. Takip veya reklam amaçlı üçüncü taraf çerezi kullanmıyoruz.
+            kullanır. Takip veya reklam amaçlı üçüncü taraf çerezi
+            kullanmıyoruz.
           </p>
         </div>
         <div className="flex border-t border-[var(--color-border)]">
           <button
             type="button"
             onClick={accept}
-            className="flex flex-1 items-center justify-center gap-2 bg-[var(--color-ink)] px-5 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand)]"
+            className="flex min-h-[48px] flex-1 items-center justify-center gap-2 bg-[var(--color-ink)] px-5 py-3 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand)] active:bg-[var(--color-brand)]"
           >
             Anladım
             <svg

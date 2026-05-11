@@ -23,7 +23,7 @@ export default function Hero() {
       />
 
       <div className="container-page flex min-h-[620px] flex-col items-center justify-center py-24 text-center md:min-h-[680px] lg:min-h-[720px] lg:py-28">
-        <h1 className="text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+        <h1 className="text-4xl font-black leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
           MNR <span className="text-[var(--color-brand)]">PETROL</span>
         </h1>
 
@@ -38,7 +38,7 @@ export default function Hero() {
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link
             href="/urunler"
-            className="group inline-flex items-center gap-2 bg-[var(--color-brand)] px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)]"
+            className="group inline-flex min-h-[48px] items-center gap-2 bg-[var(--color-brand)] px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)] active:bg-[var(--color-brand-dark)]"
           >
             Ürünlerimizi Keşfedin
             <svg
@@ -59,7 +59,7 @@ export default function Hero() {
           </Link>
           <Link
             href="#iletisim"
-            className="inline-flex items-center gap-2 border border-white/30 bg-transparent px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:border-white hover:bg-white/10"
+            className="inline-flex min-h-[48px] items-center gap-2 border border-white/30 bg-transparent px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:border-white hover:bg-white/10 active:bg-white/10"
           >
             İletişime Geç
           </Link>

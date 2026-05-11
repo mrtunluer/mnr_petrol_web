@@ -225,10 +225,10 @@ export default async function UrunDetayPage({ params }: Props) {
       />
 
       {/* Sticky mobile CTA bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-border)] bg-white/95 p-3 backdrop-blur-md lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-border)] bg-white/95 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden">
         <a
           href={`tel:${site.phone.replace(/\s+/g, "")}`}
-          className="flex h-11 w-full items-center justify-center gap-2 bg-[var(--color-brand)] text-xs font-bold uppercase tracking-[0.22em] text-white"
+          className="flex h-12 w-full items-center justify-center gap-2 bg-[var(--color-brand)] text-xs font-bold uppercase tracking-[0.22em] text-white active:bg-[var(--color-brand-dark)]"
         >
           <PhoneIcon />
           {site.phone}
