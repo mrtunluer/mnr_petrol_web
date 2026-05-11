@@ -108,8 +108,8 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 bg-white transition-shadow ${
-          scrolled ? "shadow-md" : "shadow-sm"
+        className={`sticky top-0 z-50 border-b border-[var(--color-border)] bg-white transition-shadow ${
+          scrolled ? "shadow-[0_4px_16px_rgba(15,23,42,0.08)]" : "shadow-sm"
         } ${mobileOpen ? "!fixed inset-x-0" : ""}`}
       >
         <div className="container-page flex h-16 items-center justify-between gap-4">

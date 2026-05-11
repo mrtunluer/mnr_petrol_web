@@ -3,7 +3,10 @@ import { site } from "@/src/lib/site";
 
 export default function ContactSection() {
   return (
-    <section id="iletisim" className="bg-[var(--color-night)] pt-16 pb-0 text-white sm:pt-20 lg:pt-24">
+    <section
+      id="iletisim"
+      className="scroll-mt-16 bg-[var(--color-night)] pt-16 pb-0 text-white sm:pt-20 lg:pt-24"
+    >
       <div className="container-page">
         <div className="flex flex-col items-start justify-between gap-4 border-b border-white/10 pb-10 md:flex-row md:items-end">
           <div>

@@ -49,7 +49,7 @@ export default function VenturesSection() {
   return (
     <section
       id="yazilim"
-      className="relative border-t border-[var(--color-border)] bg-[var(--color-night)] py-14 text-white sm:py-20 lg:py-24"
+      className="relative scroll-mt-16 border-t border-[var(--color-border)] bg-[var(--color-night)] py-14 text-white sm:py-20 lg:py-24"
     >
       <div
         aria-hidden="true"
