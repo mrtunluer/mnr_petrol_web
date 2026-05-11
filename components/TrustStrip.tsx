@@ -45,7 +45,7 @@ export default function TrustStrip() {
               Kurumsal Kapasite
             </div>
             <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-2xl">
-              Profesyonel madeni yağ tedariğinin dört temeli
+              İş anlayışımızın temelleri
             </h2>
           </div>
           <div className="text-sm text-[var(--color-ink-muted)]">

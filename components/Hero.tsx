@@ -34,9 +34,7 @@ export default function Hero() {
         >
           <span role="listitem">Madeni Yağ</span>
           <span aria-hidden="true" className="h-3 w-px bg-white/25" />
-          <span role="listitem" className="text-[var(--color-brand)]">
-            Yazılım
-          </span>
+          <span role="listitem">Yazılım</span>
           <span aria-hidden="true" className="h-3 w-px bg-white/25" />
           <span role="listitem">Lojistik</span>
           <span aria-hidden="true" className="h-3 w-px bg-white/25" />

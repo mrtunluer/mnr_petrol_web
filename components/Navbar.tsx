@@ -20,6 +20,7 @@ const softwareProducts = [
     domain: "tamirdefteri.com",
     description: "Atölye yönetim yazılımı",
     href: "https://tamirdefteri.com",
+    logo: "/ventures/tamirdefteri.webp",
   },
   {
     slug: "yukunolsun",
@@ -27,6 +28,7 @@ const softwareProducts = [
     domain: "yukunolsun.com",
     description: "Dijital taşımacılık pazaryeri",
     href: "https://yukunolsun.com",
+    logo: "/ventures/yukunolsun.webp",
   },
 ] as const;
 
@@ -312,13 +314,16 @@ export default function Navbar() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-[44px] items-center gap-3 text-sm text-[var(--color-ink)] transition-colors hover:text-[var(--color-brand)] active:bg-[var(--color-surface-alt)]"
+                className="flex min-h-[48px] items-center gap-3 py-2 text-sm text-[var(--color-ink)] transition-colors hover:text-[var(--color-brand)] active:bg-[var(--color-surface-alt)]"
               >
-                <span
-                  aria-hidden="true"
-                  className="font-mono text-[10px] font-semibold text-[var(--color-ink-subtle)]"
-                >
-                  →
+                <span className="relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-white ring-1 ring-[var(--color-border)]">
+                  <Image
+                    src={s.logo}
+                    alt={s.name}
+                    fill
+                    sizes="56px"
+                    className="object-contain p-1.5"
+                  />
                 </span>
                 <span className="flex flex-1 flex-col leading-tight">
                   <span className="font-medium">{s.name}</span>
@@ -522,21 +527,14 @@ function SoftwareDropdown() {
                 rel="noopener noreferrer"
                 className="group/item flex items-start gap-3 px-4 py-3 text-sm text-[var(--color-ink)] transition-colors hover:bg-[var(--color-surface-alt)]"
               >
-                <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface-alt)] text-[var(--color-brand)] ring-1 ring-[var(--color-border)]">
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 17L17 7" />
-                    <path d="M7 7h10v10" />
-                  </svg>
+                <span className="relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-white ring-1 ring-[var(--color-border)]">
+                  <Image
+                    src={s.logo}
+                    alt={s.name}
+                    fill
+                    sizes="56px"
+                    className="object-contain p-1.5"
+                  />
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col leading-tight">
                   <span className="font-semibold transition-colors group-hover/item:text-[var(--color-brand)]">
@@ -549,6 +547,21 @@ function SoftwareDropdown() {
                     {s.domain}
                   </span>
                 </span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="mt-1 shrink-0 text-[var(--color-ink-muted)] transition-colors group-hover/item:text-[var(--color-brand)]"
+                  aria-hidden="true"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
               </a>
             </li>
           ))}

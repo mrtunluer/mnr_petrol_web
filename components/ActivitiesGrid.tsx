@@ -48,12 +48,12 @@ export default function ActivitiesGrid() {
               — Faaliyet Alanlarımız
             </div>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl md:text-4xl">
-              Çok sektörlü kurumsal grup
+              Hizmet verdiğimiz alanlar
             </h2>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)]">
-            Madeni yağ tedariğinden dijital girişimlere — Akdeniz bölgesinde
-            çoklu sektörde faaliyet gösteriyoruz.
+            Madeni yağ tedariğinden dijital girişimlere — birden fazla
+            sektörde uzmanlaşmış ekiplerle hizmet veriyoruz.
           </p>
         </div>
 

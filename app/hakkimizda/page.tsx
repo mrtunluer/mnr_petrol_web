@@ -25,6 +25,68 @@ const stats = [
   { label: "Bölge", value: "Akdeniz", suffix: "Servis Alanı" },
 ] as const;
 
+const activities = [
+  {
+    num: "01",
+    label: "Madeni Yağ",
+    title: "Tedarik & Distribütörlük",
+    body: `Akdeniz bölgesinde otomotiv ve endüstriyel sektörlerin madeni yağ ihtiyacını altı premium marka portföyü ve ${skuCount}+ ürün çeşidiyle karşılıyoruz. Motor yağları, şanzıman, hidrolik, antifriz ve sarf malzemeler için servisler, oto sanayiler, lojistik filolar ve endüstriyel tesislere yönelik B2B fiyatlandırma ve sevkiyat sunuyoruz.`,
+  },
+  {
+    num: "02",
+    label: "Yazılım",
+    title: "Dijital Platformlar",
+    body: "Otomotiv ekosisteminin dijital dönüşümüne katkı sunan iki grup yazılım ürünü geliştirdik: atölye yönetim platformu Tamir Defteri ve dijital taşımacılık pazaryeri YükünOlsun. Detaylar aşağıda.",
+  },
+  {
+    num: "03",
+    label: "Lojistik",
+    title: "Filo & Taşımacılık",
+    body: "Geniş araç filomuzla Akdeniz bölgesinde madeni yağ teslimat operasyonlarımızı yürütüyor; grup bünyesindeki YükünOlsun platformu üzerinden de yük sahiplerini ve nakliyecileri dijital pazaryerinde buluşturuyoruz.",
+  },
+  {
+    num: "04",
+    label: "Sanayi & İnşaat",
+    title: "Kurumsal Tedarik",
+    body: "Endüstriyel tesislerin yağlama ihtiyaçları, sanayi ve inşaat sektörlerinde kullanılan ekipmanlara yönelik kurumsal tedarik çözümlerimizle iş ortaklarımıza geniş bir teknik ürün yelpazesi sunuyoruz.",
+  },
+] as const;
+
+const ventures = [
+  {
+    num: "01",
+    name: "Tamir Defteri",
+    domain: "tamirdefteri.com",
+    sector: "Atölye Yönetim Yazılımı",
+    tagline: "Sanayinin dijital atölyesi",
+    body: "Oto tamir ve servis işletmelerine yönelik dijital yönetim platformu. Sesli kayıt teknolojisi, araç ve müşteri profilleri, parça takibi, otomatik bakım hatırlatmaları ve SMS bildirimleriyle defter kalem ihtiyacını ortadan kaldırır.",
+    features: [
+      "Sesli veri girişi",
+      "Otomatik bakım hatırlatma",
+      "SMS bildirimi",
+      "30 gün ücretsiz deneme",
+    ],
+    href: "https://tamirdefteri.com",
+    logo: "/ventures/tamirdefteri.webp",
+  },
+  {
+    num: "02",
+    name: "YükünOlsun",
+    domain: "yukunolsun.com",
+    sector: "Dijital Taşımacılık Pazaryeri",
+    tagline: "Yüksüz kalma",
+    body: "Yük sahiplerini ve taşıyıcıları sıfır komisyonlu dijital pazaryerinde buluşturan platform. Yapay zeka destekli akıllı eşleştirme, dorse ve araç filtreleme, gerçek zamanlı ilan yönetimiyle boş dönüşleri azaltır ve filo verimliliğini yükseltir.",
+    features: [
+      "10.000+ kayıtlı taşıyıcı",
+      "Günlük 15.000+ ilan",
+      "81 il kapsamı",
+      "Sıfır komisyon",
+    ],
+    href: "https://yukunolsun.com",
+    logo: "/ventures/yukunolsun.webp",
+  },
+] as const;
+
 export default function HakkimizdaPage() {
   return (
     <>
@@ -161,12 +223,182 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* 03 CTA + Location */}
+      {/* 03 Faaliyet Alanlarımız */}
+      <section className="border-t border-[var(--color-border)] bg-white py-24">
+        <div className="container-page">
+          <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
+            <div>
+              <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
+                — 03
+              </div>
+              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
+                Faaliyet Alanlarımız
+              </div>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+                Hizmet verdiğimiz alanlar
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)]">
+              Madeni yağ tedariği temel faaliyet alanımızdır; bunun yanında
+              birden fazla sektörde uzmanlaşmış ekiplerle hizmet veriyoruz.
+            </p>
+          </div>
+
+          <ul className="grid grid-cols-1 divide-y divide-[var(--color-border)] md:grid-cols-2 md:divide-x md:divide-y-0">
+            {activities.map((a, i) => (
+              <li
+                key={a.num}
+                className={`flex flex-col gap-3 py-10 ${
+                  i % 2 === 1 ? "md:pl-10" : "md:pr-10"
+                }`}
+              >
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-xs font-medium text-[var(--color-ink-subtle)]">
+                    — {a.num}
+                  </span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--color-brand)]">
+                    {a.label}
+                  </span>
+                </div>
+                <div className="text-xl font-semibold leading-snug text-[var(--color-ink)]">
+                  {a.title}
+                </div>
+                <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
+                  {a.body}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 04 Yazılım Çözümlerimiz */}
+      <section className="border-t border-[var(--color-border)] bg-[var(--color-surface-alt)] py-24">
+        <div className="container-page">
+          <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
+            <div>
+              <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
+                — 04
+              </div>
+              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
+                Yazılım Çözümlerimiz
+              </div>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+                Grup bünyesindeki dijital platformlar
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)]">
+              Otomotiv ve nakliye ekosisteminin dijital dönüşümüne katkı
+              sunan iki yazılım ürünü geliştirdik. Her ikisi de bağımsız
+              olarak hizmet vermeye devam etmektedir.
+            </p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+            {ventures.map((v) => (
+              <a
+                key={v.num}
+                href={v.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex flex-col gap-6 border border-[var(--color-border)] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-ink)] hover:shadow-card-hover motion-reduce:hover:translate-y-0 sm:p-9"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-[var(--color-brand)] transition-transform duration-300 group-hover:scale-x-100"
+                />
+
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <span className="relative inline-flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded bg-white ring-1 ring-[var(--color-border)]">
+                      <Image
+                        src={v.logo}
+                        alt={v.name}
+                        fill
+                        sizes="64px"
+                        className="object-contain p-1.5"
+                      />
+                    </span>
+                    <div className="flex flex-col leading-tight">
+                      <span className="font-mono text-xs text-[var(--color-ink-subtle)]">
+                        — {v.num}
+                      </span>
+                      <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-ink-muted)]">
+                        {v.sector}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:animate-none" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    </span>
+                    Aktif
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-3xl font-bold tracking-tight text-[var(--color-ink)] transition-colors hyphens-auto group-hover:text-[var(--color-brand)] sm:text-4xl">
+                    {v.name}
+                  </h3>
+                  <div className="mt-1 font-mono text-xs text-[var(--color-ink-muted)]">
+                    {v.domain}
+                  </div>
+                </div>
+
+                <p className="border-l-2 border-[var(--color-brand)] pl-4 text-base font-medium italic leading-relaxed text-[var(--color-ink)]">
+                  {v.tagline}
+                </p>
+
+                <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
+                  {v.body}
+                </p>
+
+                <ul className="flex flex-wrap gap-2">
+                  {v.features.map((f) => (
+                    <li
+                      key={f}
+                      className="inline-flex items-center gap-1.5 border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--color-ink-soft)]"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="h-1 w-1 rounded-full bg-[var(--color-brand)]"
+                      />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.24em] text-[var(--color-brand)]">
+                  Platforma Git
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 05 CTA + Location */}
       <section className="border-t border-[var(--color-border)] bg-[var(--color-night)] py-20 text-white">
         <div className="container-page">
           <div className="grid gap-8 border-b border-white/10 pb-12 md:grid-cols-[1fr_auto] md:items-end md:pb-16">
             <div>
-              <div className="font-mono text-xs text-white/50">— 03</div>
+              <div className="font-mono text-xs text-white/50">— 05</div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 İletişim
               </div>
