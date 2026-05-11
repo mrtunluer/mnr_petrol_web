@@ -60,9 +60,28 @@ export default function HakkimizdaPage() {
                 anlayışımızla müşterilerimize değer katıyoruz.
               </p>
               <p>
-                Geniş ürün yelpazemiz ve uzman kadromuzla, madeni yağ
-                konusunda her alanda saygıdeğer müşterilerimizin ihtiyacını
-                karşılamak için çalışıyoruz.
+                Madeni yağ tedariği temel faaliyet alanımız olmakla birlikte;
+                yazılım, lojistik, sanayi ve inşaat sektörlerinde de hizmet
+                sunan çok sektörlü bir kurumsal grubuz. Grup bünyesindeki{" "}
+                <a
+                  href="https://tamirdefteri.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[var(--color-ink)] underline decoration-[var(--color-brand)] decoration-2 underline-offset-2 transition-colors hover:text-[var(--color-brand)]"
+                >
+                  Tamir Defteri
+                </a>{" "}
+                ve{" "}
+                <a
+                  href="https://yukunolsun.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[var(--color-ink)] underline decoration-[var(--color-brand)] decoration-2 underline-offset-2 transition-colors hover:text-[var(--color-brand)]"
+                >
+                  YükünOlsun
+                </a>{" "}
+                dijital platformlarıyla otomotiv ve nakliye ekosisteminin
+                dijital dönüşümüne katkı sunuyoruz.
               </p>
             </div>
           </div>
@@ -142,56 +161,12 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* 03 Dijital Girişimler */}
-      <section className="border-t border-[var(--color-border)] bg-white py-24">
-        <div className="container-page">
-          <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
-            <div>
-              <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
-                — 03
-              </div>
-              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
-                Dijital Girişimlerimiz
-              </div>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-                Grup bünyesindeki platformlar
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)]">
-              Sahadaki tecrübemizi, otomotiv ve nakliye ekosisteminin dijital
-              dönüşümüne taşıyan iki platform.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-0 divide-y divide-[var(--color-border)] md:grid-cols-2 md:divide-x md:divide-y-0">
-            <VenturesCard
-              num="01"
-              domain="yukunolsun.com"
-              title="YükünOlsun"
-              sector="Dijital Taşımacılık Pazaryeri"
-              tagline="Yüksüz kalma — yükünü bul, aracını doldur."
-              body="Yük sahiplerini ve nakliyecileri komisyonsuz bir dijital pazaryerinde buluşturan taşımacılık platformu. Akıllı filtreleme ve konum tabanlı eşleştirme ile boş dönüşleri azaltarak filo verimliliğini yükseltir."
-              href="https://yukunolsun.com"
-            />
-            <VenturesCard
-              num="02"
-              domain="tamirdefteri.com"
-              title="Tamir Defteri"
-              sector="Atölye Yönetim Platformu"
-              tagline="Defteri kalemi at, dijitale geç."
-              body="Oto tamir ve servis işletmelerine yönelik dijital yönetim yazılımı. Müşteri kaydı, parça takibi, iş atama ve SMS tabanlı bakım hatırlatıcılarıyla sanayinin dijital atölyesi olarak hizmet verir."
-              href="https://tamirdefteri.com"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 04 CTA + Location */}
+      {/* 03 CTA + Location */}
       <section className="border-t border-[var(--color-border)] bg-[var(--color-night)] py-20 text-white">
         <div className="container-page">
           <div className="grid gap-8 border-b border-white/10 pb-12 md:grid-cols-[1fr_auto] md:items-end md:pb-16">
             <div>
-              <div className="font-mono text-xs text-white/50">— 04</div>
+              <div className="font-mono text-xs text-white/50">— 03</div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 İletişim
               </div>
@@ -291,72 +266,3 @@ export default function HakkimizdaPage() {
   );
 }
 
-function VenturesCard({
-  num,
-  domain,
-  title,
-  sector,
-  tagline,
-  body,
-  href,
-}: {
-  num: string;
-  domain: string;
-  title: string;
-  sector: string;
-  tagline: string;
-  body: string;
-  href: string;
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex flex-col gap-5 bg-white px-0 py-10 transition-colors hover:bg-[var(--color-surface-alt)] md:px-10 md:first:pl-0 md:last:pr-0"
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-baseline gap-3">
-          <span className="font-mono text-xs font-medium text-[var(--color-ink-subtle)]">
-            — {num}
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--color-ink-muted)]">
-            {sector}
-          </span>
-        </div>
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-[var(--color-ink-muted)] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--color-brand)]"
-          aria-hidden="true"
-        >
-          <path d="M7 17L17 7" />
-          <path d="M7 7h10v10" />
-        </svg>
-      </div>
-
-      <div>
-        <h3 className="text-2xl font-semibold tracking-tight text-[var(--color-ink)] transition-colors hyphens-auto group-hover:text-[var(--color-brand)] sm:text-3xl">
-          {title}
-        </h3>
-        <div className="mt-1 font-mono text-xs text-[var(--color-ink-muted)]">
-          {domain}
-        </div>
-      </div>
-
-      <p className="border-l-2 border-[var(--color-brand)] pl-4 text-sm font-medium italic leading-relaxed text-[var(--color-ink)]">
-        {tagline}
-      </p>
-
-      <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
-        {body}
-      </p>
-    </a>
-  );
-}

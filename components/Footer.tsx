@@ -51,10 +51,31 @@ export default function Footer() {
             </span>
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/65">
-            2008'den bu yana Akdeniz bölgesinde otomotiv ve endüstriyel
-            sektörlerin madeni yağ tedariğinde güvenilir çözüm ortağı.
+            2008'den bu yana Akdeniz bölgesinde madeni yağ, yazılım,
+            lojistik, sanayi ve inşaat alanlarında faaliyet gösteren çok
+            sektörlü kurumsal grup.
           </p>
 
+          <address className="mt-6 space-y-3 text-sm not-italic text-white/65">
+            <ContactRow icon={<PhoneIcon />}>
+              <a
+                href={`tel:${site.phone.replace(/\s+/g, "")}`}
+                className="font-semibold text-white transition-colors hover:text-[var(--color-brand)]"
+              >
+                {site.phone}
+              </a>
+              <span className="mt-0.5 block text-[11px] text-white/50">
+                Pzt–Cmt: 09:00 – 18:00
+              </span>
+            </ContactRow>
+            <ContactRow icon={<PinIcon />}>
+              <span className="leading-relaxed">
+                {site.address.street}
+                <br />
+                {site.address.district} / {site.address.city}
+              </span>
+            </ContactRow>
+          </address>
         </div>
 
         <div className="md:col-span-2">
@@ -64,6 +85,7 @@ export default function Footer() {
           <ul className="space-y-2.5 text-sm">
             <FooterLink href="/hakkimizda">Hakkımızda</FooterLink>
             <FooterLink href="/urunler">Ürünlerimiz</FooterLink>
+            <FooterLink href="/#yazilim">Yazılım</FooterLink>
             <FooterLink href="/#iletisim">İletişim</FooterLink>
           </ul>
         </div>
@@ -86,29 +108,22 @@ export default function Footer() {
 
         <div className="md:col-span-3">
           <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-white">
-            İletişim
+            Grup Projeleri
           </h4>
-          <address className="space-y-4 text-sm not-italic text-white/65">
-            <ContactRow icon={<PhoneIcon />}>
-              <a
-                href={`tel:${site.phone.replace(/\s+/g, "")}`}
-                className="font-semibold text-white transition-colors hover:text-[var(--color-brand)]"
-              >
-                {site.phone}
-              </a>
-              <span className="mt-0.5 block text-[11px] text-white/50">
-                Pzt–Cmt: 09:00 – 18:00
-              </span>
-            </ContactRow>
-            <ContactRow icon={<PinIcon />}>
-              <span className="leading-relaxed">
-                {site.address.street}
-                <br />
-                {site.address.district} / {site.address.city}
-              </span>
-            </ContactRow>
-          </address>
+          <ul className="space-y-2.5 text-sm">
+            <FooterLink href="https://tamirdefteri.com" external>
+              Tamir Defteri
+            </FooterLink>
+            <FooterLink href="https://yukunolsun.com" external>
+              YükünOlsun
+            </FooterLink>
+          </ul>
+          <p className="mt-4 max-w-xs text-[11px] leading-relaxed text-white/45">
+            Otomotiv ve nakliye ekosistemine yönelik grup bünyesindeki
+            dijital platformlar.
+          </p>
         </div>
+
       </div>
 
       {/* Brand strip */}

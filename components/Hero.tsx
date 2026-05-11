@@ -30,7 +30,7 @@ export default function Hero() {
         <div
           role="list"
           aria-label="Faaliyet alanları"
-          className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4 text-[10px] font-bold uppercase tracking-[0.22em] text-white/75 sm:gap-x-4 sm:text-[11px] sm:tracking-[0.28em]"
+          className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-2 px-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white/75 sm:gap-x-4 sm:px-4 sm:text-[11px] sm:tracking-[0.28em]"
         >
           <span role="listitem">Madeni Yağ</span>
           <span aria-hidden="true" className="h-3 w-px bg-white/25" />
