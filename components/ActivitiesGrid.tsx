@@ -40,7 +40,7 @@ const activities: readonly Activity[] = [
 
 export default function ActivitiesGrid() {
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-14 sm:py-20">
       <div className="container-page">
         <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
           <div>
@@ -61,7 +61,7 @@ export default function ActivitiesGrid() {
           {activities.map((a, i) => {
             const wrap = (children: React.ReactNode) => {
               if (!a.href) return children;
-              const cls = "group flex h-full flex-col gap-3 py-8 transition-colors hover:bg-[var(--color-surface-alt)] active:bg-[var(--color-surface-alt)] sm:px-6";
+              const cls = "group flex h-full flex-col gap-3 py-6 transition-colors hover:bg-[var(--color-surface-alt)] active:bg-[var(--color-surface-alt)] sm:px-6 sm:py-8";
               if (a.external) {
                 return (
                   <a
@@ -86,7 +86,7 @@ export default function ActivitiesGrid() {
                 className={`${
                   a.href
                     ? ""
-                    : "flex flex-col gap-3 py-8 sm:px-6"
+                    : "flex flex-col gap-3 py-6 sm:px-6 sm:py-8"
                 } ${i % 2 === 0 ? "sm:first:pl-0" : ""} sm:last:pr-0 lg:[&:nth-child(4n+1)]:pl-0 lg:[&:nth-child(4n)]:pr-0`}
               >
                 {wrap(

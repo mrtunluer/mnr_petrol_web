@@ -6,7 +6,7 @@ import SectionHeader from "./SectionHeader";
 
 export default function BrandsShowcase() {
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-14 sm:py-20">
       <div className="container-page">
         <SectionHeader
           kicker="Çalıştığımız Markalar"

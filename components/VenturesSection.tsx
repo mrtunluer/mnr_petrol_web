@@ -49,7 +49,7 @@ export default function VenturesSection() {
   return (
     <section
       id="yazilim"
-      className="relative border-t border-[var(--color-border)] bg-[var(--color-night)] py-24 text-white"
+      className="relative border-t border-[var(--color-border)] bg-[var(--color-night)] py-14 text-white sm:py-20 lg:py-24"
     >
       <div
         aria-hidden="true"
@@ -83,7 +83,7 @@ export default function VenturesSection() {
               href={v.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block overflow-hidden border border-white/10 bg-[var(--color-night-soft)] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-brand)]/60 motion-reduce:hover:translate-y-0 sm:p-10"
+              className="group relative block overflow-hidden border border-white/10 bg-[var(--color-night-soft)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-brand)]/60 motion-reduce:hover:translate-y-0 sm:p-7 lg:p-10"
             >
               <span
                 aria-hidden="true"

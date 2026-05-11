@@ -22,7 +22,7 @@ export default function Hero() {
         className="-z-10 absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90"
       />
 
-      <div className="container-page flex min-h-[620px] flex-col items-center justify-center py-24 text-center md:min-h-[680px] lg:min-h-[720px] lg:py-28">
+      <div className="container-page flex min-h-[520px] flex-col items-center justify-center py-16 text-center sm:min-h-[620px] sm:py-24 md:min-h-[680px] lg:min-h-[720px] lg:py-28">
         <h1 className="text-4xl font-black leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
           MNR <span className="text-[var(--color-brand)]">PETROL</span>
         </h1>

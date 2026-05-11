@@ -47,7 +47,7 @@ export default function FeaturedCarousel({ products }: Props) {
         {products.map((p, i) => (
           <li
             key={p.id}
-            className="min-w-[70%] shrink-0 snap-start sm:min-w-[45%] md:min-w-[32%] lg:min-w-[24%]"
+            className="min-w-[80%] shrink-0 snap-start sm:min-w-[45%] md:min-w-[32%] lg:min-w-[24%]"
           >
             <ProductCard product={p} priority={i < 4} />
           </li>

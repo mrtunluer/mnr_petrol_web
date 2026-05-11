@@ -5,7 +5,7 @@ import { productsByCategory } from "@/src/data/products";
 
 export default function CategoriesGrid() {
   return (
-    <section className="bg-[var(--color-surface-alt)] py-24">
+    <section className="bg-[var(--color-surface-alt)] py-14 sm:py-20 lg:py-24">
       <div className="container-page">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>

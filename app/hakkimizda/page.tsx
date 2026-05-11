@@ -68,6 +68,7 @@ const ventures = [
     ],
     href: "https://tamirdefteri.com",
     logo: "/ventures/tamirdefteri.webp",
+    logoBg: "bg-[var(--color-ink)]",
   },
   {
     num: "02",
@@ -84,6 +85,7 @@ const ventures = [
     ],
     href: "https://yukunolsun.com",
     logo: "/ventures/yukunolsun.webp",
+    logoBg: "bg-white",
   },
 ] as const;
 
@@ -310,7 +312,9 @@ export default function HakkimizdaPage() {
 
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <span className="relative inline-flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded bg-white ring-1 ring-[var(--color-border)]">
+                    <span
+                      className={`relative inline-flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded ring-1 ring-[var(--color-border)] ${v.logoBg}`}
+                    >
                       <Image
                         src={v.logo}
                         alt={v.name}

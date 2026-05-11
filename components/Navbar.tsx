@@ -21,6 +21,7 @@ const softwareProducts = [
     description: "Atölye yönetim yazılımı",
     href: "https://tamirdefteri.com",
     logo: "/ventures/tamirdefteri.webp",
+    logoBg: "bg-[var(--color-ink)]",
   },
   {
     slug: "yukunolsun",
@@ -29,6 +30,7 @@ const softwareProducts = [
     description: "Dijital taşımacılık pazaryeri",
     href: "https://yukunolsun.com",
     logo: "/ventures/yukunolsun.webp",
+    logoBg: "bg-white",
   },
 ] as const;
 
@@ -316,7 +318,9 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 className="flex min-h-[48px] items-center gap-3 py-2 text-sm text-[var(--color-ink)] transition-colors hover:text-[var(--color-brand)] active:bg-[var(--color-surface-alt)]"
               >
-                <span className="relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-white ring-1 ring-[var(--color-border)]">
+                <span
+                  className={`relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded ring-1 ring-[var(--color-border)] ${s.logoBg}`}
+                >
                   <Image
                     src={s.logo}
                     alt={s.name}
@@ -527,7 +531,9 @@ function SoftwareDropdown() {
                 rel="noopener noreferrer"
                 className="group/item flex items-start gap-3 px-4 py-3 text-sm text-[var(--color-ink)] transition-colors hover:bg-[var(--color-surface-alt)]"
               >
-                <span className="relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-white ring-1 ring-[var(--color-border)]">
+                <span
+                  className={`relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded ring-1 ring-[var(--color-border)] ${s.logoBg}`}
+                >
                   <Image
                     src={s.logo}
                     alt={s.name}

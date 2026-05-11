@@ -6,7 +6,7 @@ export default function FeaturedProducts() {
   const products = featuredProducts();
 
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-14 sm:py-20 lg:py-24">
       <div className="container-page">
         <SectionHeader
           kicker="Öne Çıkanlar"

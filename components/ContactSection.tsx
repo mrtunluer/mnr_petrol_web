@@ -3,7 +3,7 @@ import { site } from "@/src/lib/site";
 
 export default function ContactSection() {
   return (
-    <section id="iletisim" className="bg-[var(--color-night)] pt-24 pb-0 text-white">
+    <section id="iletisim" className="bg-[var(--color-night)] pt-16 pb-0 text-white sm:pt-20 lg:pt-24">
       <div className="container-page">
         <div className="flex flex-col items-start justify-between gap-4 border-b border-white/10 pb-10 md:flex-row md:items-end">
           <div>
@@ -23,7 +23,7 @@ export default function ContactSection() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-0 pb-24 md:grid-cols-12 md:divide-x md:divide-white/10">
+        <div className="mt-10 grid gap-0 pb-16 sm:mt-12 sm:pb-20 lg:pb-24 md:grid-cols-12 md:divide-x md:divide-white/10">
           <div className="md:col-span-5 md:pr-10">
             <ul className="divide-y divide-white/10">
               <InfoRow
