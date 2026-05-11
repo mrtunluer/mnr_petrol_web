@@ -27,12 +27,32 @@ export default function Hero() {
           MNR <span className="text-[var(--color-brand)]">PETROL</span>
         </h1>
 
+        <div
+          role="list"
+          aria-label="Faaliyet alanları"
+          className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4 text-[10px] font-bold uppercase tracking-[0.22em] text-white/75 sm:gap-x-4 sm:text-[11px] sm:tracking-[0.28em]"
+        >
+          <span role="listitem">Madeni Yağ</span>
+          <span aria-hidden="true" className="h-3 w-px bg-white/25" />
+          <span role="listitem" className="text-[var(--color-brand)]">
+            Yazılım
+          </span>
+          <span aria-hidden="true" className="h-3 w-px bg-white/25" />
+          <span role="listitem">Lojistik</span>
+          <span aria-hidden="true" className="h-3 w-px bg-white/25" />
+          <span role="listitem">Sanayi</span>
+          <span aria-hidden="true" className="h-3 w-px bg-white/25" />
+          <span role="listitem">İnşaat</span>
+        </div>
+
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl md:text-2xl">
-          Yüksek Performanslı Motor Yağları ve Endüstriyel Ürünler
+          Madeni yağ tedariğinden dijital girişimlere — çok sektörlü
+          kurumsal grup
         </p>
         <p className="mt-3 max-w-xl px-4 text-sm leading-relaxed text-white/60 sm:px-0">
-          Borax, Oilport, Xenol, Brava, Japan Oil ve Skynell markalarının
-          ürünleriyle hizmetinizdeyiz.
+          Akdeniz bölgesinde {yearsActive}+ yıllık tedarik tecrübesi,
+          atölyeler ve nakliyeciler için iki dijital platform ve geniş
+          sektörel hizmet ağı.
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">

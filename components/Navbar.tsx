@@ -13,6 +13,23 @@ const primaryLinks = [
   { href: "/hakkimizda", label: "Hakkımızda" },
 ] as const;
 
+const softwareProducts = [
+  {
+    slug: "tamir-defteri",
+    name: "Tamir Defteri",
+    domain: "tamirdefteri.com",
+    description: "Atölye yönetim yazılımı",
+    href: "https://tamirdefteri.com",
+  },
+  {
+    slug: "yukunolsun",
+    name: "YükünOlsun",
+    domain: "yukunolsun.com",
+    description: "Dijital taşımacılık pazaryeri",
+    href: "https://yukunolsun.com",
+  },
+] as const;
+
 const MOBILE_PANEL_ID = "mobile-menu-panel";
 
 export default function Navbar() {
@@ -124,6 +141,8 @@ export default function Navbar() {
             <ProductsDropdown active={isActive("/urunler")} />
 
             <BrandsDropdown />
+
+            <SoftwareDropdown />
 
             <NavLink href="/#iletisim" label="İletişim" active={false} />
           </nav>
@@ -277,6 +296,55 @@ export default function Navbar() {
             ))}
           </MobileCollapseItem>
 
+          <MobileCollapseItem
+            label="Yazılım"
+            panelId="mobile-submenu-software"
+            open={mobileSubmenuOpen === "software"}
+            onToggle={() =>
+              setMobileSubmenuOpen((k) =>
+                k === "software" ? null : "software",
+              )
+            }
+          >
+            {softwareProducts.map((s) => (
+              <a
+                key={s.slug}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-[44px] items-center gap-3 text-sm text-[var(--color-ink)] transition-colors hover:text-[var(--color-brand)] active:bg-[var(--color-surface-alt)]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-mono text-[10px] font-semibold text-[var(--color-ink-subtle)]"
+                >
+                  →
+                </span>
+                <span className="flex flex-1 flex-col leading-tight">
+                  <span className="font-medium">{s.name}</span>
+                  <span className="text-[11px] text-[var(--color-ink-muted)]">
+                    {s.description}
+                  </span>
+                </span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="shrink-0 text-[var(--color-ink-muted)]"
+                  aria-hidden="true"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </a>
+            ))}
+          </MobileCollapseItem>
+
           <Link
             href="/#iletisim"
             className="flex min-h-[48px] items-center text-sm font-medium text-[var(--color-ink)] transition-colors active:bg-[var(--color-surface-alt)]"
@@ -384,6 +452,104 @@ function BrandsDropdown() {
                 </span>
                 <span className="flex-1">{b.name}</span>
               </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function SoftwareDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const onMouseEnter = (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") setOpen(true);
+  };
+  const onMouseLeave = (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") setOpen(false);
+  };
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onPointerEnter={onMouseEnter}
+      onPointerLeave={onMouseLeave}
+    >
+      <button
+        type="button"
+        aria-haspopup="true"
+        aria-expanded={open}
+        aria-controls="desktop-software-menu"
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors hover:text-[var(--color-brand)]"
+      >
+        Yazılım
+        <Chevron rotated={open} />
+      </button>
+      <div
+        id="desktop-software-menu"
+        className={`absolute left-0 top-full z-40 min-w-[280px] rounded-lg border border-[var(--color-border)] bg-white shadow-lg transition-all duration-150 motion-reduce:transition-none ${
+          open
+            ? "visible translate-y-0 opacity-100"
+            : "invisible translate-y-1 opacity-0"
+        }`}
+      >
+        <ul className="py-1.5" onClick={() => setOpen(false)}>
+          {softwareProducts.map((s) => (
+            <li key={s.slug}>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/item flex items-start gap-3 px-4 py-3 text-sm text-[var(--color-ink)] transition-colors hover:bg-[var(--color-surface-alt)]"
+              >
+                <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface-alt)] text-[var(--color-brand)] ring-1 ring-[var(--color-border)]">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </span>
+                <span className="flex min-w-0 flex-1 flex-col leading-tight">
+                  <span className="font-semibold transition-colors group-hover/item:text-[var(--color-brand)]">
+                    {s.name}
+                  </span>
+                  <span className="text-[11px] text-[var(--color-ink-muted)]">
+                    {s.description}
+                  </span>
+                  <span className="mt-0.5 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                    {s.domain}
+                  </span>
+                </span>
+              </a>
             </li>
           ))}
         </ul>
