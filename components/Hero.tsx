@@ -1,5 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { brands } from "@/src/data/brands";
+import { products } from "@/src/data/products";
+
+const FOUNDED_YEAR = 2008;
+const yearsActive = new Date().getFullYear() - FOUNDED_YEAR;
 
 export default function Hero() {
   return (
@@ -27,7 +32,7 @@ export default function Hero() {
         </p>
         <p className="mt-3 max-w-xl px-4 text-sm leading-relaxed text-white/60 sm:px-0">
           Borax, Oilport, Xenol, Brava, Japan Oil ve Skynell markalarının
-          yetkili bayiliği.
+          ürünleriyle hizmetinizdeyiz.
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -61,11 +66,11 @@ export default function Hero() {
         </div>
 
         <dl className="mt-20 flex flex-wrap items-center justify-center gap-5 sm:gap-0">
-          <Stat value="15+" label="Yıllık Tecrübe" />
+          <Stat value={`${yearsActive}+`} label="Yıllık Tecrübe" />
           <Divider />
-          <Stat value="1000+" label="Mutlu Müşteri" />
+          <Stat value={`${products.length}+`} label="Ürün Çeşidi" />
           <Divider />
-          <Stat value="6" label="Premium Marka" />
+          <Stat value={`${brands.length}`} label="Premium Marka" />
         </dl>
       </div>
     </section>

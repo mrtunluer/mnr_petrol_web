@@ -104,7 +104,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-0.5 md:flex">
+          <nav className="hidden items-center gap-0.5 lg:flex">
             {primaryLinks.map((link) => (
               <NavLink
                 key={link.href}
@@ -128,7 +128,7 @@ export default function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls={MOBILE_PANEL_ID}
             onClick={() => setMobileOpen((o) => !o)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded text-[var(--color-ink)] transition-colors hover:bg-[var(--color-surface-alt)] active:bg-[var(--color-border-soft)] md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded text-[var(--color-ink)] transition-colors hover:bg-[var(--color-surface-alt)] active:bg-[var(--color-border-soft)] lg:hidden"
           >
             <svg
               width="22"
@@ -158,7 +158,7 @@ export default function Navbar() {
       </header>
 
       <div
-        className={`fixed inset-0 z-[45] bg-[var(--color-night)]/40 transition-opacity duration-200 motion-reduce:transition-none md:hidden ${
+        className={`fixed inset-0 z-[45] bg-[var(--color-night)]/40 transition-opacity duration-200 motion-reduce:transition-none lg:hidden ${
           mobileOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -173,7 +173,7 @@ export default function Navbar() {
         aria-label="Mobil menü"
         aria-hidden={!mobileOpen}
         inert={!mobileOpen}
-        className={`fixed inset-x-0 top-16 z-[45] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[var(--color-border)] bg-white shadow-xl transition-transform duration-200 motion-reduce:transition-none md:hidden ${
+        className={`fixed inset-x-0 top-16 z-[45] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[var(--color-border)] bg-white shadow-xl transition-transform duration-200 motion-reduce:transition-none lg:hidden ${
           mobileOpen
             ? "translate-y-0"
             : "pointer-events-none -translate-y-full"

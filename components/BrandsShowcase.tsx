@@ -11,7 +11,7 @@ export default function BrandsShowcase() {
         <SectionHeader
           kicker="Çalıştığımız Markalar"
           title="Premium Markalar"
-          description="Altı premium madeni yağ markasının Türkiye yetkili distribütörü olarak, orijinal ürün garantisiyle hizmet veriyoruz."
+          description="Altı premium madeni yağ markasının ürünleriyle otomotiv ve endüstriyel uygulamalara yönelik geniş portföy sunuyoruz."
           action={{ label: "Tüm kataloğu gör", href: "/urunler" }}
         />
 

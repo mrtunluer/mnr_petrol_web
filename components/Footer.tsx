@@ -115,7 +115,7 @@ export default function Footer() {
       <div className="border-y border-white/10">
         <div className="container-page flex flex-wrap items-center justify-center gap-4 py-6">
           <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">
-            Yetkili Bayilik
+            Tedarik Markalarımız
           </span>
           {brands.map((b) => (
             <Link

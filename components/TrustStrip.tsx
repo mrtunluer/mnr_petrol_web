@@ -5,18 +5,21 @@ type Item = {
   body: string;
 };
 
+const FOUNDED_YEAR = 2008;
+const yearsActive = new Date().getFullYear() - FOUNDED_YEAR;
+
 const items: readonly Item[] = [
   {
     num: "01",
     label: "Tecrübe",
-    title: "Sektörde 15+ yıl",
+    title: `Sektörde ${yearsActive}+ yıl`,
     body: "Akdeniz bölgesinde otomotiv ve endüstriyel sektörlerin madeni yağ ihtiyacında güvenilir çözüm ortağı.",
   },
   {
     num: "02",
-    label: "Yetki",
+    label: "Portföy",
     title: "6 Premium marka",
-    body: "Borax, Japan Oil, Xenol, Oilport, Brava ve Skynell markalarının resmi distribütörlüğü.",
+    body: "Borax, Japan Oil, Xenol, Oilport, Brava ve Skynell markalarının ürünleriyle hizmet veriyoruz.",
   },
   {
     num: "03",

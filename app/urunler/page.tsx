@@ -26,7 +26,7 @@ export default function UrunlerPage() {
               Ürünlerimiz
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--color-ink-soft)]">
-              Altı premium markanın resmi distribütörü olarak, otomotiv ve
+              Altı premium madeni yağ markasının ürünleriyle otomotiv ve
               endüstriyel uygulamaların tümüne yönelik geniş ürün portföyü.
             </p>
           </div>

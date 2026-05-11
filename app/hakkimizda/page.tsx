@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { brands } from "@/src/data/brands";
+import { products } from "@/src/data/products";
 import { buildMetadata } from "@/src/lib/seo";
 import { site } from "@/src/lib/site";
 
@@ -11,31 +13,22 @@ export const metadata: Metadata = buildMetadata({
     "MNR Petrol Tarım İnş. San. Tic. Ltd. Şti. — 2008'den bu yana Akdeniz bölgesinde madeni yağ tedariğinde güvenilir çözüm ortağı.",
 });
 
-const values = [
-  {
-    num: "01",
-    label: "Kalite",
-    title: "Kalite güvencesi",
-    body: "Tüm ürünlerimiz üretici yetkili kanallarından, uluslararası standartlara uygun olarak tedarik edilir.",
-  },
-  {
-    num: "02",
-    label: "Destek",
-    title: "Uzman teknik kadro",
-    body: "Deneyimli ekibimiz; viskozite, spesifikasyon ve kullanım önerileriyle en uygun ürünü seçmenizde yardımcı olur.",
-  },
-  {
-    num: "03",
-    label: "Tedarik",
-    title: "Hızlı ve güvenilir sevkiyat",
-    body: "Geniş stok altyapımız sayesinde servis, filo ve endüstriyel tesis taleplerini zamanında karşılıyoruz.",
-  },
+const FOUNDED_YEAR = 2008;
+const yearsActive = new Date().getFullYear() - FOUNDED_YEAR;
+const skuCount = products.length;
+const brandCount = brands.length;
+
+const stats = [
+  { label: "Deneyim", value: `${yearsActive}+`, suffix: "Yıl" },
+  { label: "Marka", value: `${brandCount}`, suffix: "Tedarikçi" },
+  { label: "Ürün", value: `${skuCount}+`, suffix: "SKU" },
+  { label: "Bölge", value: "Akdeniz", suffix: "Servis Alanı" },
 ] as const;
 
 export default function HakkimizdaPage() {
   return (
     <>
-      {/* Intro */}
+      {/* 01 Intro + Stats */}
       <section className="bg-white py-20">
         <div className="container-page grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -52,42 +45,19 @@ export default function HakkimizdaPage() {
               {site.tagline}
             </p>
 
-            <dl className="mt-10 grid grid-cols-3 gap-4 border-y border-[var(--color-border)] py-5 sm:gap-0 sm:divide-x sm:divide-[var(--color-border)]">
-              <div className="sm:px-4 sm:first:pl-0">
-                <dt className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
-                  — Kuruluş
-                </dt>
-                <dd className="mt-1 text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
-                  2008
-                </dd>
-              </div>
-              <div className="sm:px-4">
-                <dt className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
-                  — Bölge
-                </dt>
-                <dd className="mt-1 text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
-                  Akdeniz
-                </dd>
-              </div>
-              <div className="sm:px-4 sm:last:pr-0">
-                <dt className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
-                  — Marka
-                </dt>
-                <dd className="mt-1 text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
-                  6
-                </dd>
-              </div>
-            </dl>
+            <p className="mt-6 font-mono text-[11px] text-[var(--color-ink-subtle)]">
+              — Kuruluş {FOUNDED_YEAR}
+            </p>
           </div>
 
           <div className="lg:col-span-7">
             <div className="space-y-6 text-base leading-relaxed text-[var(--color-ink-soft)]">
               <p>
-                2008 yılında kurulan firmamız, Akdeniz bölgesinde otomotiv ve
-                endüstriyel sektörlerin madeni yağ ihtiyacını karşılayan
-                güvenilir çözüm ortağınızdır. Yılların deneyimiyle, kaliteli
-                ürünler ve profesyonel hizmet anlayışımızla müşterilerimize
-                değer katıyoruz.
+                {FOUNDED_YEAR} yılında kurulan firmamız, Akdeniz bölgesinde
+                otomotiv ve endüstriyel sektörlerin madeni yağ ihtiyacını
+                karşılayan güvenilir çözüm ortağınızdır. Yılların
+                deneyimiyle, kaliteli ürünler ve profesyonel hizmet
+                anlayışımızla müşterilerimize değer katıyoruz.
               </p>
               <p>
                 Geniş ürün yelpazemiz ve uzman kadromuzla, madeni yağ
@@ -97,96 +67,88 @@ export default function HakkimizdaPage() {
             </div>
           </div>
         </div>
+
+        <div className="container-page mt-16">
+          <dl className="grid grid-cols-2 gap-6 border-y border-[var(--color-border)] py-8 sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-[var(--color-border)]">
+            {stats.map((s, i) => (
+              <div
+                key={s.label}
+                className={`sm:px-6 ${i === 0 ? "sm:pl-0" : ""} ${
+                  i === stats.length - 1 ? "sm:pr-0" : ""
+                }`}
+              >
+                <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-ink-subtle)]">
+                  — {s.label}
+                </dt>
+                <dd className="mt-2 flex items-baseline gap-2">
+                  <span className="text-3xl font-semibold text-[var(--color-ink)] sm:text-4xl">
+                    {s.value}
+                  </span>
+                  <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--color-ink-muted)]">
+                    {s.suffix}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
 
-      {/* Values */}
-      <section className="border-y border-[var(--color-border)] bg-[var(--color-surface-alt)]">
+      {/* 02 Brands */}
+      <section className="border-t border-[var(--color-border)] bg-[var(--color-surface-alt)] py-24">
         <div className="container-page">
-          <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] py-8 md:flex-row md:items-end">
+          <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
             <div>
               <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
                 — 02
               </div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
-                Yaklaşımımız
+                Tedarik Portföyü
               </div>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-                Neden MNR Petrol
+                Çalıştığımız markalar
               </h2>
             </div>
-            <p className="max-w-md text-sm text-[var(--color-ink-soft)]">
-              Tedarik zincirinden teknik desteğe kadar üç temel ilkemizle
-              çalışıyoruz.
+            <p className="max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)]">
+              {brandCount} ulusal ve uluslararası madeni yağ markasıyla
+              otomotiv ve endüstriyel sektörlerin yağlama ihtiyaçlarını
+              karşılıyoruz.
             </p>
           </div>
 
-          <ul className="grid grid-cols-1 divide-y divide-[var(--color-border)] md:grid-cols-3 md:divide-x md:divide-y-0">
-            {values.map((v) => (
-              <li
-                key={v.num}
-                className="flex flex-col gap-3 px-0 py-10 md:px-8 md:first:pl-0 md:last:pr-0"
-              >
-                <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-xs font-medium text-[var(--color-ink-subtle)]">
-                    — {v.num}
+          <ul className="grid grid-cols-2 gap-px bg-[var(--color-border)] sm:grid-cols-3 lg:grid-cols-6">
+            {brands.map((b) => (
+              <li key={b.slug} className="bg-white">
+                <Link
+                  href={`/urunler?marka=${b.slug}`}
+                  className="group flex aspect-[4/3] flex-col items-center justify-center gap-3 p-6 transition-colors hover:bg-[var(--color-surface-alt)]"
+                >
+                  <div className="relative h-12 w-full max-w-[120px]">
+                    <Image
+                      src={b.logo}
+                      alt={b.name}
+                      fill
+                      sizes="120px"
+                      className="object-contain transition-transform duration-200 group-hover:scale-105"
+                    />
+                  </div>
+                  <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--color-ink-muted)] transition-colors group-hover:text-[var(--color-brand)]">
+                    {b.name}
                   </span>
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--color-ink-muted)]">
-                    {v.label}
-                  </span>
-                </div>
-                <div className="text-xl font-semibold leading-snug text-[var(--color-ink)]">
-                  {v.title}
-                </div>
-                <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
-                  {v.body}
-                </p>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* Ar-Ge */}
-      <section className="bg-white py-24">
-        <div className="container-page grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
-              — 03
-            </div>
-            <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
-              Faaliyet Alanı
-            </div>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-              Ar-Ge ve teknik destek
-            </h2>
-          </div>
-          <div className="lg:col-span-8">
-            <div className="space-y-6 text-base leading-relaxed text-[var(--color-ink-soft)]">
-              <p>
-                Partneri olduğumuz firmaların yurt dışı ve yurt içi Ar-Ge
-                departmanları ile koordineli olarak çalışmakta, sektörün
-                ihtiyacı olan özel ürünlerin oluşması ve sahaya sunulmasında
-                öncülük etmekteyiz. Tamamı ile teknik ekiple hizmet veren
-                firmamız, araç ve endüstriyel ekipmanlarınızın performansını
-                maksimize etmek için en uygun yağlama çözümlerini sunmaktadır.
-              </p>
-              <p>
-                Geniş araç filomuz ve deneyimli ekibimizle, sektörde dijital
-                dönüşüme öncülük ederek müşterilerimize en verimli ve güvenilir
-                hizmeti sunmaktayız.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Dijital Girişimler */}
-      <section className="border-t border-[var(--color-border)] bg-[var(--color-surface-alt)] py-24">
+      {/* 03 Dijital Girişimler */}
+      <section className="border-t border-[var(--color-border)] bg-white py-24">
         <div className="container-page">
           <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
             <div>
               <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
-                — 04
+                — 03
               </div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 Dijital Girişimlerimiz
@@ -224,35 +186,105 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* 04 CTA + Location */}
       <section className="border-t border-[var(--color-border)] bg-[var(--color-night)] py-20 text-white">
-        <div className="container-page grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
-              İletişim
+        <div className="container-page">
+          <div className="grid gap-8 border-b border-white/10 pb-12 md:grid-cols-[1fr_auto] md:items-end md:pb-16">
+            <div>
+              <div className="font-mono text-xs text-white/50">— 04</div>
+              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
+                İletişim
+              </div>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                Birlikte çalışalım
+              </h2>
+              <p className="mt-3 max-w-xl text-sm text-white/70">
+                İhtiyacınız olan ürün için teklif ya da özel çözüm için bize
+                ulaşın.
+              </p>
             </div>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Birlikte çalışalım
-            </h2>
-            <p className="mt-3 max-w-xl text-sm text-white/70">
-              İhtiyacınız olan ürün için teklif ya da özel çözüm için bize
-              ulaşın.
-            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/urunler"
+                className="inline-flex items-center gap-2 bg-[var(--color-brand)] px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)]"
+              >
+                Ürünleri İncele
+              </Link>
+              <Link
+                href="/#iletisim"
+                className="inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] transition-colors hover:border-white hover:bg-white/10"
+              >
+                İletişime Geç
+              </Link>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/urunler"
-              className="inline-flex items-center gap-2 bg-[var(--color-brand)] px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)]"
-            >
-              Ürünleri İncele
-            </Link>
-            <Link
-              href="/#iletisim"
-              className="inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] transition-colors hover:border-white hover:bg-white/10"
-            >
-              İletişime Geç
-            </Link>
-          </div>
+
+          <dl className="grid grid-cols-1 gap-8 pt-12 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-white/10">
+            <div className="sm:pr-8">
+              <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+                — Merkez
+              </dt>
+              <dd className="mt-2 text-sm leading-relaxed text-white">
+                {site.address.street}
+                <br />
+                {site.address.district} / {site.address.city}
+                <br />
+                <a
+                  href={site.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-brand)] transition-colors hover:text-white"
+                >
+                  Yol Tarifi
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </a>
+              </dd>
+            </div>
+            <div className="sm:px-8">
+              <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+                — Çalışma Saatleri
+              </dt>
+              <dd className="mt-2 text-sm leading-relaxed text-white">
+                Pzt – Cmt
+                <br />
+                09:00 – 18:00
+                <br />
+                <span className="mt-2 inline-block text-xs text-white/50">
+                  Pazar kapalı
+                </span>
+              </dd>
+            </div>
+            <div className="sm:pl-8">
+              <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+                — Telefon
+              </dt>
+              <dd className="mt-2 text-sm leading-relaxed text-white">
+                <a
+                  href={`tel:${site.phone.replace(/\s+/g, "")}`}
+                  className="font-semibold transition-colors hover:text-[var(--color-brand)]"
+                >
+                  {site.phone}
+                </a>
+                <br />
+                <span className="text-xs text-white/50">
+                  Akdeniz Bölgesi
+                </span>
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
     </>
@@ -281,7 +313,7 @@ function VenturesCard({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col gap-5 bg-[var(--color-surface-alt)] px-0 py-10 transition-colors hover:bg-white md:px-10 md:first:pl-0 md:last:pr-0"
+      className="group flex flex-col gap-5 bg-white px-0 py-10 transition-colors hover:bg-[var(--color-surface-alt)] md:px-10 md:first:pl-0 md:last:pr-0"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-baseline gap-3">
