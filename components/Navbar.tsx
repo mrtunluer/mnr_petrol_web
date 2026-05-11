@@ -173,10 +173,13 @@ export default function Navbar() {
         aria-label="Mobil menü"
         aria-hidden={!mobileOpen}
         inert={!mobileOpen}
-        className={`fixed inset-x-0 top-16 z-[45] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[var(--color-border)] bg-white shadow-xl transition-transform duration-200 motion-reduce:transition-none lg:hidden ${
+        style={{
+          transform: mobileOpen ? "translateY(0)" : "translateY(-100%)",
+        }}
+        className={`fixed inset-x-0 top-16 z-[45] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[var(--color-border)] bg-white shadow-xl transition-all duration-200 motion-reduce:transition-none lg:hidden ${
           mobileOpen
-            ? "translate-y-0"
-            : "pointer-events-none -translate-y-full"
+            ? "visible opacity-100"
+            : "pointer-events-none invisible opacity-0"
         }`}
       >
         <div
