@@ -6,32 +6,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { brands } from "@/src/data/brands";
 import { categories } from "@/src/data/categories";
+import { ventures } from "@/src/data/ventures";
 import { site } from "@/src/lib/site";
 
 const primaryLinks = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/hakkimizda", label: "Hakkımızda" },
-] as const;
-
-const softwareProducts = [
-  {
-    slug: "tamir-defteri",
-    name: "Tamir Defteri",
-    domain: "tamirdefteri.com",
-    description: "Atölye yönetim yazılımı",
-    href: "https://tamirdefteri.com",
-    logo: "/ventures/tamirdefteri.webp",
-    logoBg: "bg-[var(--color-ink)]",
-  },
-  {
-    slug: "yukunolsun",
-    name: "YükünOlsun",
-    domain: "yukunolsun.com",
-    description: "Dijital taşımacılık pazaryeri",
-    href: "https://yukunolsun.com",
-    logo: "/ventures/yukunolsun.webp",
-    logoBg: "bg-white",
-  },
 ] as const;
 
 const MOBILE_PANEL_ID = "mobile-menu-panel";
@@ -312,7 +292,7 @@ export default function Navbar() {
             rootHref="/yazilim"
             active={isActive("/yazilim")}
           >
-            {softwareProducts.map((s) => (
+            {ventures.map((s) => (
               <a
                 key={s.slug}
                 href={s.href}
@@ -334,7 +314,7 @@ export default function Navbar() {
                 <span className="flex flex-1 flex-col leading-tight">
                   <span className="font-medium">{s.name}</span>
                   <span className="text-[11px] text-[var(--color-ink-muted)]">
-                    {s.description}
+                    {s.sector}
                   </span>
                 </span>
                 <svg
@@ -535,7 +515,7 @@ function SoftwareDropdown({ active }: { active: boolean }) {
         }`}
       >
         <ul className="py-1.5" onClick={() => setOpen(false)}>
-          {softwareProducts.map((s) => (
+          {ventures.map((s) => (
             <li key={s.slug}>
               <a
                 href={s.href}
@@ -559,7 +539,7 @@ function SoftwareDropdown({ active }: { active: boolean }) {
                     {s.name}
                   </span>
                   <span className="text-[11px] text-[var(--color-ink-muted)]">
-                    {s.description}
+                    {s.sector}
                   </span>
                   <span className="mt-0.5 font-mono text-[10px] text-[var(--color-ink-subtle)]">
                     {s.domain}

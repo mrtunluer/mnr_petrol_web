@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ventures } from "@/src/data/ventures";
 import { buildMetadata } from "@/src/lib/seo";
 import { site } from "@/src/lib/site";
 
@@ -11,70 +12,39 @@ export const metadata: Metadata = buildMetadata({
     "Tamir Defteri ve YükünOlsun — MNR Petrol grup bünyesindeki iki dijital platform. Atölye yönetim yazılımı ve dijital taşımacılık pazaryeri.",
 });
 
-type Venture = {
-  num: string;
-  name: string;
-  domain: string;
-  sector: string;
-  tagline: string;
-  intro: string;
-  body: string;
-  features: readonly string[];
-  href: string;
-  logo: string;
-  logoBg: string;
-  audience: string;
-  pricing: string;
-};
+const softwareApplicationJsonLd = ventures.map((v) => ({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: v.name,
+  url: v.href,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web, iOS, Android",
+  description: v.description,
+  publisher: {
+    "@type": "Organization",
+    name: site.legalName,
+    url: site.url,
+  },
+}));
 
-const ventures: readonly Venture[] = [
-  {
-    num: "01",
-    name: "Tamir Defteri",
-    domain: "tamirdefteri.com",
-    sector: "Atölye Yönetim Yazılımı",
-    tagline: "Sanayinin dijital atölyesi",
-    intro:
-      "Oto tamir ve servis işletmelerinin defter-kalem dönemini bitiren dijital yönetim platformu.",
-    body: "Müşteri ve araç profilleri, parça hareketi takibi, iş atama ve performans takibi, otomatik bakım hatırlatmaları ve SMS bildirimleriyle atölyenin tüm operasyonunu tek bir yazılımda yönetir. Sesli veri girişi sayesinde usta ekipler işin başından kaldığında bile kayıt tutabilir; kağıt kaybı, eksik fatura ve unutulan bakım işleri ortadan kalkar.",
-    features: [
-      "Sesli veri girişi",
-      "Otomatik bakım hatırlatma",
-      "SMS bildirimi",
-      "Müşteri ve araç profilleri",
-      "Parça hareket takibi",
-      "Çalışan görev atama",
-    ],
-    href: "https://tamirdefteri.com",
-    logo: "/ventures/tamirdefteri.webp",
-    logoBg: "bg-[var(--color-ink)]",
-    audience: "Oto tamir & servis işletmeleri",
-    pricing: "30 gün ücretsiz deneme",
-  },
-  {
-    num: "02",
-    name: "YükünOlsun",
-    domain: "yukunolsun.com",
-    sector: "Dijital Taşımacılık Pazaryeri",
-    tagline: "Yüksüz kalma",
-    intro:
-      "Yük sahiplerini ve taşıyıcıları sıfır komisyonlu dijital pazaryerinde buluşturan taşımacılık platformu.",
-    body: "WhatsApp ve Facebook gruplarındaki yük arama süreçlerini güvenli ve doğrulanmış bir platforma taşır. Yapay zeka destekli akıllı eşleştirme, dorse ve araç tipi filtreleme, konum tabanlı öneriler ve gerçek zamanlı ilan yönetimiyle boş dönüşleri azaltır ve filo verimliliğini yükseltir. 81 il kapsamında, sıfır komisyon ve gizli ücretsiz kullanım modeli sunar.",
-    features: [
-      "10.000+ kayıtlı taşıyıcı",
-      "Günlük 15.000+ ilan",
-      "81 il kapsamı",
-      "Sıfır komisyon",
-      "AI destekli eşleştirme",
-      "Doğrulanmış üyeler",
-    ],
-    href: "https://yukunolsun.com",
-    logo: "/ventures/yukunolsun.webp",
-    logoBg: "bg-white",
-    audience: "Yük sahipleri & taşıyıcılar",
-    pricing: "Tamamen ücretsiz",
-  },
-] as const;
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Ana Sayfa",
+      item: `${site.url}/`,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Yazılım Çözümlerimiz",
+      item: `${site.url}/yazilim`,
+    },
+  ],
+};
 
 export default function YazilimPage() {
   return (
@@ -237,6 +207,7 @@ export default function YazilimPage() {
                       href={v.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${v.name} platformuna git (yeni sekmede açılır)`}
                       className="mt-8 inline-flex items-center gap-2 bg-[var(--color-brand)] px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-[var(--color-brand-dark)] active:bg-[var(--color-brand-dark)]"
                     >
                       Platforma Git
@@ -258,11 +229,8 @@ export default function YazilimPage() {
                   </div>
 
                   <div className="lg:col-span-7">
-                    <p className="text-base font-medium leading-relaxed text-[var(--color-ink)]">
-                      {v.intro}
-                    </p>
-                    <p className="mt-4 text-sm leading-relaxed text-[var(--color-ink-soft)]">
-                      {v.body}
+                    <p className="text-base leading-relaxed text-[var(--color-ink-soft)]">
+                      {v.description}
                     </p>
 
                     <div className="mt-6">
@@ -270,7 +238,7 @@ export default function YazilimPage() {
                         Öne Çıkan Özellikler
                       </div>
                       <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                        {v.features.map((f) => (
+                        {v.detailFeatures.map((f) => (
                           <li
                             key={f}
                             className="inline-flex items-center gap-2 border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-ink-soft)]"
@@ -326,6 +294,20 @@ export default function YazilimPage() {
           </div>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
+      {softwareApplicationJsonLd.map((jsonLd, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      ))}
     </>
   );
 }

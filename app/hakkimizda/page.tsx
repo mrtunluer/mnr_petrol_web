@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { brands } from "@/src/data/brands";
 import { products } from "@/src/data/products";
+import { ventures } from "@/src/data/ventures";
 import { buildMetadata } from "@/src/lib/seo";
 import { site } from "@/src/lib/site";
 
@@ -52,42 +53,7 @@ const activities = [
   },
 ] as const;
 
-const ventures = [
-  {
-    num: "01",
-    name: "Tamir Defteri",
-    domain: "tamirdefteri.com",
-    sector: "Atölye Yönetim Yazılımı",
-    tagline: "Sanayinin dijital atölyesi",
-    body: "Oto tamir ve servis işletmelerine yönelik dijital yönetim platformu. Sesli kayıt teknolojisi, araç ve müşteri profilleri, parça takibi, otomatik bakım hatırlatmaları ve SMS bildirimleriyle defter kalem ihtiyacını ortadan kaldırır.",
-    features: [
-      "Sesli veri girişi",
-      "Otomatik bakım hatırlatma",
-      "SMS bildirimi",
-      "30 gün ücretsiz deneme",
-    ],
-    href: "https://tamirdefteri.com",
-    logo: "/ventures/tamirdefteri.webp",
-    logoBg: "bg-[var(--color-ink)]",
-  },
-  {
-    num: "02",
-    name: "YükünOlsun",
-    domain: "yukunolsun.com",
-    sector: "Dijital Taşımacılık Pazaryeri",
-    tagline: "Yüksüz kalma",
-    body: "Yük sahiplerini ve taşıyıcıları sıfır komisyonlu dijital pazaryerinde buluşturan platform. Yapay zeka destekli akıllı eşleştirme, dorse ve araç filtreleme, gerçek zamanlı ilan yönetimiyle boş dönüşleri azaltır ve filo verimliliğini yükseltir.",
-    features: [
-      "10.000+ kayıtlı taşıyıcı",
-      "Günlük 15.000+ ilan",
-      "81 il kapsamı",
-      "Sıfır komisyon",
-    ],
-    href: "https://yukunolsun.com",
-    logo: "/ventures/yukunolsun.webp",
-    logoBg: "bg-white",
-  },
-] as const;
+// ventures data imported from src/data/ventures.ts (single source of truth)
 
 export default function HakkimizdaPage() {
   return (
@@ -303,6 +269,7 @@ export default function HakkimizdaPage() {
                 href={v.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${v.name} platformuna git (yeni sekmede açılır)`}
                 className="group relative flex flex-col gap-6 border border-[var(--color-border)] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-ink)] hover:shadow-card-hover motion-reduce:hover:translate-y-0 sm:p-9"
               >
                 <span
@@ -355,7 +322,7 @@ export default function HakkimizdaPage() {
                 </p>
 
                 <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
-                  {v.body}
+                  {v.description}
                 </p>
 
                 <ul className="flex flex-wrap gap-2">

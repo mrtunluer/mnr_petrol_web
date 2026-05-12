@@ -1,55 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-type Venture = {
-  num: string;
-  title: string;
-  domain: string;
-  sector: string;
-  tagline: string;
-  body: string;
-  features: readonly string[];
-  href: string;
-  logo: string;
-  logoBg: string;
-};
-
-const ventures: readonly Venture[] = [
-  {
-    num: "01",
-    title: "Tamir Defteri",
-    domain: "tamirdefteri.com",
-    sector: "Atölye Yönetim Yazılımı",
-    tagline: "Sanayinin dijital atölyesi",
-    body: "Oto tamir ve servis işletmelerine yönelik dijital yönetim platformu. Sesli kayıt teknolojisi, müşteri/araç profilleri, parça takibi, otomatik bakım hatırlatmaları ve SMS bildirimleriyle defter kalem ihtiyacını ortadan kaldırır.",
-    features: [
-      "Sesli veri girişi",
-      "Otomatik bakım hatırlatma",
-      "SMS bildirimi",
-      "30 gün ücretsiz deneme",
-    ],
-    href: "https://tamirdefteri.com",
-    logo: "/ventures/tamirdefteri.webp",
-    logoBg: "bg-[var(--color-ink)]",
-  },
-  {
-    num: "02",
-    title: "YükünOlsun",
-    domain: "yukunolsun.com",
-    sector: "Dijital Taşımacılık Pazaryeri",
-    tagline: "Yüksüz kalma",
-    body: "Yük sahiplerini ve taşıyıcıları sıfır komisyonlu dijital pazaryerinde buluşturan platform. Yapay zeka destekli akıllı eşleştirme, dorse ve araç filtreleme, gerçek zamanlı ilan yönetimiyle boş dönüşleri azaltır.",
-    features: [
-      "10.000+ kayıtlı taşıyıcı",
-      "Günlük 15.000+ ilan",
-      "81 il kapsamı",
-      "Sıfır komisyon",
-    ],
-    href: "https://yukunolsun.com",
-    logo: "/ventures/yukunolsun.webp",
-    logoBg: "bg-white",
-  },
-] as const;
+import { ventures } from "@/src/data/ventures";
 
 export default function VenturesSection() {
   return (
@@ -97,6 +48,7 @@ export default function VenturesSection() {
               href={v.href}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${v.name} platformuna git (yeni sekmede açılır)`}
               className="group relative flex flex-col gap-5 overflow-hidden border border-[var(--color-border)] bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-ink)] hover:shadow-card-hover motion-reduce:hover:translate-y-0 sm:p-7 lg:p-9"
             >
               <span
@@ -111,7 +63,7 @@ export default function VenturesSection() {
                   >
                     <Image
                       src={v.logo}
-                      alt={v.title}
+                      alt={v.name}
                       fill
                       sizes="56px"
                       className="object-contain p-1.5"
@@ -137,7 +89,7 @@ export default function VenturesSection() {
 
               <div>
                 <h3 className="text-2xl font-bold tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-brand)] sm:text-3xl">
-                  {v.title}
+                  {v.name}
                 </h3>
                 <div className="mt-1 font-mono text-xs text-[var(--color-ink-muted)]">
                   {v.domain}
@@ -149,7 +101,7 @@ export default function VenturesSection() {
               </p>
 
               <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
-                {v.body}
+                {v.description}
               </p>
 
               <ul className="flex flex-wrap gap-2">
