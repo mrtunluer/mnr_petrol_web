@@ -216,21 +216,25 @@ export default async function UrunDetayPage({ params }: Props) {
       )}
 
       {/* Yazılım teaser bandı */}
-      <div className="border-t border-[var(--color-border)] bg-white py-4 sm:py-5">
-        <div className="container-page flex flex-wrap items-center gap-x-4 gap-y-2 sm:justify-between">
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)]">
+      <Link
+        href="/yazilim"
+        className="group block border-t border-[var(--color-border)] bg-white transition-colors hover:bg-[var(--color-surface-alt)] active:bg-[var(--color-surface-alt)]"
+      >
+        <div className="container-page flex items-center justify-between gap-3 py-3 sm:py-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)]">
               — Yazılım
             </span>
-            <span className="text-xs leading-tight text-[var(--color-ink-soft)] sm:text-sm">
+            <span className="hidden truncate text-sm leading-tight text-[var(--color-ink-soft)] sm:inline">
               Yazılım ürünlerimizi de incelemek ister misiniz?
             </span>
+            <span className="truncate text-xs leading-tight text-[var(--color-ink-soft)] sm:hidden">
+              Dijital platformlarımız
+            </span>
           </div>
-          <Link
-            href="/yazilim"
-            className="group inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)] transition-colors hover:text-[var(--color-ink)]"
-          >
-            Yazılım Çözümleri
+          <span className="inline-flex shrink-0 items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)] transition-colors group-hover:text-[var(--color-ink)]">
+            <span className="hidden sm:inline">Yazılım Çözümleri</span>
+            <span className="sm:hidden">Detay</span>
             <svg
               width="12"
               height="12"
@@ -246,9 +250,9 @@ export default async function UrunDetayPage({ params }: Props) {
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
-          </Link>
+          </span>
         </div>
-      </div>
+      </Link>
 
       <script
         type="application/ld+json"
