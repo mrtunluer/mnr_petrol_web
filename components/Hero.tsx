@@ -46,7 +46,7 @@ export default function Hero() {
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl md:text-2xl">
           Endüstri ve teknoloji çözümlerinde iş ortağınız
         </p>
-        <p className="mt-3 max-w-xl px-4 text-sm leading-relaxed text-white/60 sm:px-0">
+        <p className="mt-3 hidden max-w-xl px-4 text-sm leading-relaxed text-white/60 sm:block sm:px-0">
           Akdeniz bölgesinde {yearsActive}+ yıllık tedarik tecrübesi,
           atölyeler ve nakliyeciler için iki dijital platform ve geniş
           sektörel hizmet ağı.
