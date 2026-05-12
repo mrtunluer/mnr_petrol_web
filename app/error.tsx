@@ -26,7 +26,7 @@ export default function GlobalError({
             <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
               Beklenmeyen Hata
             </div>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-5xl">
+            <h1 className="mt-3 text-4xl font-bold tracking-tight text-[var(--color-ink)] sm:text-5xl">
               Bir şeyler ters gitti
             </h1>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)]">

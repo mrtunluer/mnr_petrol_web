@@ -53,7 +53,7 @@ export default function FormattedDescription({ text }: Props) {
             className="mt-1 h-5 w-1 shrink-0 rounded-sm bg-[var(--color-brand)]"
             aria-hidden="true"
           />
-          <h3 className="text-[15px] font-extrabold leading-snug text-[var(--color-ink)]">
+          <h3 className="text-[15px] font-bold leading-snug text-[var(--color-ink)]">
             {line}
           </h3>
         </div>,

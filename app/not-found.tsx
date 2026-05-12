@@ -18,7 +18,7 @@ export default function NotFound() {
             <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
               Sayfa Bulunamadı
             </div>
-            <h1 className="mt-3 text-5xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-6xl">
+            <h1 className="mt-3 text-5xl font-bold tracking-tight text-[var(--color-ink)] sm:text-6xl">
               Aradığınız sayfa yok
             </h1>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)]">

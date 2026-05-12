@@ -178,7 +178,7 @@ export default async function UrunDetayPage({ params }: Props) {
                 <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                   İlgili Katalog
                 </div>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl">
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">
                   Benzer ürünler
                 </h2>
               </div>
