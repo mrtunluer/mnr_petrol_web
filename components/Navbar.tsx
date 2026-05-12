@@ -39,7 +39,6 @@ const MOBILE_PANEL_ID = "mobile-menu-panel";
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(
     null,
@@ -47,40 +46,13 @@ export default function Navbar() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const wasOpenRef = useRef(false);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    if (mobileOpen) {
-      setHidden(false);
-      return;
-    }
-    lastScrollY.current = Math.max(0, window.scrollY);
-    setScrolled(window.scrollY > 8);
-
-    let rafId = 0;
-    const onScroll = () => {
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(() => {
-        rafId = 0;
-        const y = Math.max(0, window.scrollY);
-        setScrolled(y > 8);
-        const delta = y - lastScrollY.current;
-        if (y < 80) {
-          setHidden(false);
-        } else if (delta > 10) {
-          setHidden(true);
-        } else if (delta < -10) {
-          setHidden(false);
-        }
-        lastScrollY.current = y;
-      });
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      if (rafId) window.cancelAnimationFrame(rafId);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, [mobileOpen]);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -136,15 +108,9 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 border-b border-[var(--color-border)] bg-white transition-[transform,box-shadow] duration-300 motion-reduce:transition-none ${
+        className={`sticky top-0 z-50 border-b border-[var(--color-border)] bg-white transition-shadow duration-200 ${
           scrolled ? "shadow-[0_4px_16px_rgba(15,23,42,0.08)]" : "shadow-sm"
-        } ${
-          mobileOpen
-            ? "!fixed inset-x-0"
-            : hidden
-              ? "max-lg:-translate-y-full"
-              : ""
-        }`}
+        } ${mobileOpen ? "!fixed inset-x-0" : ""}`}
       >
         <div className="container-page flex h-16 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
