@@ -52,8 +52,7 @@ export default function Footer() {
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/65">
             2008'den bu yana Akdeniz bölgesinde madeni yağ, yazılım,
-            lojistik, sanayi ve inşaat alanlarında faaliyet gösteren çok
-            sektörlü kurumsal grup.
+            lojistik, sanayi ve inşaat alanlarında hizmet veriyoruz.
           </p>
 
           <address className="mt-6 space-y-3 text-sm not-italic text-white/65">

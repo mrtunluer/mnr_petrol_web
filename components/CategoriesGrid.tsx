@@ -12,7 +12,7 @@ export default function CategoriesGrid() {
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
               Ürün Grupları
             </div>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
               Kategorilerimiz
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--color-ink-soft)]">

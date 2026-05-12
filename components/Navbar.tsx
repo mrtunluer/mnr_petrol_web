@@ -39,6 +39,7 @@ const MOBILE_PANEL_ID = "mobile-menu-panel";
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(
     null,
@@ -46,13 +47,30 @@ export default function Navbar() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const wasOpenRef = useRef(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    if (mobileOpen) {
+      setHidden(false);
+      return;
+    }
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      const delta = y - lastScrollY.current;
+      if (y < 80) {
+        setHidden(false);
+      } else if (delta > 6) {
+        setHidden(true);
+      } else if (delta < -6) {
+        setHidden(false);
+      }
+      lastScrollY.current = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [mobileOpen]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -108,9 +126,15 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 border-b border-[var(--color-border)] bg-white transition-shadow ${
+        className={`sticky top-0 z-50 border-b border-[var(--color-border)] bg-white transition-[transform,box-shadow] duration-300 motion-reduce:transition-none ${
           scrolled ? "shadow-[0_4px_16px_rgba(15,23,42,0.08)]" : "shadow-sm"
-        } ${mobileOpen ? "!fixed inset-x-0" : ""}`}
+        } ${
+          mobileOpen
+            ? "!fixed inset-x-0"
+            : hidden
+              ? "max-lg:-translate-y-full"
+              : ""
+        }`}
       >
         <div className="container-page flex h-16 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">

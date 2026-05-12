@@ -47,7 +47,7 @@ export default function ActivitiesGrid() {
             <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
               — Faaliyet Alanlarımız
             </div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl md:text-4xl">
+            <h2 className="mt-2 text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl md:text-4xl">
               Hizmet verdiğimiz alanlar
             </h2>
           </div>

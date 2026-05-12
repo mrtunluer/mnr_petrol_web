@@ -44,7 +44,7 @@ export default function TrustStrip() {
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
               Kurumsal Kapasite
             </div>
-            <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-2xl">
+            <h2 className="mt-2 text-xl font-bold tracking-tight text-[var(--color-ink)] sm:text-2xl">
               İş anlayışımızın temelleri
             </h2>
           </div>

@@ -65,7 +65,7 @@ export default function VenturesSection() {
                   Yazılım Çözümlerimiz
                 </span>
               </div>
-              <h2 className="mt-5 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Grup bünyesindeki dijital platformlar
               </h2>
             </div>
@@ -109,7 +109,7 @@ export default function VenturesSection() {
               </div>
 
               <div className="mt-8 sm:mt-10">
-                <h3 className="text-3xl font-black tracking-tight text-white transition-colors group-hover:text-[var(--color-brand)] sm:text-4xl lg:text-5xl">
+                <h3 className="text-3xl font-bold tracking-tight text-white transition-colors group-hover:text-[var(--color-brand)] sm:text-4xl lg:text-5xl">
                   {v.title}
                 </h3>
                 <div className="mt-2 font-mono text-xs text-white/40">

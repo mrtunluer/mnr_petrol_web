@@ -44,8 +44,7 @@ export default function Hero() {
         </div>
 
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl md:text-2xl">
-          Madeni yağ tedariğinden dijital girişimlere — çok sektörlü
-          kurumsal grup
+          Endüstri ve teknoloji çözümlerinde iş ortağınız
         </p>
         <p className="mt-3 max-w-xl px-4 text-sm leading-relaxed text-white/60 sm:px-0">
           Akdeniz bölgesinde {yearsActive}+ yıllık tedarik tecrübesi,

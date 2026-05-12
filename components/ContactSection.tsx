@@ -13,7 +13,7 @@ export default function ContactSection() {
             <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
               İletişim
             </div>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Bize Ulaşın
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/70">

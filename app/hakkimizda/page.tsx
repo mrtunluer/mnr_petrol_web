@@ -102,7 +102,7 @@ export default function HakkimizdaPage() {
             <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
               Hakkımızda
             </div>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-5xl">
+            <h1 className="mt-3 text-4xl font-bold tracking-tight text-[var(--color-ink)] sm:text-5xl">
               {site.legalName}
             </h1>
             <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-ink-muted)]">
@@ -188,7 +188,7 @@ export default function HakkimizdaPage() {
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 Tedarik Portföyü
               </div>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
                 Çalıştığımız markalar
               </h2>
             </div>
@@ -236,7 +236,7 @@ export default function HakkimizdaPage() {
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 Faaliyet Alanlarımız
               </div>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
                 Hizmet verdiğimiz alanlar
               </h2>
             </div>
@@ -285,7 +285,7 @@ export default function HakkimizdaPage() {
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 Yazılım Çözümlerimiz
               </div>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
                 Grup bünyesindeki dijital platformlar
               </h2>
             </div>
@@ -406,7 +406,7 @@ export default function HakkimizdaPage() {
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 İletişim
               </div>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 Birlikte çalışalım
               </h2>
               <p className="mt-3 max-w-xl text-sm text-white/70">
