@@ -54,22 +54,32 @@ export default function Navbar() {
       setHidden(false);
       return;
     }
+    lastScrollY.current = Math.max(0, window.scrollY);
+    setScrolled(window.scrollY > 8);
+
+    let rafId = 0;
     const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 8);
-      const delta = y - lastScrollY.current;
-      if (y < 80) {
-        setHidden(false);
-      } else if (delta > 6) {
-        setHidden(true);
-      } else if (delta < -6) {
-        setHidden(false);
-      }
-      lastScrollY.current = y;
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        const y = Math.max(0, window.scrollY);
+        setScrolled(y > 8);
+        const delta = y - lastScrollY.current;
+        if (y < 80) {
+          setHidden(false);
+        } else if (delta > 10) {
+          setHidden(true);
+        } else if (delta < -10) {
+          setHidden(false);
+        }
+        lastScrollY.current = y;
+      });
     };
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [mobileOpen]);
 
   useEffect(() => {
