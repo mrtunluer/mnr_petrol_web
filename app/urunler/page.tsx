@@ -19,6 +19,41 @@ export const metadata: Metadata = buildMetadata({
 export default function UrunlerPage() {
   return (
     <>
+      {/* Yazılım teaser bar (üst) */}
+      <div className="border-b border-[var(--color-border)] bg-white py-3 sm:py-4">
+        <div className="container-page flex flex-wrap items-center gap-x-4 gap-y-2 sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)]">
+              — Yazılım
+            </span>
+            <span className="text-xs leading-tight text-[var(--color-ink-soft)] sm:text-sm">
+              Yazılım ürünlerimizi de incelemek ister misiniz?
+            </span>
+          </div>
+          <Link
+            href="/yazilim"
+            className="group inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)] transition-colors hover:text-[var(--color-ink)]"
+          >
+            Yazılım Çözümleri
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform group-hover:translate-x-1"
+              aria-hidden="true"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
+        </div>
+      </div>
+
       <section className="bg-[var(--color-surface-alt)] py-16">
         <div className="container-page">
           <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] pb-8 md:flex-row md:items-end">
