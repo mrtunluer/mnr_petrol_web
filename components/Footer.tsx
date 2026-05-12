@@ -84,7 +84,7 @@ export default function Footer() {
           <ul className="space-y-2.5 text-sm">
             <FooterLink href="/hakkimizda">Hakkımızda</FooterLink>
             <FooterLink href="/urunler">Ürünlerimiz</FooterLink>
-            <FooterLink href="/#yazilim">Yazılım</FooterLink>
+            <FooterLink href="/yazilim">Yazılım</FooterLink>
             <FooterLink href="/#iletisim">İletişim</FooterLink>
           </ul>
         </div>

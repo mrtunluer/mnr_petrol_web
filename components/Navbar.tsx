@@ -146,7 +146,7 @@ export default function Navbar() {
 
             <BrandsDropdown />
 
-            <SoftwareDropdown />
+            <SoftwareDropdown active={isActive("/yazilim")} />
 
             <NavLink href="/#iletisim" label="İletişim" active={false} />
           </nav>
@@ -309,6 +309,8 @@ export default function Navbar() {
                 k === "software" ? null : "software",
               )
             }
+            rootHref="/yazilim"
+            active={isActive("/yazilim")}
           >
             {softwareProducts.map((s) => (
               <a
@@ -469,7 +471,7 @@ function BrandsDropdown() {
   );
 }
 
-function SoftwareDropdown() {
+function SoftwareDropdown({ active }: { active: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -499,19 +501,29 @@ function SoftwareDropdown() {
   return (
     <div
       ref={ref}
-      className="relative"
+      className="relative flex items-center"
       onPointerEnter={onMouseEnter}
       onPointerLeave={onMouseLeave}
     >
+      <Link
+        href="/yazilim"
+        className={`px-3 py-2 text-sm font-medium transition-colors hover:text-[var(--color-brand)] ${
+          active ? "text-[var(--color-brand)]" : "text-[var(--color-ink)]"
+        }`}
+      >
+        Yazılım
+      </Link>
       <button
         type="button"
         aria-haspopup="true"
         aria-expanded={open}
         aria-controls="desktop-software-menu"
+        aria-label={open ? "Yazılım menüsünü kapat" : "Yazılım menüsünü aç"}
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors hover:text-[var(--color-brand)]"
+        className={`-ml-2 inline-flex h-9 w-7 items-center justify-center transition-colors hover:text-[var(--color-brand)] ${
+          active ? "text-[var(--color-brand)]" : "text-[var(--color-ink)]"
+        }`}
       >
-        Yazılım
         <Chevron rotated={open} />
       </button>
       <div
