@@ -61,7 +61,7 @@ export default function UrunlerPage() {
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
                 Katalog
               </div>
-              <h1 className="mt-2 text-4xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-5xl">
+              <h1 className="mt-2 text-4xl font-bold tracking-tight text-[var(--color-ink)] sm:text-5xl">
                 Ürünlerimiz
               </h1>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--color-ink-soft)]">

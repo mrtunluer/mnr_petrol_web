@@ -147,7 +147,7 @@ export default async function UrunDetayPage({ params }: Props) {
                   {product.categoryName}
                 </span>
               </div>
-              <h1 className="mt-4 text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl lg:text-4xl">
+              <h1 className="mt-4 text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl lg:text-4xl">
                 {product.name}
               </h1>
               <div className="mt-6">
@@ -214,6 +214,41 @@ export default async function UrunDetayPage({ params }: Props) {
           </div>
         </section>
       )}
+
+      {/* Yazılım teaser bandı */}
+      <div className="border-t border-[var(--color-border)] bg-white py-4 sm:py-5">
+        <div className="container-page flex flex-wrap items-center gap-x-4 gap-y-2 sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)]">
+              — Yazılım
+            </span>
+            <span className="text-xs leading-tight text-[var(--color-ink-soft)] sm:text-sm">
+              Yazılım ürünlerimizi de incelemek ister misiniz?
+            </span>
+          </div>
+          <Link
+            href="/yazilim"
+            className="group inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--color-brand)] transition-colors hover:text-[var(--color-ink)]"
+          >
+            Yazılım Çözümleri
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform group-hover:translate-x-1"
+              aria-hidden="true"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
+        </div>
+      </div>
 
       <script
         type="application/ld+json"

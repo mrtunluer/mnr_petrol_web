@@ -50,7 +50,7 @@ export default function YazilimPage() {
   return (
     <>
       {/* 01 Intro */}
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-white py-14 sm:py-20 lg:py-24">
         <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
@@ -124,7 +124,7 @@ export default function YazilimPage() {
       </section>
 
       {/* 02 Platforms detail */}
-      <section className="border-t border-[var(--color-border)] bg-[var(--color-surface-alt)] py-16 sm:py-20 lg:py-24">
+      <section className="border-t border-[var(--color-border)] bg-[var(--color-surface-alt)] py-14 sm:py-20 lg:py-24">
         <div className="container-page">
           <div className="border-b border-[var(--color-border)] pb-8">
             <div className="font-mono text-xs text-[var(--color-ink-subtle)]">
@@ -139,7 +139,7 @@ export default function YazilimPage() {
           </div>
 
           <div className="mt-10 space-y-6 sm:mt-12 sm:space-y-8">
-            {ventures.map((v) => (
+            {ventures.map((v, i) => (
               <article
                 key={v.num}
                 className="group relative overflow-hidden border border-[var(--color-border)] bg-white p-6 transition-shadow hover:shadow-card-hover sm:p-8 lg:p-10"
@@ -160,6 +160,7 @@ export default function YazilimPage() {
                           alt={v.name}
                           fill
                           sizes="64px"
+                          priority={i === 0}
                           className="object-contain p-1.5"
                         />
                       </span>
@@ -261,7 +262,7 @@ export default function YazilimPage() {
       </section>
 
       {/* 03 CTA */}
-      <section className="border-t border-[var(--color-border)] bg-[var(--color-night)] py-16 text-white sm:py-20">
+      <section className="border-t border-[var(--color-border)] bg-[var(--color-night)] py-14 text-white sm:py-20 lg:py-24">
         <div className="container-page">
           <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
             <div>
