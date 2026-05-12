@@ -68,7 +68,9 @@ export default function RootLayout({
         </a>
         <TopInfoBar />
         <Navbar />
-        <main id="main">{children}</main>
+        <main id="main" className="pt-16 lg:pt-0">
+          {children}
+        </main>
         <Footer />
         <CookieBanner />
         <script
