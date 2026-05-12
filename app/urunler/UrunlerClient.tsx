@@ -264,7 +264,7 @@ export default function UrunlerClient({
                   — Filtre
                 </div>
                 <div className="mt-0.5 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-ink)]">
-                  Ürünleri Süz
+                  Ürünleri Filtrele
                 </div>
               </div>
               <button
