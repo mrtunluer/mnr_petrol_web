@@ -5,6 +5,7 @@ type Activity = {
   label: string;
   title: string;
   body: string;
+  bodyShort: string;
   href?: string;
   external?: boolean;
 };
@@ -14,27 +15,31 @@ const activities: readonly Activity[] = [
     num: "01",
     label: "Madeni Yağ",
     title: "Tedarik & Distribütörlük",
-    body: "6 marka, 51+ ürün — otomotiv ve endüstri için tedarik.",
+    body: "Akdeniz bölgesinde otomotiv ve endüstriyel sektörlerin madeni yağ ihtiyacını altı premium marka portföyüyle karşılıyoruz.",
+    bodyShort: "6 marka, 51+ ürün — otomotiv ve endüstri için tedarik.",
     href: "/urunler",
   },
   {
     num: "02",
     label: "Yazılım",
     title: "Dijital Platformlar",
-    body: "Atölyeler ve nakliyeciler için iki dijital platform.",
+    body: "Atölyeler ve nakliyeciler için geliştirdiğimiz iki dijital platformla otomotiv ekosistemine yazılım çözümleri sunuyoruz.",
+    bodyShort: "Atölyeler ve nakliyeciler için iki dijital platform.",
     href: "#yazilim",
   },
   {
     num: "03",
     label: "Lojistik",
     title: "Filo & Taşımacılık",
-    body: "Araç filomuz ve dijital pazaryeriyle bölgesel lojistik.",
+    body: "Geniş araç filomuz ve grup bünyesindeki taşımacılık pazaryeriyle Akdeniz bölgesinde lojistik zincirinin tüm halkalarında varız.",
+    bodyShort: "Araç filomuz ve dijital pazaryeriyle bölgesel lojistik.",
   },
   {
     num: "04",
     label: "Sanayi & İnşaat",
     title: "Kurumsal Tedarik",
-    body: "Endüstriyel tesislere yönelik kurumsal tedarik çözümleri.",
+    body: "Endüstriyel tesislerin yağlama ihtiyaçları, sanayi ve inşaat sektörlerine yönelik kurumsal tedarik çözümlerimizle iş ortağınızız.",
+    bodyShort: "Endüstriyel tesislere yönelik kurumsal tedarik çözümleri.",
   },
 ] as const;
 
@@ -102,7 +107,10 @@ export default function ActivitiesGrid() {
                     <div className="text-lg font-semibold leading-snug text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-brand)]">
                       {a.title}
                     </div>
-                    <p className="text-sm leading-relaxed text-[var(--color-ink-soft)]">
+                    <p className="text-sm leading-relaxed text-[var(--color-ink-soft)] md:hidden">
+                      {a.bodyShort}
+                    </p>
+                    <p className="hidden text-sm leading-relaxed text-[var(--color-ink-soft)] md:block">
                       {a.body}
                     </p>
                     {a.href && (

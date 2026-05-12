@@ -37,7 +37,7 @@ const items: readonly Item[] = [
 
 export default function TrustStrip() {
   return (
-    <section className="border-y border-[var(--color-border)] bg-white">
+    <section className="hidden border-y border-[var(--color-border)] bg-white md:block">
       <div className="container-page">
         <div className="flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] py-8 md:flex-row md:items-center">
           <div>
