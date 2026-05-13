@@ -74,13 +74,25 @@ export default function YazilimPage() {
                 veriyor.
               </p>
               <p>
-                <strong className="font-semibold text-[var(--color-ink)]">
+                <a
+                  href="https://tamirdefteri.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Tamir Defteri platformuna git (yeni sekmede açılır)"
+                  className="font-semibold text-[var(--color-ink)] underline decoration-[var(--color-brand)] decoration-2 underline-offset-2 transition-colors hover:text-[var(--color-brand)]"
+                >
                   Tamir Defteri
-                </strong>{" "}
+                </a>{" "}
                 oto tamir atölyelerinin operasyonel yönetimini dijitalleştirirken,{" "}
-                <strong className="font-semibold text-[var(--color-ink)]">
+                <a
+                  href="https://yukunolsun.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YükünOlsun platformuna git (yeni sekmede açılır)"
+                  className="font-semibold text-[var(--color-ink)] underline decoration-[var(--color-brand)] decoration-2 underline-offset-2 transition-colors hover:text-[var(--color-brand)]"
+                >
                   YükünOlsun
-                </strong>{" "}
+                </a>{" "}
                 nakliyecileri ve yük sahiplerini sıfır komisyonlu bir
                 pazaryerinde buluşturuyor. Her iki platform da bağımsız
                 ürünler olarak hizmet vermeye devam ediyor.
