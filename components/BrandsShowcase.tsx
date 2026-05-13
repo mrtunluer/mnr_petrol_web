@@ -15,7 +15,55 @@ export default function BrandsShowcase() {
           action={{ label: "Tüm kataloğu gör", href: "/urunler" }}
         />
 
-        <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {/* Mobile: compact list (< md) */}
+        <ul className="mt-8 divide-y divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white md:hidden">
+          {brands.map((b) => {
+            const count = productsByBrand(b.slug).length;
+            return (
+              <li key={b.slug}>
+                <Link
+                  href={`/urunler?marka=${b.slug}`}
+                  className="group flex min-h-[64px] items-center gap-4 px-3 py-3 transition-colors active:bg-[var(--color-surface-alt)]"
+                >
+                  <span className="relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-[var(--color-surface-alt)] ring-1 ring-[var(--color-border)]">
+                    <Image
+                      src={b.logo}
+                      alt={b.name}
+                      fill
+                      sizes="56px"
+                      className="object-contain p-1"
+                    />
+                  </span>
+                  <span className="flex min-w-0 flex-1 flex-col leading-tight">
+                    <span className="truncate text-sm font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
+                      {b.name}
+                    </span>
+                    <span className="mt-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--color-ink-muted)]">
+                      {count} ürün
+                    </span>
+                  </span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0 text-[var(--color-ink-subtle)] transition-colors group-hover:text-[var(--color-brand)]"
+                    aria-hidden="true"
+                  >
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Desktop: visual card grid (md+) */}
+        <ul className="mt-10 hidden gap-3 md:grid md:grid-cols-3 lg:grid-cols-6">
           {brands.map((b, i) => {
             const count = productsByBrand(b.slug).length;
             return (
@@ -30,7 +78,7 @@ export default function BrandsShowcase() {
                         src={b.logo}
                         alt={b.name}
                         fill
-                        sizes="(max-width: 640px) 40vw, (max-width: 1024px) 30vw, 14vw"
+                        sizes="(max-width: 1024px) 30vw, 14vw"
                         priority={i < 3}
                         className="object-contain"
                       />
