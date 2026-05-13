@@ -14,8 +14,8 @@ export default function HomePage() {
       <TrustStrip />
       <CategoriesGrid />
       <FeaturedProducts />
-      <BrandsShowcase />
       <VenturesSection />
+      <BrandsShowcase />
       <ActivitiesGrid />
       <ContactSection />
     </>
