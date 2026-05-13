@@ -12,7 +12,7 @@ export function buildMetadata({
   title,
   description = site.description,
   path = "/",
-  image = "/hero/banner.webp",
+  image = "/og-image.webp",
 }: SeoInput): Metadata {
   const url = `${site.url}${path}`;
   const fullTitle = title === site.name ? title : `${title} | ${site.name}`;

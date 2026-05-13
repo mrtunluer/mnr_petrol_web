@@ -7,6 +7,20 @@ import { ventures } from "@/src/data/ventures";
 import { buildMetadata } from "@/src/lib/seo";
 import { site } from "@/src/lib/site";
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: `${site.url}/` },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Hakkımızda",
+      item: `${site.url}/hakkimizda`,
+    },
+  ],
+};
+
 export const metadata: Metadata = buildMetadata({
   title: "Hakkımızda",
   path: "/hakkimizda",
@@ -165,7 +179,52 @@ export default function HakkimizdaPage() {
             </p>
           </div>
 
-          <ul className="grid grid-cols-2 gap-px bg-[var(--color-border)] sm:grid-cols-3 lg:grid-cols-6">
+          {/* Mobile: kompakt liste (< md) */}
+          <ul className="mt-8 divide-y divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white md:hidden">
+            {brands.map((b) => (
+              <li key={b.slug}>
+                <Link
+                  href={`/urunler?marka=${b.slug}`}
+                  className="group flex min-h-[64px] items-center gap-4 px-3 py-3 transition-colors active:bg-[var(--color-surface-alt)]"
+                >
+                  <span className="relative inline-flex h-10 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-white ring-1 ring-[var(--color-border)]">
+                    <Image
+                      src={b.logo}
+                      alt={b.name}
+                      fill
+                      sizes="56px"
+                      className="object-contain p-1"
+                    />
+                  </span>
+                  <span className="flex min-w-0 flex-1 flex-col leading-tight">
+                    <span className="truncate text-sm font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand)]">
+                      {b.name}
+                    </span>
+                    <span className="mt-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--color-ink-muted)]">
+                      Ürünleri incele
+                    </span>
+                  </span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0 text-[var(--color-ink-subtle)] transition-colors group-hover:text-[var(--color-brand)]"
+                    aria-hidden="true"
+                  >
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop: logo grid (md+) */}
+          <ul className="hidden grid-cols-2 gap-px bg-[var(--color-border)] md:grid md:grid-cols-3 lg:grid-cols-6">
             {brands.map((b) => (
               <li key={b.slug} className="bg-white">
                 <Link
@@ -465,6 +524,11 @@ export default function HakkimizdaPage() {
           </dl>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
     </>
   );
 }

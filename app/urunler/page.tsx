@@ -7,6 +7,7 @@ import { products } from "@/src/data/products";
 import { brands } from "@/src/data/brands";
 import { categories } from "@/src/data/categories";
 import { ventures } from "@/src/data/ventures";
+import { site } from "@/src/lib/site";
 import UrunlerClient from "./UrunlerClient";
 
 export const metadata: Metadata = buildMetadata({
@@ -15,6 +16,44 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Motor yağları, antifriz, fren hidrolik, şanzıman yağları ve katkı maddeleri — Borax, Xenol, Oilport, Brava, Japan Oil ve Skynell markaları.",
 });
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: `${site.url}/` },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Ürünler",
+      item: `${site.url}/urunler`,
+    },
+  ],
+};
+
+const collectionJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Ürünler",
+  description:
+    "MNR Petrol ürün kataloğu — motor yağları, antifriz, fren hidrolik, şanzıman ve katkı maddeleri.",
+  url: `${site.url}/urunler`,
+  isPartOf: {
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url,
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: products.length,
+    itemListElement: products.slice(0, 20).map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${site.url}/urun/${p.id}`,
+      name: p.name,
+    })),
+  },
+};
 
 export default function UrunlerPage() {
   return (
@@ -193,6 +232,15 @@ export default function UrunlerPage() {
           </div>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
     </>
   );
 }
